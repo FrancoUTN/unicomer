@@ -1,0 +1,24 @@
+main {
+    height: 100vh;
+    display: flex;
+}
+
+.welcome {
+    width: 55%;
+    display: flex;
+    justify-content: center;
+    padding-top: 45vh;
+}
+
+.welcome h2 {
+    color: #525252;
+    font-size: 2rem;
+}
+
+.welcome span {
+    color: #272f65;
+}
+
+.form {
+    width: 45%;
+}
