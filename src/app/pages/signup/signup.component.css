@@ -1,4 +1,13 @@
+form {
+    display: flex;
+    flex-direction: column;
+}
+
 .field {
     display: flex;
     flex-direction: column;
+}
+
+.mdc-text-field__input {
+    color: #eee;
 }

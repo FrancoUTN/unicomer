@@ -1,6 +1,11 @@
 import { Component, Output, EventEmitter, Input } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 
+interface DocumentType {
+  value: string;
+  viewValue: string;
+}
+
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
@@ -8,8 +13,11 @@ import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/fo
 })
 export class SignupComponent {
   signupForm: FormGroup | any;
-  @Output() formularioEnviado: EventEmitter<any> = new EventEmitter<any>();
-  @Input() error: string = '';
+  documentTypes: DocumentType[] = [
+    {value: 'dni', viewValue: 'DNI'},
+    {value: 'cedula', viewValue: 'Cédula'},
+    {value: 'pasaporte', viewValue: 'Pasaporte'},
+  ];
 
   get documentType() { return this.signupForm.get('documentType'); }
   get documentNumber() { return this.signupForm.get('documentNumber'); }
@@ -39,8 +47,10 @@ export class SignupComponent {
   }
 
   onSubmit() {
+    if (!this.signupForm.valid) {
+      return;
+    }
     const obj = this.signupForm.value;
     console.log(obj);
-    // this.formularioEnviado.emit(obj);
   }
 }

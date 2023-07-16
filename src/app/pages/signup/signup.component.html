@@ -1,85 +1,71 @@
 <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
-    <div class="field">
-        <label for="documentType">
-        <!-- (Será un select) -->
-        Tipo de documento
-        </label>
-        <input
-        type="text"
-        id="documentType"
-        formControlName="documentType"
-        required
+    <mat-form-field>
+        <mat-label>Tipo de documento</mat-label>
+        <mat-select
+            formControlName="documentType"
         >
-        <div style="height: 2rem;">
+            <mat-option *ngFor="let documentType of documentTypes" [value]="documentType.value">
+            {{documentType.viewValue}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <div style="height: 2rem; color: #ee0000">
         <span
             *ngIf="!documentType?.valid && documentType?.touched"
         >
-            Valor inválido
+        Tipo requerido
         </span>
-        </div>
     </div>
-    <div class="field">
-        <label for="documentNumber">
-        Número de documento
-        </label>
+    
+    <mat-form-field>
+        <mat-label>Número de documento</mat-label>
         <input
-        type="number"
-        id="documentNumber"
-        formControlName="documentNumber"
-        required
+            matInput
+            formControlName="documentNumber"
+            placeholder="12345678"
         >
-        <div style="height: 2rem;">
+    </mat-form-field>
+    <div style="height: 2rem; color: #ee0000">
         <span
             *ngIf="!documentNumber?.valid && documentNumber?.touched"
         >
-            Número inválido
+        Número inválido
         </span>
-        </div>
     </div>
-    <div class="field">
-        <label for="password">
-        Clave
-        </label>
+
+    <mat-form-field>
+        <mat-label>Clave</mat-label>
         <input
-        type="password"
-        id="password"
-        formControlName="password"
-        required
+            matInput
+            formControlName="password"
         >
-        <div style="height: 2rem;">
+    </mat-form-field>
+    <div style="height: 2rem; color: #ee0000">
         <span
             *ngIf="!password?.valid && password?.touched"
         >
-            Clave requerida
+        Clave requerida
         </span>
-        </div>
     </div>
-    <div class="field">
-        <label for="passwordRepeat">
-        Repetir clave
-        </label>
+
+    <mat-form-field>
+        <mat-label>Repetir clave</mat-label>
         <input
-        type="password"
-        id="passwordRepeat"
-        formControlName="passwordRepeat"
-        required
+            matInput
+            formControlName="passwordRepeat"
         >
-        <div style="height: 2rem;">
+    </mat-form-field>
+    <div style="height: 2rem; color: #ee0000">
         <span
             *ngIf="!passwordRepeat?.valid && passwordRepeat?.touched"
         >
-            Clave repetida requerida
-        </span>
-        </div>
-    </div>
-    <div>
-        <button>
-        Registrarme<i></i>
-        </button>
-    </div>
-    <div style="height: 3rem; margin-top: 1rem;">
-        <span *ngIf="error">
-            {{error}}
+        Clave repetida requerida
         </span>
     </div>
+
+    <button
+        mat-flat-button
+    >
+        Registrarme
+    </button>
 </form>
