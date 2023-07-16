@@ -1,0 +1,21 @@
+<div class="logo-container">
+    <h2>LOGO</h2>
+</div>
+<router-outlet></router-outlet>
+<div>
+    <p>Teclado virtual</p>
+</div>
+<div>
+    <p *ngIf="this.currentUrl === '/auth/login'">
+        ¿No tienes cuenta?
+        <a href="auth/signup" class="switch-anchor">
+            Regístrate aquí
+        </a>
+    </p>
+    <p *ngIf="this.currentUrl === '/auth/signup'">
+        ¿Ya tienes cuenta?
+        <a href="auth/login" class="switch-anchor">
+            Ingresa aquí
+        </a>
+    </p>
+</div>

@@ -1,0 +1,19 @@
+:host {
+    background-color: #272f65;
+    opacity: .9;
+    height: 100%;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+}
+
+.logo-container {
+    align-self: flex-start;
+}
+
+.switch-anchor {
+    color: white;
+}

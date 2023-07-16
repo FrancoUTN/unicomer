@@ -22,3 +22,13 @@ main {
 .form {
     width: 45%;
 }
+
+/* Mobile */
+@media (max-width: 566px) {
+    .welcome {
+        display: none;
+    }
+    .form {
+        width: 100%;
+    }
+}
