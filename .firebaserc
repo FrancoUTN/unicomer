@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "unicomer-3b7d2"
+  },
+  "targets": {
+    "unicomer-3b7d2": {
+      "hosting": {
+        "unicomer": [
+          "unicomer-3b7d2"
+        ]
+      }
+    }
   }
 }
