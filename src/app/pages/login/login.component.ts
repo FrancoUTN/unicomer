@@ -1,4 +1,5 @@
-import { Component, Output, EventEmitter, Input } from '@angular/core';
+import { Component, Output, EventEmitter, Input, inject } from '@angular/core';
+import { Auth } from '@angular/fire/auth';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -7,6 +8,7 @@ import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/fo
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
+  private auth: Auth = inject(Auth);
   loginForm: FormGroup | any;
   @Output() formularioEnviado: EventEmitter<any> = new EventEmitter<any>();
   @Input() error: string = '';

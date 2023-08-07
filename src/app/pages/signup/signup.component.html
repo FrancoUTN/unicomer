@@ -8,14 +8,10 @@
             {{documentType.viewValue}}
             </mat-option>
         </mat-select>
+        <mat-error *ngIf="!documentType?.valid && documentType?.touched">
+            Tipo requerido
+        </mat-error>
     </mat-form-field>
-    <div style="height: 2rem; color: #ee0000">
-        <span
-            *ngIf="!documentType?.valid && documentType?.touched"
-        >
-        Tipo requerido
-        </span>
-    </div>
     
     <mat-form-field>
         <mat-label>Número de documento</mat-label>
@@ -24,14 +20,10 @@
             formControlName="documentNumber"
             placeholder="12345678"
         >
+        <mat-error *ngIf="!documentNumber?.valid && documentNumber?.touched">
+            Número inválido
+        </mat-error>
     </mat-form-field>
-    <div style="height: 2rem; color: #ee0000">
-        <span
-            *ngIf="!documentNumber?.valid && documentNumber?.touched"
-        >
-        Número inválido
-        </span>
-    </div>
 
     <mat-form-field>
         <mat-label>Clave</mat-label>
@@ -39,14 +31,10 @@
             matInput
             formControlName="password"
         >
+        <mat-error *ngIf="!password?.valid && password?.touched">
+            Clave inválida
+        </mat-error>
     </mat-form-field>
-    <div style="height: 2rem; color: #ee0000">
-        <span
-            *ngIf="!password?.valid && password?.touched"
-        >
-        Clave requerida
-        </span>
-    </div>
 
     <mat-form-field>
         <mat-label>Repetir clave</mat-label>
@@ -55,13 +43,6 @@
             formControlName="passwordRepeat"
         >
     </mat-form-field>
-    <div style="height: 2rem; color: #ee0000">
-        <span
-            *ngIf="!passwordRepeat?.valid && passwordRepeat?.touched"
-        >
-        Clave repetida requerida
-        </span>
-    </div>
 
     <button
         mat-flat-button

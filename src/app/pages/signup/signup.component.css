@@ -3,11 +3,19 @@ form {
     flex-direction: column;
 }
 
-.field {
-    display: flex;
-    flex-direction: column;
+mat-form-field {
+    margin-bottom: 1rem;
+    width: 400px;
 }
 
 .mdc-text-field__input {
     color: #eee;
+}
+
+/* Mobile */
+@media (max-width: 566px) {
+    mat-form-field {
+        width: 260px;
+    }
+    /* Scrollable form */
 }
