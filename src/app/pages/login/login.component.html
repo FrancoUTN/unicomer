@@ -1,67 +1,44 @@
 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-    <div class="field">
-        <label for="documentType">
-        <!-- (Será un select) -->
-        Tipo de documento
-        </label>
+    <mat-form-field>
+        <mat-label>Tipo de documento</mat-label>
+        <mat-select formControlName="documentType">
+            <mat-option
+                *ngFor="let documentType of documentTypes"
+                [value]="documentType.value"
+            >
+            {{documentType.viewValue}}
+            </mat-option>
+        </mat-select>
+        <mat-error *ngIf="!documentType?.valid && documentType?.touched">
+            Tipo requerido
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Número de documento</mat-label>
         <input
-        type="text"
-        id="documentType"
-        formControlName="documentType"
-        required
+            matInput
+            formControlName="documentNumber"
         >
-        <div style="height: 2rem;">
-        <span
-            *ngIf="!documentType?.valid && documentType?.touched"
-        >
-            Valor inválido
-        </span>
-        </div>
-    </div>
-    <div class="field">
-        <label for="documentNumber">
-        Número de documento
-        </label>
-        <input
-        type="number"
-        id="documentNumber"
-        formControlName="documentNumber"
-        required
-        >
-        <div style="height: 2rem;">
-        <span
-            *ngIf="!documentNumber?.valid && documentNumber?.touched"
-        >
+        <mat-error *ngIf="!documentNumber?.valid && documentNumber?.touched">
             Número inválido
-        </span>
-        </div>
-    </div>
-    <div class="field">
-        <label for="password">
-            Clave
-        </label>
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Clave</mat-label>
         <input
-        type="password"
-        id="password"
-        formControlName="password"
-        required
+            matInput
+            formControlName="password"
         >
-        <div style="height: 2rem;">
-        <span
-            *ngIf="!password?.valid && password?.touched"
-        >
-            Clave requerida
-        </span>
-        </div>
-    </div>
-    <div>
-        <button>
-        Ingresar<i></i>
-        </button>
-    </div>
-    <div style="height: 3rem; margin-top: 1rem;">
+        <mat-error *ngIf="!password?.valid && password?.touched">
+            Clave inválida
+        </mat-error>
+    </mat-form-field>
+    <button mat-flat-button>
+        Ingresar
+    </button>
+    <!-- <div style="height: 3rem; margin-top: 1rem;">
         <span *ngIf="error">
             {{error}}
         </span>
-    </div>
+    </div> -->
 </form>

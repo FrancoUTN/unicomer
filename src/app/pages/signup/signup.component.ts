@@ -21,6 +21,9 @@ export class SignupComponent {
     {value: 'pasaporte', viewValue: 'Pasaporte'},
   ];
 
+  get email() { return this.signupForm.get('email'); }
+  get firstName() { return this.signupForm.get('firstName'); }
+  get lastName() { return this.signupForm.get('lastName'); }
   get documentType() { return this.signupForm.get('documentType'); }
   get documentNumber() { return this.signupForm.get('documentNumber'); }
   get password() { return this.signupForm.get('password'); }
@@ -32,6 +35,15 @@ export class SignupComponent {
   // Add better validations (eg: no-spaces for passwords)
   ngOnInit() {
     this.signupForm = new FormGroup({
+      'email': new FormControl(null, [
+        Validators.required
+      ]),
+      'firstName': new FormControl(null, [
+        Validators.required
+      ]),
+      'lastName': new FormControl(null, [
+        Validators.required
+      ]),
       'documentType': new FormControl(null, [
         Validators.required
       ]),
@@ -69,8 +81,7 @@ export class SignupComponent {
     }
     const obj = this.signupForm.value;
     // console.log(obj);
-    const fakeEmail: string = obj.documentNumber + '@grabomail.com';
-    createUserWithEmailAndPassword(this.auth, fakeEmail, obj.passwordRepeat)
+    createUserWithEmailAndPassword(this.auth, obj.email, obj.passwordRepeat)
       .then(uc => {
         console.log("User credential (uc):");
         console.log(uc.user);

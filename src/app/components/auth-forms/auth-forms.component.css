@@ -1,8 +1,7 @@
 :host {
-    background-color: #272f65;
-    opacity: .9;
+    background-color: #000020cc;
     height: 100%;
-    padding: 2rem;
+    padding: 10% 20% 5%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -12,8 +11,42 @@
 
 .logo-container {
     align-self: flex-start;
+    margin-bottom: 8vh;
+}
+
+.keyboard-container {
+    height: 25vh;
+    display: flex;
+    align-items: center;
+}
+
+.keyboard-button {
+    display: flex;
+    align-items: center;
+}
+
+.keyboard-button p {
+    margin-left: 10px;
+}
+
+.keyboard-button:hover {
+    cursor: pointer;
+    opacity: .9;
 }
 
 .switch-anchor {
     color: white;
+}
+
+@media (max-width: 900px) {
+    .keyboard-container {
+        display: none;
+    }
+    .switch-anchor-container {
+        margin-top: 10vh;
+        margin-bottom: 5vh;
+    }
+    :host {
+        padding: 10% 15% 5%;
+    }
 }

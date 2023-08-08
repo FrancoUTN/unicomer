@@ -2,10 +2,18 @@
     <h2>LOGO</h2>
 </div>
 <router-outlet></router-outlet>
-<div>
-    <p>Teclado virtual</p>
+<div class="keyboard-container">
+    <div class="keyboard-button">
+        <mat-icon
+            aria-hidden="false"
+            aria-label="Virtual keyboard icon"
+            fontIcon="keyboard"
+            class="material-icons-outlined"
+        ></mat-icon>
+        <p>Teclado virtual</p>
+    </div>
 </div>
-<div>
+<div class="switch-anchor-container">
     <p *ngIf="this.currentUrl === '/auth/login'">
         ¿No tienes cuenta?
         <a href="auth/signup" class="switch-anchor">

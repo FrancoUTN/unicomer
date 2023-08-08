@@ -1,10 +1,42 @@
 <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
     <mat-form-field>
-        <mat-label>Tipo de documento</mat-label>
-        <mat-select
-            formControlName="documentType"
+        <mat-label>Correo electrónico</mat-label>
+        <input
+            matInput
+            formControlName="documentNumber"
+            placeholder="user@example.com"
         >
-            <mat-option *ngFor="let documentType of documentTypes" [value]="documentType.value">
+        <mat-error *ngIf="!documentNumber?.valid && documentNumber?.touched">
+            Correo inválido
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Nombre</mat-label>
+        <input
+            matInput
+            formControlName="firstName"
+        >
+        <mat-error *ngIf="!firstName?.valid && firstName?.touched">
+            Nombre inválido
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Apellido</mat-label>
+        <input
+            matInput
+            formControlName="lastName"
+        >
+        <mat-error *ngIf="!lastName?.valid && lastName?.touched">
+            Apellido inválido
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Tipo de documento</mat-label>
+        <mat-select formControlName="documentType">
+            <mat-option
+                *ngFor="let documentType of documentTypes"
+                [value]="documentType.value"
+            >
             {{documentType.viewValue}}
             </mat-option>
         </mat-select>
@@ -12,19 +44,16 @@
             Tipo requerido
         </mat-error>
     </mat-form-field>
-    
     <mat-form-field>
         <mat-label>Número de documento</mat-label>
         <input
             matInput
             formControlName="documentNumber"
-            placeholder="12345678"
         >
         <mat-error *ngIf="!documentNumber?.valid && documentNumber?.touched">
             Número inválido
         </mat-error>
     </mat-form-field>
-
     <mat-form-field>
         <mat-label>Clave</mat-label>
         <input
@@ -35,7 +64,6 @@
             Clave inválida
         </mat-error>
     </mat-form-field>
-
     <mat-form-field>
         <mat-label>Repetir clave</mat-label>
         <input
@@ -43,10 +71,7 @@
             formControlName="passwordRepeat"
         >
     </mat-form-field>
-
-    <button
-        mat-flat-button
-    >
+    <button mat-flat-button>
         Registrarme
     </button>
 </form>
