@@ -27,13 +27,13 @@
 <div class="switch-anchor-container">
     <p *ngIf="this.currentUrl === '/auth/login'">
         ¿No tienes cuenta?
-        <a href="auth/signup" class="switch-anchor">
+        <a routerLink="/auth/signup" class="switch-anchor">
             Regístrate aquí
         </a>
     </p>
     <p *ngIf="this.currentUrl === '/auth/signup'">
         ¿Ya tienes cuenta?
-        <a href="auth/login" class="switch-anchor">
+        <a routerLink="/auth/login" class="switch-anchor">
             Ingresa aquí
         </a>
     </p>

@@ -13,6 +13,8 @@ export class AuthFormsComponent implements OnInit {
   constructor(private router: Router) {}
 
   ngOnInit() {
-    this.currentUrl = this.router.url;
+    this.router.events.subscribe(event => {
+      this.currentUrl = this.router.url;
+    })
   }
 }

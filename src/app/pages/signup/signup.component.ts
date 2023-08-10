@@ -1,7 +1,10 @@
 import { Component, inject } from '@angular/core';
-import { Auth, createUserWithEmailAndPassword } from '@angular/fire/auth';
+import { createUserWithEmailAndPassword } from '@angular/fire/auth';
 import { doc, setDoc, Firestore } from '@angular/fire/firestore';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+
+import { AuthService } from 'src/app/services/auth.service';
 
 interface DocumentType {
   value: string;
@@ -14,7 +17,6 @@ interface DocumentType {
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent {
-  private auth: Auth = inject(Auth);
   private firestore: Firestore = inject(Firestore);
   signupForm: FormGroup | any;
   documentTypes: DocumentType[] = [
@@ -33,11 +35,11 @@ export class SignupComponent {
   get password() { return this.signupForm.get('password'); }
   get passwordRepeat() { return this.signupForm.get('passwordRepeat'); }
 
-  constructor() {
+  constructor(private router: Router, private authService: AuthService) {
   }
 
   // Add better validations (eg: no-spaces for passwords)
-  ngOnInit() {
+  ngOnInit() {    
     this.signupForm = new FormGroup({
       'email': new FormControl(null, [
         Validators.required
@@ -86,21 +88,25 @@ export class SignupComponent {
     }
     this.isLoading = true;
     const formValue = this.signupForm.value;
-    createUserWithEmailAndPassword(this.auth, formValue.email, formValue.passwordRepeat)
-      .then(uc => setDoc(doc(this.firestore, 'users', uc.user.uid), {
-        documentType: formValue.documentType,
-        documentNumber: Number(formValue.documentNumber),
-        email: formValue.email,
-        firstName: formValue.firstName,
-        lastName: formValue.lastName,
-        // profilePicture
-      }))
-      .catch(error => {
-        console.log(error.code);
-        this.errorMessage = error.message;
-      })
-      .finally(() => {
-        this.isLoading = false;
-      });
+    createUserWithEmailAndPassword(
+      this.authService.getAuth(),
+      formValue.email,
+      formValue.passwordRepeat
+    ).then(uc => setDoc(doc(this.firestore, 'users', uc.user.uid), {
+      documentType: formValue.documentType,
+      documentNumber: Number(formValue.documentNumber),
+      email: formValue.email,
+      firstName: formValue.firstName,
+      lastName: formValue.lastName,
+      // profilePicture
+    }))
+    .then(() => this.router.navigate(['/home']))
+    .catch(error => {
+      console.log(error.code);
+      this.errorMessage = error.message;
+    })
+    .finally(() => {
+      this.isLoading = false;
+    });
   }
 }
