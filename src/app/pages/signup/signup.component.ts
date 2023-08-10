@@ -1,5 +1,6 @@
-import { Component, Output, EventEmitter, Input, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Auth, createUserWithEmailAndPassword } from '@angular/fire/auth';
+import { doc, setDoc, Firestore } from '@angular/fire/firestore';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 
 interface DocumentType {
@@ -14,12 +15,15 @@ interface DocumentType {
 })
 export class SignupComponent {
   private auth: Auth = inject(Auth);
+  private firestore: Firestore = inject(Firestore);
   signupForm: FormGroup | any;
   documentTypes: DocumentType[] = [
     {value: 'dni', viewValue: 'DNI'},
     {value: 'cedula', viewValue: 'Cédula'},
     {value: 'pasaporte', viewValue: 'Pasaporte'},
   ];
+  isLoading: boolean = false;
+  errorMessage: string = '';
 
   get email() { return this.signupForm.get('email'); }
   get firstName() { return this.signupForm.get('firstName'); }
@@ -76,21 +80,27 @@ export class SignupComponent {
   }
 
   onSubmit() {
+    this.errorMessage = '';
     if (!this.signupForm.valid) {
       return;
     }
-    const obj = this.signupForm.value;
-    // console.log(obj);
-    createUserWithEmailAndPassword(this.auth, obj.email, obj.passwordRepeat)
-      .then(uc => {
-        console.log("User credential (uc):");
-        console.log(uc.user);
-        console.log("this.auth.currentUser:");
-        console.log(this.auth.currentUser);
-      })
+    this.isLoading = true;
+    const formValue = this.signupForm.value;
+    createUserWithEmailAndPassword(this.auth, formValue.email, formValue.passwordRepeat)
+      .then(uc => setDoc(doc(this.firestore, 'users', uc.user.uid), {
+        documentType: formValue.documentType,
+        documentNumber: Number(formValue.documentNumber),
+        email: formValue.email,
+        firstName: formValue.firstName,
+        lastName: formValue.lastName,
+        // profilePicture
+      }))
       .catch(error => {
         console.log(error.code);
-        console.log(error.message);
+        this.errorMessage = error.message;
       })
+      .finally(() => {
+        this.isLoading = false;
+      });
   }
 }

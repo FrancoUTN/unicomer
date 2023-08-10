@@ -15,9 +15,28 @@
 }
 
 .keyboard-container {
-    height: 25vh;
+    height: 18vh;
+    width: 100%;
     display: flex;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
+    margin-bottom: 5vh;
+}
+
+.keyboard {
+    background-color: #555;
+    width: 100%;
+    height: 100%;
+    border-radius: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.keyboard:hover {    
+    cursor: pointer;
+    opacity: .9;
 }
 
 .keyboard-button {
@@ -43,7 +62,7 @@
         display: none;
     }
     .switch-anchor-container {
-        margin-top: 10vh;
+        margin-top: 1vh;
         margin-bottom: 5vh;
     }
     :host {

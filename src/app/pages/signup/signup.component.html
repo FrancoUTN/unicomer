@@ -3,10 +3,10 @@
         <mat-label>Correo electrónico</mat-label>
         <input
             matInput
-            formControlName="documentNumber"
+            formControlName="email"
             placeholder="user@example.com"
         >
-        <mat-error *ngIf="!documentNumber?.valid && documentNumber?.touched">
+        <mat-error *ngIf="!email?.valid && email?.touched">
             Correo inválido
         </mat-error>
     </mat-form-field>
@@ -74,4 +74,10 @@
     <button mat-flat-button>
         Registrarme
     </button>
+    <div class="spinner-or-error">
+        <mat-spinner *ngIf="this.isLoading" diameter="40"/>
+        <p *ngIf="!this.isLoading">
+        {{this.errorMessage}}
+        </p>
+    </div>
 </form>

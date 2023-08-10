@@ -3,7 +3,11 @@
 </div>
 <router-outlet></router-outlet>
 <div class="keyboard-container">
-    <div class="keyboard-button">
+    <div
+        *ngIf="!this.virtualKeyboardEnabled"
+        class="keyboard-button"
+        (click)="this.virtualKeyboardEnabled = !this.virtualKeyboardEnabled"
+    >
         <mat-icon
             aria-hidden="false"
             aria-label="Virtual keyboard icon"
@@ -11,6 +15,13 @@
             class="material-icons-outlined"
         ></mat-icon>
         <p>Teclado virtual</p>
+    </div>
+    <div
+        *ngIf="this.virtualKeyboardEnabled"
+        class="keyboard"
+        (click)="this.virtualKeyboardEnabled = !this.virtualKeyboardEnabled"
+    >
+        Próximamente...
     </div>
 </div>
 <div class="switch-anchor-container">

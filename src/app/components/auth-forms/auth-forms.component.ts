@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 })
 export class AuthFormsComponent implements OnInit {
   currentUrl: string = "";
+  virtualKeyboardEnabled: boolean = false;
 
   constructor(private router: Router) {}
 
