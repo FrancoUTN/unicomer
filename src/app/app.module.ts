@@ -12,6 +12,7 @@ import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { provideAuth,getAuth } from '@angular/fire/auth';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { provideStorage,getStorage } from '@angular/fire/storage';
+import { NgChartsModule } from 'ng2-charts';
 
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
@@ -22,6 +23,7 @@ import { SignupComponent } from './pages/signup/signup.component';
 import { HomeComponent } from './pages/home/home.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { AuthFormsComponent } from './components/auth-forms/auth-forms.component';
+import { BalanceComponent } from './components/balance/balance.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +34,7 @@ import { AuthFormsComponent } from './components/auth-forms/auth-forms.component
     HomeComponent,
     NotFoundComponent,
     AuthFormsComponent,
+    BalanceComponent
   ],
   imports: [
     BrowserModule,
@@ -49,6 +52,7 @@ import { AuthFormsComponent } from './components/auth-forms/auth-forms.component
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
     provideStorage(() => getStorage()),
+    NgChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
