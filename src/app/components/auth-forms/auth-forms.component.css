@@ -1,7 +1,7 @@
 :host {
     background-color: #000020cc;
     height: 100%;
-    padding: 10% 20% 5%;
+    padding: 7% 20% 3%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -11,7 +11,7 @@
 
 .logo-container {
     align-self: flex-start;
-    margin-bottom: 8vh;
+    margin-bottom: 10vh;
 }
 
 .keyboard-container {
@@ -21,7 +21,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-bottom: 5vh;
+    margin-bottom: 3vh;
 }
 
 .keyboard {
@@ -67,5 +67,8 @@
     }
     :host {
         padding: 10% 15% 5%;
+    }
+    .logo-container {
+        margin-bottom: 0;
     }
 }

@@ -1,6 +1,9 @@
-import { Component, Output, EventEmitter, Input, inject } from '@angular/core';
-import { Auth, signInWithEmailAndPassword } from '@angular/fire/auth';
+import { Component, inject } from '@angular/core';
+import { signInWithEmailAndPassword } from '@angular/fire/auth';
+import { Firestore, collection, doc, getDoc, getDocs, limit, query, where } from '@angular/fire/firestore';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 
 interface DocumentType {
   value: string;
@@ -13,21 +16,21 @@ interface DocumentType {
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  private auth: Auth = inject(Auth);
+  private firestore: Firestore = inject(Firestore);
   loginForm: FormGroup | any;
-  // @Output() formularioEnviado: EventEmitter<any> = new EventEmitter<any>();
-  // @Input() error: string = '';
   documentTypes: DocumentType[] = [
     {value: 'dni', viewValue: 'DNI'},
     {value: 'cedula', viewValue: 'Cédula'},
     {value: 'pasaporte', viewValue: 'Pasaporte'},
   ];
+  isLoading: boolean = false;
+  errorMessage: string = '';
 
   get documentType() { return this.loginForm.get('documentType'); }
   get documentNumber() { return this.loginForm.get('documentNumber'); }
   get password() { return this.loginForm.get('password'); }
 
-  constructor() {
+  constructor(private router: Router, private authService: AuthService) {
   }
 
   ngOnInit() {
@@ -57,21 +60,39 @@ export class LoginComponent {
   }
 
   onSubmit() {
+    this.errorMessage = '';
     if (!this.loginForm.valid) {
       return;
     }
-    const obj = this.loginForm.value;
-    console.log(obj);
-    //   signInWithEmailAndPassword(this.auth, obj.email, obj.password)
-    //     .then(uc => {
-    //       console.log("User credential (uc):");
-    //       console.log(uc.user);
-    //       console.log("this.auth.currentUser:");
-    //       console.log(this.auth.currentUser);
-    //     })
-    //     .catch(error => {
-    //       console.log(error.code);
-    //       console.log(error.message);
-    //     })
+    this.isLoading = true;
+    const formValue = this.loginForm.value;
+    const usersRef = collection(this.firestore, 'users');
+    const docNumber = Number(formValue.documentNumber);
+    const docType = formValue.documentType;
+    const q = query(
+      usersRef,
+      where('documentNumber', '==', docNumber),
+      where('documentType', '==', docType),
+      limit(1)
+    );
+    getDocs(q).then(qs => {
+      const userDocument = qs.docs[0];
+      if (!userDocument) {
+        throw new Error('El documento ingresado no ha sido registrado.');
+      }
+      const email = userDocument.data()['email'];        
+      return signInWithEmailAndPassword(
+        this.authService.getAuth(),
+        email,
+        formValue.password
+      );
+    }).then(
+      () => this.router.navigate(['/home'])
+    ).catch(error => {
+      console.log(error.code);
+      this.errorMessage = error.message;
+    }).finally(() => {
+      this.isLoading = false;
+    });
   }
 }

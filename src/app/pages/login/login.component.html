@@ -36,9 +36,10 @@
     <button mat-flat-button>
         Ingresar
     </button>
-    <!-- <div style="height: 3rem; margin-top: 1rem;">
-        <span *ngIf="error">
-            {{error}}
-        </span>
-    </div> -->
+    <div class="spinner-or-error">
+        <mat-spinner *ngIf="this.isLoading" diameter="40"/>
+        <p *ngIf="!this.isLoading">
+        {{this.errorMessage}}
+        </p>
+    </div>
 </form>

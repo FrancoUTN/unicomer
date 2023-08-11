@@ -15,6 +15,18 @@ mat-form-field {
     color: #eee;
 }
 
+.spinner-or-error {
+    height: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+    color: #f11;
+}
+
 @media (max-width: 566px) {
     /* Scrollable form */
 }
