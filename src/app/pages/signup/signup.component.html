@@ -2,6 +2,7 @@
     <mat-form-field>
         <mat-label>Correo electrónico</mat-label>
         <input
+            type="email"
             matInput
             formControlName="email"
             placeholder="user@example.com"
@@ -47,6 +48,7 @@
     <mat-form-field>
         <mat-label>Número de documento</mat-label>
         <input
+            type="number"
             matInput
             formControlName="documentNumber"
         >
@@ -57,6 +59,7 @@
     <mat-form-field>
         <mat-label>Clave</mat-label>
         <input
+            type="password"
             matInput
             formControlName="password"
         >
@@ -67,9 +70,19 @@
     <mat-form-field>
         <mat-label>Repetir clave</mat-label>
         <input
+            type="password"
             matInput
             formControlName="passwordRepeat"
+            pattern="{{this.password.value}}"
         >
+        <!-- Kind of weird, but it works -->
+        <mat-error *ngIf="
+            password?.valid &&
+            !passwordRepeat?.valid &&
+            passwordRepeat?.touched"
+        >
+            Las claves no coinciden
+        </mat-error>
     </mat-form-field>
     <button mat-flat-button>
         Registrarme
