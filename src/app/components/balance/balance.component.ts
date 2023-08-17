@@ -1,8 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
+import * as dayjs from 'dayjs';
 
-import DataLabelsPlugin from 'chartjs-plugin-datalabels';
 import { TransactionService } from 'src/app/services/transaction.service';
 
 @Component({
@@ -21,22 +21,21 @@ export class BalanceComponent {
         min: 0,
       },
     },
-    plugins: {
-      legend: {
-        display: true,
-      },
-      datalabels: {
-        anchor: 'end',
-        align: 'end',
-      },
-    },
   };
   public barChartType: ChartType = 'bar';
-  public barChartPlugins = [DataLabelsPlugin];
   public barChartData: ChartData<'bar'> = {
-    labels: ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'],
+    labels: [
+      dayjs().subtract(6, 'day').format('ddd'),
+      dayjs().subtract(5, 'day').format('ddd'),
+      dayjs().subtract(4, 'day').format('ddd'),
+      dayjs().subtract(3, 'day').format('ddd'),
+      dayjs().subtract(2, 'day').format('ddd'),
+      dayjs().subtract(1, 'day').format('ddd'),
+      dayjs().format('ddd'),
+    ],
     datasets: [
-      { data: [65000, 59000, 80000, 81000, 56000, 55, 40000], label: 'Esta semana' },
+      { data: [], label: 'Esta semana' },
+      { data: [], label: 'Semana pasada' },
     ],
   };
 
@@ -45,9 +44,24 @@ export class BalanceComponent {
   ngOnInit() {
     this.transactionService.getCurrentUserBalanceHistory().then(
       days => {
-        console.log(days);
-        console.log(this.barChartData.datasets[0].data);
-        // this.barChartData.datasets[0].data = days;
+        days = days.slice(-14);
+        const filledDays = [];
+        const emptyDays = 14 - days.length;
+        for(let i = 0, j = 0; i < 14; i++) {
+          if (i < emptyDays) {
+            filledDays[i] = 0;
+          }
+          else {
+            filledDays[i] = days[j];
+            j++;
+          }
+        }
+        const thisWeek = filledDays.slice(-7);
+        const lastWeek = filledDays.slice(-14, -7);
+        this.barChartData.datasets[0].data = thisWeek;
+        this.barChartData.datasets[1].data = lastWeek;
+
+        this.chart?.update();
       }
     )
   }
