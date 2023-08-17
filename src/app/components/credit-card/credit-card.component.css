@@ -1,0 +1,39 @@
+.card-root {
+    background-color: darkblue;
+    color: #fdfdfd;
+    border-radius: 12px;
+    width: 320px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    padding: 1.2rem;
+}
+
+.card-root > div {
+    flex-grow: 1;
+}
+
+.card-balance-header {
+    opacity: .7;
+}
+
+.card-balance-amount {
+    font-size: 1.2rem;
+}
+
+.card-number {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.card-details-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.card-details-header {
+    opacity: .7;
+    font-size: .8rem;
+}
