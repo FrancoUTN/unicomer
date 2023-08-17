@@ -80,7 +80,7 @@ export class LoginComponent {
       if (!userDocument) {
         throw new Error('El documento ingresado no ha sido registrado.');
       }
-      const email = userDocument.data()['email'];        
+      const email = userDocument.data().email;
       return signInWithEmailAndPassword(
         this.authService.getAuth(),
         email,

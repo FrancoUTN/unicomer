@@ -8,7 +8,7 @@ import { AuthService } from './auth.service';
 export class TransactionService {
   private firestore: Firestore = inject(Firestore);
   private transactionsRef = collection(this.firestore, 'transactions');
-  private currentUser = this.authService.getAuth().currentUser
+  private currentUser = this.authService.getCurrentUser()
 
   constructor(private authService: AuthService) { }
 

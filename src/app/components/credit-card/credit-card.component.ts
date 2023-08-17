@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { TransactionService } from 'src/app/services/transaction.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-credit-card',
@@ -7,13 +8,24 @@ import { TransactionService } from 'src/app/services/transaction.service';
   styleUrls: ['./credit-card.component.css']
 })
 export class CreditCardComponent {
-	userBalance: number | any
+	balance: number | any
+	firstName: string | any
+	lastName: string | any
 
-  constructor(private transactionService: TransactionService) {}
+  constructor(
+    private transactionService: TransactionService,
+    private userService: UserService) {}
 
   ngOnInit() {
     this.transactionService.getCurrentUserBalance().then(
-      currentUserBalance => this.userBalance = currentUserBalance
+      currentUserBalance => this.balance = currentUserBalance
     )
+    this.userService.getCurrentUserData().then(userData => {
+      if (!userData) {
+        throw new Error('No data to display')
+      }
+      this.firstName = userData.firstName
+      this.lastName = userData.lastName
+    })
   }
 }

@@ -13,6 +13,10 @@ export class AuthService {
     return this.auth;
   }
   
+  getCurrentUser() {
+    return this.getAuth().currentUser
+  }
+
   getAuthState() {
     return authState(this.auth);
   }
