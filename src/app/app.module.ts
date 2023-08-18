@@ -25,6 +25,7 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { AuthFormsComponent } from './components/auth-forms/auth-forms.component';
 import { BalanceComponent } from './components/balance/balance.component';
 import { CreditCardComponent } from './components/credit-card/credit-card.component';
+import { ActivityComponent } from './components/activity/activity.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { CreditCardComponent } from './components/credit-card/credit-card.compon
     NotFoundComponent,
     AuthFormsComponent,
     BalanceComponent,
-    CreditCardComponent
+    CreditCardComponent,
+    ActivityComponent
   ],
   imports: [
     BrowserModule,

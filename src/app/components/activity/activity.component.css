@@ -1,0 +1,20 @@
+.activity-root {
+    background-color: white;
+    border-radius: 20px;
+    padding: 2rem;
+}
+
+.activity-root h2 {
+    margin-bottom: 2rem;
+}
+
+.transaction-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+}
+
+.transaction-icon {
+    font-size: 2rem;
+}
