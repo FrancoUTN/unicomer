@@ -6,22 +6,76 @@
             *ngFor="let transaction of this.transactions"
         >
             <div class="transaction-icon">
-                +
+                <div
+                    *ngIf="transaction.type === 'transfer'"
+                    class="icon-container"
+                    [ngClass]="
+                        transaction.isIncome ?
+                        'income-icon-container' :
+                        'outcome-icon-container'
+                    "
+                >
+                    <mat-icon
+                        *ngIf="transaction.isIncome"
+                        aria-hidden="false"
+                        aria-label="Received icon"
+                        fontIcon="south_west"
+                        class="material-icons-outlined icon"
+                    ></mat-icon>
+                    <mat-icon
+                        *ngIf="!transaction.isIncome"
+                        aria-hidden="false"
+                        aria-label="Sent icon"
+                        fontIcon="north_east"
+                        class="material-icons icon"
+                    ></mat-icon>
+                </div>
+                <div
+                    *ngIf="transaction.type !== 'transfer'"
+                    class="icon-container"
+                    [ngClass]="
+                        transaction.isIncome ?
+                        'income-icon-container' :
+                        'outcome-icon-container'
+                    "
+                >
+                    <mat-icon
+                        *ngIf="transaction.isIncome"
+                        aria-hidden="false"
+                        aria-label="Income icon"
+                        fontIcon="expand_less"
+                        class="material-icons-outlined icon"
+                    ></mat-icon>
+                    <mat-icon
+                        *ngIf="!transaction.isIncome"
+                        aria-hidden="false"
+                        aria-label="Outcome icon"
+                        fontIcon="expand_more"
+                        class="material-icons icon"
+                    ></mat-icon>
+                </div>
             </div>
-            <div>
+            <div class="transaction-title">
+                <div *ngIf="transaction.type === 'transfer'">
+                    <p>
+                        {{transaction.otherUserFullName}}
+                    </p>
+                    <p>
+                        {{transaction.displayType}}
+                    </p>
+                </div>
+                <div *ngIf="transaction.type !== 'transfer'">
+                    <p>
+                        {{transaction.displayType}}
+                    </p>
+                </div>
+            </div>
+            <div class="transaction-amount">
                 <p>
-                    Samantha W.
-                </p>
-                <p>
-                    Transferencia
+                    $ {{transaction.amount}}
                 </p>
             </div>
-            <div>
-                <p>
-                    $ 50.000
-                </p>
-            </div>
-            <div>
+            <div class="transaction-date">
                 <p>
                     25 Ene, 2023
                 </p>
@@ -29,12 +83,12 @@
                     04:34:45 AM
                 </p>
             </div>
-            <div>
+            <div class="transaction-status">
                 <p>
                     Completado
                 </p>
             </div>
-            <div>
+            <div class="transaction-options">
                 <span>···</span>
             </div>
         </div>

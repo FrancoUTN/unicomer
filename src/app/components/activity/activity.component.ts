@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 
+import { TransactionService } from 'src/app/services/transaction.service';
+
 @Component({
   selector: 'app-activity',
   templateUrl: './activity.component.html',
@@ -8,14 +10,9 @@ import { Component } from '@angular/core';
 export class ActivityComponent {
   transactions: Array<any> = [];
 
+  constructor(private transactionService: TransactionService) {}
+
   ngOnInit() {
-    this.transactions = [
-      {
-        a: 1
-      },
-      {
-        a: 2
-      },3,4
-    ];
+    this.transactionService.loadCurrentUserTransactionsArray(this.transactions);
   }
 }

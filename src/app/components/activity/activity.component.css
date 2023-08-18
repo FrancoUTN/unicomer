@@ -17,4 +17,37 @@
 
 .transaction-icon {
     font-size: 2rem;
+    flex: 1.2;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.transaction-title, .transaction-amount, .transaction-date, .transaction-status {
+    flex: 3;
+}
+
+.transaction-options {
+    font-size: 2rem;
+    flex: 1;
+}
+
+.icon-container {
+    color: white;
+    border-radius: 50%;
+    padding: 4px;
+}
+
+.income-icon-container {
+    background-color: green;
+}
+
+.outcome-icon-container {
+    background-color: red;
+}
+
+.icon {
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

@@ -26,4 +26,14 @@ export class UserService {
       }
     })
   }
+
+  async getUserById(uid: string) {
+    const docRef = doc(this.usersRef, uid);
+    const docSnap = await getDoc(docRef);
+    if (!docSnap.exists()) {
+      throw new Error('User document doesn\'t exist');
+    } else {
+      return docSnap.data();
+    }    
+  }
 }

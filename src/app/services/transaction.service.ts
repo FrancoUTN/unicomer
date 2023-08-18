@@ -1,8 +1,19 @@
 import { Injectable, inject } from '@angular/core';
-import { Firestore, collection, getDocs, or, orderBy, query, where } from '@angular/fire/firestore';
-import { AuthService } from './auth.service';
+import {
+  Firestore,
+  collection,
+  getDocs,
+  or,
+  orderBy,
+  query,
+  where
+} from '@angular/fire/firestore';
 import * as dayjs from 'dayjs';
 
+import { AuthService } from './auth.service';
+import { UserService } from './user.service';
+
+// Remove?
 interface Day {
   date: Date,
   dayBalance: number
@@ -14,9 +25,11 @@ interface Day {
 export class TransactionService {
   private firestore: Firestore = inject(Firestore);
   private transactionsRef = collection(this.firestore, 'transactions');
-  private currentUser = this.authService.getCurrentUser()
+  private currentUser = this.authService.getCurrentUser();
 
-  constructor(private authService: AuthService) { }
+  constructor(
+    private authService: AuthService,
+    private userService: UserService) { }
 
   private queryCurrentUserTransactions() {
     if (!this.currentUser) {
@@ -27,11 +40,72 @@ export class TransactionService {
       this.transactionsRef,
       or(
         where('user', '==', uid),
-        where('receiver', '==', uid),
-        where('sender', '==', uid)
+        where('receiver.id', '==', uid),
+        where('sender.id', '==', uid)
       ),
       orderBy('date', 'asc')
     )
+  }
+
+  private getCurrentUserTransactions() {
+    const q = this.queryCurrentUserTransactions();
+		return getDocs(q);    
+  }
+
+  async loadCurrentUserTransactionsArray(transactionsArray: Array<any>) {
+    const qsTransactions = await this.getCurrentUserTransactions();
+    
+    qsTransactions.forEach(qdsTransaction => {
+      if (!this.currentUser) {
+        throw new Error('There\'s no current user to calculate balance');
+      }
+      const transaction = qdsTransaction.data();
+      let isIncome: boolean = false;
+      let displayType: string = 'N/A';
+      
+      switch (transaction.type) {
+        case 'transfer':
+            displayType = 'Transferencia';
+            let otherUser: any;
+            if (transaction.sender.id === this.currentUser.uid) {
+              otherUser = transaction.receiver;
+              isIncome = false;
+            }
+            else if (transaction.receiver.id === this.currentUser.uid) {
+              otherUser = transaction.sender;
+              isIncome = true;
+            }
+            else {
+              throw new Error('Transfer not related to the user');
+            }
+            transaction.otherUserFullName = `
+              ${otherUser.firstName} ${otherUser.lastName}
+            `;
+          break;
+        case 'deposit':
+          displayType = 'Depósito';
+          isIncome = true;
+          break;
+        case 'loan':
+          displayType = 'Préstamo';
+          isIncome = true;
+          break;
+        case 'payment':
+          displayType = 'Pago';
+          isIncome = false;
+          break;
+        case 'withdrawal':
+          displayType = 'Extracción';
+          isIncome = false;
+          break;
+        default:
+          throw new Error('Transaction with unknown type');
+      }
+      transaction.isIncome = isIncome;
+      transaction.displayType = displayType;
+      transactionsArray.push(transaction);
+    });
+    return;
   }
 
   async getCurrentUserBalance() {
@@ -44,10 +118,10 @@ export class TransactionService {
       }
       const transaction = qdsTransaction.data();
       if (transaction.type === 'transfer') {
-        if (transaction.sender === this.currentUser.uid) {
+        if (transaction.sender.id === this.currentUser.uid) {
           accuBalance -= transaction.amount;
         }
-        else if (transaction.receiver === this.currentUser.uid) {
+        else if (transaction.receiver.id === this.currentUser.uid) {
           accuBalance += transaction.amount;
         }
         else {
@@ -96,10 +170,10 @@ export class TransactionService {
       }
 
       if (transactionType === 'transfer') {
-        if (transaction.sender === this.currentUser.uid) {
+        if (transaction.sender.id === this.currentUser.uid) {
           accuTotalBalance -= transactionAmount;
         }
-        else if (transaction.receiver === this.currentUser.uid) {
+        else if (transaction.receiver.id === this.currentUser.uid) {
           accuTotalBalance += transactionAmount;
         }
         else {
