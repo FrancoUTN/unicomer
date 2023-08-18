@@ -1,7 +1,56 @@
 .home-root {
     display: flex;
-    flex-direction: column;
+    background-color: #eee;
+}
+
+.header-and-main {
+    width: 100%;
+}
+
+main {
+    padding: 4vh;
+}
+
+section {
+    display: flex;
+    margin-bottom: 4vh;
+}
+
+.cards {
+    gap: 3vh;
+}
+
+.card {
+    flex: 1;
+    height: 30vh;
+}
+
+
+.balance-and-activity {
+    gap: 2vh;
+}
+
+.balance {
+    flex: 5;
+    background-color: white;
+    border-radius: 20px;
+}
+
+.activity {
+    flex: 4;
+}
+
+.loans {
+    width: 100%;
+    height: 250px;
+}
+
+/* Remove */
+.auxiliar {
+    border-radius: 20px;
+    background-color: white;
+    display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 5vh;
+    font-size: 1.5rem;
 }

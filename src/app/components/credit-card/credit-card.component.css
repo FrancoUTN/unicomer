@@ -1,30 +1,37 @@
 .card-root {
     background-color: darkblue;
     color: #fdfdfd;
-    border-radius: 12px;
-    width: 320px;
-    height: 200px;
+    border-radius: 20px;
+    height: 100%;
     display: flex;
     flex-direction: column;
-    padding: 1.2rem;
+    padding: 2rem 3rem;
 }
 
 .card-root > div {
-    flex-grow: 1;
+    flex: 1;
+}
+
+.card-balance-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .card-balance-header {
     opacity: .7;
+    margin-bottom: .5rem;
 }
 
 .card-balance-amount {
-    font-size: 1.2rem;
+    font-size: 1.6rem;
 }
 
-.card-number {
+.card-number-container {
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    font-size: 1.2rem;
 }
 
 .card-details-container {
@@ -36,4 +43,5 @@
 .card-details-header {
     opacity: .7;
     font-size: .8rem;
+    margin-bottom: .5rem;
 }

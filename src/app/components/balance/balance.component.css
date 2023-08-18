@@ -1,5 +1,10 @@
 .balance-root {
-    margin-top: 7vh;
-    width: 600px;
-    /* height: 400px; */
+    padding-left: 5vh;
+    padding-right: 5vh;
+    padding-top: 3vh;
+    padding-bottom: 2vh;
+}
+
+.balance-root h4 {
+    font-size: 1.2rem;
 }

@@ -1,4 +1,50 @@
 <div class="home-root">
-    <app-credit-card></app-credit-card>
-    <app-balance></app-balance>
+    <aside style="
+        width: 15vw;
+        background-color: white;
+    ">
+        <div>
+            LOGO
+        </div>
+        <div style="
+            height: 100vh;
+            background-color: white;
+        ">
+            Menu options
+        </div>
+    </aside>
+    <div class="header-and-main">
+        <header style="
+            height: 100px;
+            width: 100%;
+        ">
+            Header
+        </header>
+        <main>
+            <section class="cards">
+                <div class="card">
+                    <app-credit-card/>
+                </div>
+                <div class="auxiliar card">
+                    Ingresos
+                </div>
+                <div class="auxiliar card">
+                    Egresos
+                </div>
+            </section>
+            <section class="balance-and-activity">
+                <div class="balance">
+                    <app-balance/>
+                </div>
+                <div class="auxiliar activity">
+                    Últimas transacciones
+                </div>
+            </section>
+            <section>
+                <div class="auxiliar loans">
+                    Préstamos
+                </div>
+            </section>
+        </main>
+    </div>
 </div>
