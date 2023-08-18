@@ -3,7 +3,8 @@
     <div class="transactions-list-container">
         <div
             class="transaction-container"
-            *ngFor="let transaction of this.transactions"
+            *ngFor="let transaction of this.transactions; let i = index"
+            [ngClass]="{'odd-transaction-container': i % 2 !== 0}"
         >
             <div class="transaction-icon">
                 <div
@@ -57,7 +58,7 @@
             </div>
             <div class="transaction-title">
                 <div *ngIf="transaction.type === 'transfer'">
-                    <p>
+                    <p class="bold-text">
                         {{transaction.otherUserFullName}}
                     </p>
                     <p>
@@ -65,31 +66,33 @@
                     </p>
                 </div>
                 <div *ngIf="transaction.type !== 'transfer'">
-                    <p>
+                    <p class="bold-text">
                         {{transaction.displayType}}
                     </p>
                 </div>
             </div>
             <div class="transaction-amount">
-                <p>
-                    $ {{transaction.amount}}
+                <p class="bold-text">
+                    $ {{transaction.displayAmount}}
                 </p>
             </div>
             <div class="transaction-date">
-                <p>
-                    25 Ene, 2023
+                <p class="bold-text">
+                    {{transaction.displayDate}}
                 </p>
                 <p>
-                    04:34:45 AM
+                    {{transaction.displayTime}}
                 </p>
             </div>
             <div class="transaction-status">
-                <p>
+                <p class="green-text">
                     Completado
                 </p>
             </div>
             <div class="transaction-options">
-                <span>···</span>
+                <div class="options-container">
+                    <span>···</span>
+                </div>
             </div>
         </div>
     </div>

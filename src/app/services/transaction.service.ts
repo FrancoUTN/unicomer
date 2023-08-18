@@ -49,7 +49,7 @@ export class TransactionService {
 
   private getCurrentUserTransactions() {
     const q = this.queryCurrentUserTransactions();
-		return getDocs(q);    
+		return getDocs(q);
   }
 
   async loadCurrentUserTransactionsArray(transactionsArray: Array<any>) {
@@ -60,6 +60,7 @@ export class TransactionService {
         throw new Error('There\'s no current user to calculate balance');
       }
       const transaction = qdsTransaction.data();
+      const transactionDate = dayjs(transaction.date.toDate());
       let isIncome: boolean = false;
       let displayType: string = 'N/A';
       
@@ -103,7 +104,12 @@ export class TransactionService {
       }
       transaction.isIncome = isIncome;
       transaction.displayType = displayType;
-      transactionsArray.push(transaction);
+      transaction.displayAmount = String(transaction.amount).replace(
+        /\B(?=(\d{3})+(?!\d))/g, "."
+      );
+      transaction.displayDate = transactionDate.format('DD MMM, YYYY');
+      transaction.displayTime = transactionDate.format('hh:mm:ss A');
+      transactionsArray.unshift(transaction);
     });
     return;
   }
