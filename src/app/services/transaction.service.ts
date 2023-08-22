@@ -206,4 +206,7 @@ export class TransactionService {
     return days;
   }
 
+  async getCurrentUserIncomeAndOutcome() {
+    return 'hola';
+  }
 }

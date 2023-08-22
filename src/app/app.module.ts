@@ -26,6 +26,9 @@ import { AuthFormsComponent } from './components/auth-forms/auth-forms.component
 import { BalanceComponent } from './components/balance/balance.component';
 import { CreditCardComponent } from './components/credit-card/credit-card.component';
 import { ActivityComponent } from './components/activity/activity.component';
+import { IncomeChartComponent } from './components/income-chart/income-chart.component';
+import { OutcomeChartComponent } from './components/outcome-chart/outcome-chart.component';
+import { IncomeOutcomeComponent } from './components/income-outcome/income-outcome.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +41,10 @@ import { ActivityComponent } from './components/activity/activity.component';
     AuthFormsComponent,
     BalanceComponent,
     CreditCardComponent,
-    ActivityComponent
+    ActivityComponent,
+    IncomeChartComponent,
+    OutcomeChartComponent,
+    IncomeOutcomeComponent
   ],
   imports: [
     BrowserModule,
