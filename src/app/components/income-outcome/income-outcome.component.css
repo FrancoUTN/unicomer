@@ -26,11 +26,18 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: darkblue;
     padding: 1rem;
     color: white;
     border-radius: 50%;
     width: 72px;
+}
+
+.header-icons-container-income {
+    background-color: rgb(50, 50, 125);
+}
+
+.header-icons-container-outcome {
+    background-color: rgb(100, 150, 225);
 }
 
 .icon {

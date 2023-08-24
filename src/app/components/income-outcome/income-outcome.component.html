@@ -1,11 +1,24 @@
 <div class="root">
     <div class="header">
         <div class="icons-and-value">
-            <div class="header-icons-container">
+            <div
+                class="header-icons-container"
+                [ngClass]="this.isIncome ?
+                    'header-icons-container-income' :
+                    'header-icons-container-outcome'"
+            >
                 <mat-icon
+                    *ngIf="this.isIncome"
                     aria-hidden="false"
                     aria-label="South icon"
                     fontIcon="south"
+                    class="material-icons icon-sm"
+                ></mat-icon>
+                <mat-icon
+                    *ngIf="!this.isIncome"
+                    aria-hidden="false"
+                    aria-label="North icon"
+                    fontIcon="north"
                     class="material-icons icon-sm"
                 ></mat-icon>
                 <mat-icon
@@ -16,7 +29,13 @@
                 ></mat-icon>
             </div>
             <div class="title">
-                <p class="light-text bolder">Ingresos</p>
+                <p class="light-text bolder">
+                    {{
+                        this.isIncome ?
+                        'Ingresos' :
+                        'Egresos'
+                    }}
+                </p>
                 <p class="total">${{this.strThisMonthTotal}}</p>
             </div>
         </div>

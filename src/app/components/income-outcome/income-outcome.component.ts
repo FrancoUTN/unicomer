@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { ChartConfiguration, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 import * as dayjs from 'dayjs';
@@ -11,9 +11,10 @@ interface Day {
   dayIncome: number,
   dayOutcome: number
 }
+type Month = Array<Day>;
 interface Months {
-  thisMonthDays: Array<Day>,
-  lastMonthDays: Array<Day>
+  thisMonthDays: Month,
+  lastMonthDays: Month
 }
 type DifferenceWithLastMonth = 'positive' | 'negative' | 'neutral';
 
@@ -23,6 +24,7 @@ type DifferenceWithLastMonth = 'positive' | 'negative' | 'neutral';
   styleUrls: ['./income-outcome.component.css']
 })
 export class IncomeOutcomeComponent {
+  @Input() isIncome: boolean = false;
   months?: Months;
   thisMonthTotal: number = 0;
   strThisMonthTotal: string = '...';
@@ -34,10 +36,7 @@ export class IncomeOutcomeComponent {
     datasets: [
       {
         data: [],
-        label: 'Ingresos',
-        backgroundColor: 'rgba(148,159,177,0.2)',
-        borderColor: 'rgba(148,159,177,1)',
-        pointBackgroundColor: 'rgba(148,159,177,1)',
+        pointBackgroundColor: 'white',
         fill: 'origin',
       },
     ],
@@ -51,6 +50,7 @@ export class IncomeOutcomeComponent {
       },
       point: {
         pointStyle: false,
+        hitRadius: 10,
       },
     },
     scales: {
@@ -70,6 +70,9 @@ export class IncomeOutcomeComponent {
     maintainAspectRatio: false,
     plugins: {
       legend: { display: false },
+      colors: {
+        forceOverride: true
+      },
     },
   };
 
@@ -82,8 +85,13 @@ export class IncomeOutcomeComponent {
   async ngOnInit() {
     this.months = await this.transactionService.getCurrentUserIncomeAndOutcome();
 
+    this.lineChartData.datasets[0].label = this.isIncome ? 'Ingresos' : 'Egresos';
+    const chartColorRGB = this.isIncome ? '50, 50, 125' : '100, 150, 225';
+    this.lineChartData.datasets[0].backgroundColor = `rgba(${chartColorRGB},0.2)`;
+    this.lineChartData.datasets[0].borderColor = `rgba(${chartColorRGB},1)`;
+    
     this.updateChart();
-    this.calculateThisMonthTotal();
+    this.setThisMonthTotal();
     this.calculateMonthsDifference();
   }
 
@@ -92,38 +100,48 @@ export class IncomeOutcomeComponent {
       throw new Error('Months array hasn\'t been initialized');
     }
     this.months.thisMonthDays.forEach(day => {
-      this.lineChartData.datasets[0].data.push(day.dayIncome);
+      if (this.isIncome) {
+        this.lineChartData.datasets[0].data.push(day.dayIncome);
+      } else {
+        this.lineChartData.datasets[0].data.push(day.dayOutcome);
+      }
       this.lineChartData?.labels?.push(day.date.format('DD/MM'));
     });
     this.chart?.update();
   }
 
-  calculateThisMonthTotal() {
+  calculateTotal(theMonth: Month) {
     if (!this.months) {
       throw new Error('Months array hasn\'t been initialized');
     }
-    let accuTotal = 0;
-    this.months.thisMonthDays.forEach(day => {
-      accuTotal += day.dayIncome;
-    });
-    this.thisMonthTotal = accuTotal;
-    const strTotal = accuTotal.toString();
-    this.strThisMonthTotal = strTotal.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-  }
-  
-  calculateLastMonthTotal() {
-    if (!this.months) {
-      throw new Error('Months array hasn\'t been initialized');
+
+    function accumulate (this: IncomeOutcomeComponent, day: Day) {
+      if (this.isIncome) {
+        accuTotal += day.dayIncome;
+      } else {
+        accuTotal += day.dayOutcome;
+      }
     }
+
     let accuTotal = 0;
-    this.months.lastMonthDays.forEach(day => {
-      accuTotal += day.dayIncome;
-    });
+    theMonth.forEach(accumulate, this);
     return accuTotal;
   }
 
+  setThisMonthTotal() {
+    if (!this.months) {
+      throw new Error('Months array hasn\'t been initialized');
+    }
+    this.thisMonthTotal = this.calculateTotal(this.months.thisMonthDays);
+    const strTotal = this.thisMonthTotal.toString();
+    this.strThisMonthTotal = strTotal.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  }
+
   calculateMonthsDifference() {
-    const lastMonthTotal = this.calculateLastMonthTotal();
+    if (!this.months) {
+      throw new Error('Months array hasn\'t been initialized');
+    }
+    const lastMonthTotal = this.calculateTotal(this.months?.lastMonthDays);
     if (lastMonthTotal === 0) {
       this.differenceWithLastMonth = 'neutral';
       this.strMonthsDifference = 'N/A';

@@ -26,10 +26,10 @@
                     <app-credit-card/>
                 </div>
                 <div class="card">
-                    <app-income-outcome/>
+                    <app-income-outcome [isIncome]="true"/>
                 </div>
-                <div class="auxiliar card">
-                    Egresos
+                <div class="card">
+                    <app-income-outcome [isIncome]="false"/>
                 </div>
             </section>
             <section class="balance-and-activity">
