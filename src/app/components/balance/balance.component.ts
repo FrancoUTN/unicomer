@@ -34,8 +34,20 @@ export class BalanceComponent {
       dayjs().format('ddd'),
     ],
     datasets: [
-      { data: [], label: 'Esta semana' },
-      { data: [], label: 'Semana pasada' },
+      {
+        data: [],
+        label: 'Semana pasada',
+        backgroundColor: 'rgb(100, 150, 225)',
+        borderColor: 'rgb(100, 150, 225)',
+        borderRadius: 20,
+      },
+      {
+        data: [],
+        label: 'Esta semana',
+        backgroundColor: 'rgb(50, 50, 125)',
+        borderColor: 'rgb(50, 50, 125)',
+        borderRadius: 20,
+      },
     ],
   };
 
@@ -58,8 +70,8 @@ export class BalanceComponent {
         }
         const thisWeek = filledDays.slice(-7);
         const lastWeek = filledDays.slice(-14, -7);
-        this.barChartData.datasets[0].data = thisWeek;
-        this.barChartData.datasets[1].data = lastWeek;
+        this.barChartData.datasets[0].data = lastWeek;
+        this.barChartData.datasets[1].data = thisWeek;
 
         this.chart?.update();
       }
