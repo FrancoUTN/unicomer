@@ -1,6 +1,6 @@
-<div class="activity-root">
+<div class="root">
     <h2>Últimas transacciones</h2>
-    <div class="transactions-list-container">
+    <div>
         <div
             class="transaction-container"
             *ngFor="let transaction of this.transactions; let i = index"
@@ -77,19 +77,28 @@
                 </p>
             </div>
             <div class="transaction-date">
-                <p class="bold-text">
+                <p *ngIf="!this.isMobile" class="bold-text">
                     {{transaction.displayDate}}
                 </p>
-                <p>
+                <p *ngIf="!this.isMobile">
                     {{transaction.displayTime}}
                 </p>
+                <p *ngIf="this.isMobile">
+                    17/08
+                </p>
             </div>
-            <div class="transaction-status">
+            <div
+                *ngIf="!this.isMobile"
+                class="transaction-status"
+            >
                 <p class="green-text">
                     Completado
                 </p>
             </div>
-            <div class="transaction-options">
+            <div
+                *ngIf="!this.isMobile"
+                class="transaction-options"
+            >
                 <div class="options-container">
                     <span>···</span>
                 </div>

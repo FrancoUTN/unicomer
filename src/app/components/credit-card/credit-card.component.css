@@ -1,4 +1,4 @@
-.card-root {
+.root {
     background-color: darkblue;
     color: #fdfdfd;
     border-radius: 20px;
@@ -8,7 +8,7 @@
     padding: 2rem 3rem;
 }
 
-.card-root > div {
+.root > div {
     flex: 1;
 }
 
@@ -44,4 +44,16 @@
     opacity: .7;
     font-size: .8rem;
     margin-bottom: .5rem;
+}
+
+@media (max-width: 900px) {
+    .root {
+        border-radius: 12px;
+        padding: 2rem;
+    }
+
+    
+    .card-number-container {
+        margin: 3vh 0;
+    }
 }

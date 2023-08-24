@@ -7,4 +7,11 @@
 
 .balance-root h4 {
     font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+@media (max-width: 900px) {
+    .balance-root {
+        padding: 3vh 1vh;
+    }
 }

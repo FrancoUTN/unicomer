@@ -1,10 +1,10 @@
-.activity-root {
+.root {
     background-color: white;
     border-radius: 20px;
     padding: 2rem 0;
 }
 
-.activity-root h2 {
+.root h2 {
     margin-bottom: 2rem;
     margin-left: 2rem;
 }
@@ -76,4 +76,29 @@
     cursor: pointer;
     background-color: #ddd;
     opacity: .7;
+}
+
+@media (max-width: 900px) {
+    .root {
+        border-radius: 12px;
+        padding: 2rem 0;
+    }
+    
+    .root h2 {
+        margin-bottom: 1rem;
+        margin-left: 1rem;
+    }
+    
+    .transaction-container {
+        padding: 1rem;
+    }
+    
+    .icon {
+        height: 18px;
+        width: 18px;
+    }    
+
+    .transaction-date {
+        flex: 3;
+    }
 }

@@ -9,10 +9,13 @@ import { TransactionService } from 'src/app/services/transaction.service';
 })
 export class ActivityComponent {
   transactions: Array<any> = [];
+  public isMobile: boolean = false;
 
   constructor(private transactionService: TransactionService) {}
 
   ngOnInit() {
     this.transactionService.loadCurrentUserTransactionsArray(this.transactions);
+    const innerWidth = window.innerWidth;
+    this.isMobile = innerWidth <= 900;
   }
 }

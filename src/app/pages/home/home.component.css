@@ -4,6 +4,11 @@ main {
     background-color: #eee;
 }
 
+.title {
+    font-weight: 500;
+    margin-bottom: 3vh;
+}
+
 section {
     display: flex;
     margin-bottom: 4vh;
@@ -30,4 +35,24 @@ section {
 
 .activity {
     flex: 4;
+}
+
+@media (max-width: 900px) {
+    main {
+        padding: 3vh;
+    }
+
+    .cards {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .balance-and-activity {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .balance {
+        border-radius: 10px;
+    }
 }
