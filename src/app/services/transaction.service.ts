@@ -1,6 +1,8 @@
 import { Injectable, inject } from '@angular/core';
 import {
   Firestore,
+  Timestamp,
+  and,
   collection,
   getDocs,
   or,
@@ -11,12 +13,28 @@ import {
 import * as dayjs from 'dayjs';
 
 import { AuthService } from './auth.service';
-import { UserService } from './user.service';
 
-// Remove?
+type Dayjs = dayjs.Dayjs;
+
 interface Day {
-  date: Date,
-  dayBalance: number
+  date: Dayjs,
+  dayIncome: number,
+  dayOutcome: number
+}
+
+interface TransferUser {
+  firstName: string,
+  id: string,
+  lastName: string,
+}
+
+interface Transaction {
+  amount: number,
+  date: Timestamp,
+  receiver?: TransferUser,
+  sender?: TransferUser,
+  type: string,
+  user?: string
 }
 
 @Injectable({
@@ -27,9 +45,7 @@ export class TransactionService {
   private transactionsRef = collection(this.firestore, 'transactions');
   private currentUser = this.authService.getCurrentUser();
 
-  constructor(
-    private authService: AuthService,
-    private userService: UserService) { }
+  constructor(private authService: AuthService) { }
 
   private queryCurrentUserTransactions() {
     if (!this.currentUser) {
@@ -206,7 +222,143 @@ export class TransactionService {
     return days;
   }
 
+  // Income-outcome
+  private queryTransactionsFromDate(date: Timestamp) {
+    if (!this.currentUser) {
+      throw new Error('There\'s no current user to query')
+    }
+    const uid = this.currentUser.uid;
+    return query(this.transactionsRef,
+      and(
+        or(
+          where('user', '==', uid),
+          where('receiver.id', '==', uid),
+          where('sender.id', '==', uid)
+        ),
+        where('date', '>=', date)
+      ),
+      orderBy('date', 'asc')
+    );
+  }
+
   async getCurrentUserIncomeAndOutcome() {
-    return 'hola';
+    const lastMonthDays: Array<Day> = [];
+    const thisMonthDays: Array<Day> = [];
+    const today: Dayjs = dayjs();
+    const firstDayOfLastMonth: Dayjs = today.subtract(1, 'month').startOf('month');
+    let iteratingDate: Dayjs = firstDayOfLastMonth;
+    let k = 0;
+
+    while(iteratingDate.month() !== today.month()) {
+      lastMonthDays[k] = {
+        date: iteratingDate,
+        dayIncome: 0,
+        dayOutcome: 0
+      };
+      iteratingDate = iteratingDate.add(1, 'day');
+      k++;
+    }
+
+    k = 0;
+
+    while(iteratingDate.date() <= today.date()) {
+      thisMonthDays[k] = {
+        date: iteratingDate,
+        dayIncome: 0,
+        dayOutcome: 0
+      };
+      iteratingDate = iteratingDate.add(1, 'day');
+      k++;
+    }
+
+    const timestamp = Timestamp.fromMillis(firstDayOfLastMonth.valueOf());
+    const q = this.queryTransactionsFromDate(timestamp);
+    const qs = await getDocs(q);
+    const lastMonthTransactions: Array<Transaction> = [];
+    const thisMonthTransactions: Array<Transaction> = [];
+    
+    qs.forEach(transactionSnapshot => {
+      const transaction = transactionSnapshot.data() as Transaction;
+      const serverTimestamp: Timestamp = transaction.date;
+      const serverDate: Date = serverTimestamp.toDate();
+      const serverDateJS = dayjs(serverDate);
+
+      if (serverDateJS.isSame(today, 'month')) {
+        thisMonthTransactions.push(transaction);
+      }
+      else if (serverDateJS.isSame(firstDayOfLastMonth, 'month')) {
+        lastMonthTransactions.push(transaction);
+      }
+      else {
+        console.log('Error: something went wrong with the transactions query.');
+      }
+    });
+
+    this.loadMonthDaysArray(lastMonthDays, lastMonthTransactions);
+    this.loadMonthDaysArray(thisMonthDays, thisMonthTransactions);
+
+    return {
+      lastMonthDays,
+      thisMonthDays
+    };
+  }
+
+  loadMonthDaysArray(monthDays: Array<Day>, transactions: Array<Transaction>) {
+    let accuDayIncome: number, accuDayOutcome: number;
+    let i = 0;
+
+    for (const day of monthDays) {
+      if (!this.currentUser) {
+        throw new Error('There\'s no current user to load month days array.');
+      }
+      if (!transactions[i]) {
+        break;
+      }
+      accuDayIncome = 0;
+      accuDayOutcome = 0;
+
+      while (transactions[i]) {
+        const serverTimestamp: Timestamp = transactions[i].date;
+        const serverDate: Date = serverTimestamp.toDate();
+        let serverDateJS = dayjs(serverDate);
+    
+        if (day.date.isSame(serverDateJS, 'day')) {
+          const amount = Number(transactions[i].amount);          
+          switch (transactions[i].type) {
+            case 'transfer':
+                if (transactions[i].sender?.id === this.currentUser.uid) {
+                  accuDayOutcome += amount;
+                }
+                else if (transactions[i].receiver?.id === this.currentUser.uid) {
+                  accuDayIncome += amount;
+                }
+                else {
+                  throw new Error('Transfer not related to the user');
+                }
+              break;
+            case 'deposit':
+              accuDayIncome += amount;
+              break;
+            case 'loan':
+              accuDayIncome += amount;
+              break;
+            case 'payment':
+              accuDayOutcome += amount;
+              break;
+            case 'withdrawal':
+              accuDayOutcome += amount;
+              break;
+            default:
+              throw new Error('Transaction with unknown type');
+          }
+          i++;
+        }
+        else {
+          break;
+        }
+      }
+      day.dayIncome = accuDayIncome;
+      day.dayOutcome = accuDayOutcome;
+    }
   }
 }

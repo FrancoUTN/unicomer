@@ -1,0 +1,110 @@
+.root {
+    height: 100%;
+    border-radius: 20px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 40%;
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+}
+
+.icons-and-value {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.header-icons-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: darkblue;
+    padding: 1rem;
+    color: white;
+    border-radius: 50%;
+    width: 72px;
+}
+
+.icon {
+    height: 24px;
+    width: 24px;
+    font-size: 24px;
+}
+
+.icon-sm {
+    height: 18px;
+    width: 18px;
+    font-size: 18px;
+}
+
+.last-month-icon-container {
+    height: 18px;
+}
+
+.last-month-icon {
+    height: 18px;
+    width: 18px;
+    font-size: 18px;
+}
+
+.last-month-percentage {
+    margin-top: -6px;
+}
+
+.title {
+    display: flex;
+    flex-direction: column;
+}
+
+.total {
+    font-weight: 500;
+    font-size: 1.6rem;
+}
+
+.last-month {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.icon-and-percentage {        
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-weight: 500;
+}
+
+.difference-positive {
+    color: green;
+}
+
+.difference-negative {
+    color: red;
+}
+
+.difference-neutral {
+    color: gray;
+}
+
+.light-text {
+    opacity: .6;
+}
+
+.bolder {
+    font-weight: 500;
+    margin-bottom: .2rem;
+}
+
+.canvas-container {
+    height: 55%;
+    margin-left: -4px;
+    margin-right: -4px;
+}
