@@ -1,14 +1,7 @@
-.home-root {
-    display: flex;
-    background-color: #eee;
-}
-
-.header-and-main {
-    width: 100%;
-}
-
 main {
+    width: 100%;
     padding: 4vh;
+    background-color: #eee;
 }
 
 section {
@@ -25,7 +18,6 @@ section {
     height: 30vh;
 }
 
-
 .balance-and-activity {
     gap: 2vh;
 }
@@ -38,19 +30,4 @@ section {
 
 .activity {
     flex: 4;
-}
-
-.loans {
-    width: 100%;
-    height: 250px;
-}
-
-/* Remove */
-.auxiliar {
-    border-radius: 20px;
-    background-color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.5rem;
 }

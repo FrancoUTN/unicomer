@@ -1,50 +1,23 @@
-<div class="home-root">
-    <aside style="
-        width: 15vw;
-        background-color: white;
-    ">
-        <div>
-            LOGO
-        </div>
-        <div style="
-            height: 100vh;
-            background-color: white;
-        ">
-            Menu options
-        </div>
-    </aside>
-    <div class="header-and-main">
-        <header style="
-            height: 100px;
-            width: 100%;
-        ">
-            Header
-        </header>
-        <main>
-            <section class="cards">
-                <div class="card">
-                    <app-credit-card/>
-                </div>
-                <div class="card">
-                    <app-income-outcome [isIncome]="true"/>
-                </div>
-                <div class="card">
-                    <app-income-outcome [isIncome]="false"/>
-                </div>
-            </section>
-            <section class="balance-and-activity">
-                <div class="balance">
-                    <app-balance/>
-                </div>
-                <div class="activity">
-                    <app-activity/>
-                </div>
-            </section>
-            <section>
-                <div class="auxiliar loans">
-                    Préstamos
-                </div>
-            </section>
-        </main>
-    </div>
-</div>
+<app-navbar>
+    <main>
+        <section class="cards">
+            <div class="card">
+                <app-credit-card/>
+            </div>
+            <div class="card">
+                <app-income-outcome [isIncome]="true"/>
+            </div>
+            <div class="card">
+                <app-income-outcome [isIncome]="false"/>
+            </div>
+        </section>
+        <section class="balance-and-activity">
+            <div class="balance">
+                <app-balance/>
+            </div>
+            <div class="activity">
+                <app-activity/>
+            </div>
+        </section>
+    </main>
+</app-navbar>

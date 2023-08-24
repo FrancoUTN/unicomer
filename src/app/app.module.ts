@@ -7,6 +7,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { provideAuth,getAuth } from '@angular/fire/auth';
@@ -26,9 +29,8 @@ import { AuthFormsComponent } from './components/auth-forms/auth-forms.component
 import { BalanceComponent } from './components/balance/balance.component';
 import { CreditCardComponent } from './components/credit-card/credit-card.component';
 import { ActivityComponent } from './components/activity/activity.component';
-import { IncomeChartComponent } from './components/income-chart/income-chart.component';
-import { OutcomeChartComponent } from './components/outcome-chart/outcome-chart.component';
 import { IncomeOutcomeComponent } from './components/income-outcome/income-outcome.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -42,9 +44,8 @@ import { IncomeOutcomeComponent } from './components/income-outcome/income-outco
     BalanceComponent,
     CreditCardComponent,
     ActivityComponent,
-    IncomeChartComponent,
-    OutcomeChartComponent,
-    IncomeOutcomeComponent
+    IncomeOutcomeComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
@@ -62,7 +63,10 @@ import { IncomeOutcomeComponent } from './components/income-outcome/income-outco
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
     provideStorage(() => getStorage()),
-    NgChartsModule
+    NgChartsModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatListModule
   ],
   providers: [],
   bootstrap: [AppComponent]
