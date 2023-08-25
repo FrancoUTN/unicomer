@@ -19,12 +19,19 @@
         aria-label="Toggle sidenav"
         mat-icon-button
         (click)="drawer.toggle()"
-        *ngIf="isHandset$ | async">
-        <mat-icon aria-label="Side nav toggle icon">
-          menu
+        *ngIf="isHandset$ | async"
+      >
+        <mat-icon
+          aria-label="Side nav toggle icon"
+          class="menu-icon"
+          fontIcon="menu"
+        >
         </mat-icon>
       </button>
-      <div class="search-bar">
+      <div
+        *ngIf="!(this.isHandset$ | async)"
+        class="search-bar"
+      >
         <mat-icon
         fontIcon="search"
         class="material-icons-outlined"
@@ -34,6 +41,7 @@
       <span class="example-spacer"></span>
       <div class="account-buttons">
         <button
+          *ngIf="!(this.isHandset$ | async)"
           mat-icon-button
           aria-label="Icon-button with settings icon"
           class="icon-container"
@@ -44,6 +52,7 @@
           ></mat-icon>
         </button>
         <button
+          *ngIf="!(this.isHandset$ | async)"
           mat-icon-button
           aria-label="Icon-button with notifications icon"
           class="icon-container"
@@ -58,7 +67,7 @@
           alt="Profile picture"
           class="profile-picture"
         >
-        <p>
+        <p *ngIf="!(this.isHandset$ | async)">
           Luz Deny
         </p>
       </div>
