@@ -11,7 +11,10 @@
         mat-list-item
         *ngFor="let menuOption of this.menuOptions"        
       >
-        <div class="menu-option">
+        <div
+          class="menu-option"
+          (click)="this.onMenuOptionClick(menuOption.id)"
+        >
           <mat-icon
             class="material-icons-outlined"
             aria-label="Home icon"
