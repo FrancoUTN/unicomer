@@ -12,17 +12,39 @@ import { TransactionService } from 'src/app/services/transaction.service';
 })
 export class BalanceComponent {
   @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
+  
   public barChartOptions: ChartConfiguration['options'] = {
     responsive: true,
-    // We use these empty structures as placeholders for dynamic theming.
     scales: {
-      x: {},
       y: {
         min: 0,
+        max: 100000,
       },
     },
+    plugins: {
+      // title: {
+      //   text: 'Balance',
+      //   display: true,
+      //   align: 'start',
+      //   font: {
+      //     size: 16
+      //   },
+      //   fullSize: false,
+      //   padding: 0,
+      // },
+      legend: {
+        align: 'end',
+        reverse: true,
+        labels: {
+          boxWidth: 16,
+          boxHeight: 16,
+        },
+      }
+    }
   };
+
   public barChartType: ChartType = 'bar';
+
   public barChartData: ChartData<'bar'> = {
     labels: [
       dayjs().subtract(6, 'day').format('ddd'),
@@ -51,30 +73,52 @@ export class BalanceComponent {
     ],
   };
 
+  private updateChart(){
+    this.chart?.ngOnChanges({});
+   }
+
   constructor(private transactionService: TransactionService) {}
 
-  ngOnInit() {
-    this.transactionService.getCurrentUserBalanceHistory().then(
-      days => {
-        days = days.slice(-14);
-        const filledDays = [];
-        const emptyDays = 14 - days.length;
-        for(let i = 0, j = 0; i < 14; i++) {
-          if (i < emptyDays) {
-            filledDays[i] = 0;
-          }
-          else {
-            filledDays[i] = days[j];
-            j++;
-          }
-        }
-        const thisWeek = filledDays.slice(-7);
-        const lastWeek = filledDays.slice(-14, -7);
-        this.barChartData.datasets[0].data = lastWeek;
-        this.barChartData.datasets[1].data = thisWeek;
+  async ngOnInit() {
+    await this.setChartData();
 
-        this.chart?.update();
+    this.updateChart();
+  }
+
+  async setChartData() {
+    let days = await this.transactionService.getCurrentUserBalanceHistory();
+    days = days.slice(-14);
+    const filledDays = [];
+    const emptyDays = 14 - days.length;
+
+    for(let i = 0, j = 0; i < 14; i++) {
+      if (i < emptyDays) {
+        filledDays[i] = 0;
       }
-    )
+      else {
+        filledDays[i] = days[j];
+        j++;
+      }
+    }
+
+    const thisWeekDays = filledDays.slice(-7);
+    const lastWeek = filledDays.slice(-14, -7);
+    this.barChartData.datasets[0].data = lastWeek;
+    this.barChartData.datasets[1].data = thisWeekDays;
+
+    if (this.barChartOptions) {
+      if (this.barChartOptions.scales) {
+        this.barChartOptions.scales.y = {
+          // Perfectable
+          suggestedMax: Math.max(...thisWeekDays) + 10000,
+        };
+      } else {
+        console.log('No scales.');
+      }
+    } else {
+      console.log('No options.');
+    }
+
+    return;
   }
 }
