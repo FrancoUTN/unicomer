@@ -4,7 +4,7 @@
 }
 
 .sidenav {
-  width: 200px;
+  width: 15%;
 }
 
 .sidenav .mat-toolbar {
@@ -24,20 +24,39 @@
 
 .header-toolbar {
   background-color: #eee;
+  padding: 2vh 6vh;
+  height: auto;
+}
+
+.search-bar {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  padding: .4rem 2rem;
+  gap: 1rem;
+  background-color: white;
+  color: #999;
+  border-radius: 2rem;
+  font-size: 1rem;
 }
 
 .account-buttons {
   display: flex;
   align-items: center;
-  gap: 1vh;
+  gap: 1rem;
 }
 
 .icon-container {
-  border: 1px solid black;
+  border: 1px solid #999;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 50px;
+  width: 60px;
+  height: 60px;
+}
+
+.icon {
+  color: #999;
 }
 
 .profile-picture {

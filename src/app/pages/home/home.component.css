@@ -1,21 +1,21 @@
 main {
     width: 100%;
-    padding: 4vh;
+    padding: 3vh 6vh;
     background-color: #eee;
 }
 
 .title {
-    font-weight: 500;
-    margin-bottom: 3vh;
+    font-weight: 600;
+    margin-bottom: 4vh;
 }
 
 section {
     display: flex;
-    margin-bottom: 4vh;
+    margin-bottom: 6vh;
 }
 
 .cards {
-    gap: 3vh;
+    gap: 4vh;
 }
 
 .card {
@@ -24,13 +24,13 @@ section {
 }
 
 .balance-and-activity {
-    gap: 2vh;
+    gap: 3vh;
 }
 
 .balance {
     flex: 5;
     background-color: white;
-    border-radius: 20px;
+    border-radius: 2rem;
 }
 
 .activity {
