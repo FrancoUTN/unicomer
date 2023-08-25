@@ -1,0 +1,20 @@
+main {
+    width: 100%;
+    padding: 3vh 6vh;
+}
+
+.title {
+    font-weight: 600;
+    margin-bottom: 4vh;
+}
+
+section {
+    display: flex;
+    margin-bottom: 6vh;
+}
+
+@media (max-width: 900px) {
+    main {
+        padding: 3vh;
+    }
+}

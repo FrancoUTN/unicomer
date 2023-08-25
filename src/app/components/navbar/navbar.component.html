@@ -4,27 +4,40 @@
       [mode]="(isHandset$ | async) ? 'over' : 'side'"
       [opened]="(isHandset$ | async) === false">
     <div class="logo-container">
-      <p class="logo-text">Unicomer</p>
+      <a routerLink="/home" class="logo-anchor">
+        <p class="logo-text">
+          Unicomer
+        </p>
+      </a>
     </div>
     <mat-nav-list>
-      <a
-        mat-list-item
-        *ngFor="let menuOption of this.menuOptions"        
-      >
-        <div
-          class="menu-option"
+      <div *ngFor="let menuOption of this.menuOptions">
+        <a
+          mat-list-item
+          [routerLink]="
+            menuOption.route ?
+            menuOption.route : null
+          "
           (click)="this.onMenuOptionClick(menuOption.id)"
         >
-          <mat-icon
-            class="material-icons-outlined"
-            aria-label="Home icon"
-            fontIcon="{{menuOption.iconName}}"
-          ></mat-icon>
-          <span>
-            {{menuOption.description}}
-          </span>
-        </div>
-      </a>
+          <div
+            class="menu-option"
+            [ngClass]="{
+              'selected-menu-option':
+              this.currentUrl === menuOption.route
+            }"
+          >
+            <mat-icon
+              class="material-icons-outlined"
+              aria-label="Home icon"
+              fontIcon="{{menuOption.iconName}}"
+            ></mat-icon>
+            <span>
+              {{menuOption.description}}
+            </span>
+          </div>
+        </a>
+      </div>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>

@@ -1,5 +1,10 @@
 <div class="root">
-    <h2>Últimas transacciones</h2>
+    <h2 *ngIf="this.currentUrl !== '/transactions'">
+        Últimas transacciones
+    </h2>
+    <h2 *ngIf="this.currentUrl === '/transactions'">
+        Todas las transacciones
+    </h2>
     <div>
         <div
             class="transaction-container"

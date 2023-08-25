@@ -26,9 +26,18 @@
   align-items: center;
 }
 
+.logo-anchor {
+  text-decoration: none;
+  color: black;
+}
+
 .logo-text {
   font-size: 2rem;
   font-weight: 600;
+}
+
+.logo-text:hover {
+  cursor: pointer;
 }
 
 .menu-option {
@@ -36,6 +45,11 @@
   align-items: center;
   gap: 1rem;
   color: #888;
+}
+
+.selected-menu-option {
+  color: #272f65;
+  font-weight: 700;
 }
 
 .example-spacer {

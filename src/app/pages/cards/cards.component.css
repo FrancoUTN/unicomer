@@ -1,0 +1,51 @@
+main {
+    width: 100%;
+    padding: 3vh 6vh;
+}
+
+.title {
+    font-weight: 600;
+    margin-bottom: 4vh;
+}
+
+section {
+    display: flex;
+    margin-bottom: 6vh;
+}
+
+.cards {
+    gap: 4vh;
+}
+
+.card {
+    flex: 1;
+    height: 30vh;
+}
+
+.balance {
+    margin: auto;
+    width: 50%;
+    background-color: white;
+    border-radius: 2rem;
+}
+
+@media (max-width: 900px) {
+    main {
+        padding: 3vh;
+    }
+
+    .cards {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .balance-and-activity {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .balance {
+        border-radius: 10px;
+        width: 100%;
+    }
+}

@@ -35,6 +35,8 @@ import { CreditCardComponent } from './components/credit-card/credit-card.compon
 import { ActivityComponent } from './components/activity/activity.component';
 import { IncomeOutcomeComponent } from './components/income-outcome/income-outcome.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { CardsComponent } from './pages/cards/cards.component';
+import { TransactionsComponent } from './pages/transactions/transactions.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +51,9 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     CreditCardComponent,
     ActivityComponent,
     IncomeOutcomeComponent,
-    NavbarComponent
+    NavbarComponent,
+    CardsComponent,
+    TransactionsComponent
   ],
   imports: [
     BrowserModule,

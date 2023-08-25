@@ -1,0 +1,19 @@
+<app-navbar>
+    <main>
+        <h1 class="title">Mis tarjetas</h1>
+        <section class="cards">
+            <div class="card">
+                <app-credit-card/>
+            </div>
+            <div class="card">
+                <app-income-outcome [isIncome]="true"/>
+            </div>
+            <div class="card">
+                <app-income-outcome [isIncome]="false"/>
+            </div>
+        </section>
+        <div class="balance">
+            <app-balance/>
+        </div>
+    </main>
+</app-navbar>

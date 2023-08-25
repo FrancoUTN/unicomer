@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { TransactionService } from 'src/app/services/transaction.service';
 
@@ -9,13 +10,21 @@ import { TransactionService } from 'src/app/services/transaction.service';
 })
 export class ActivityComponent {
   transactions: Array<any> = [];
-  public isMobile: boolean = false;
+  isMobile: boolean = false;
+  currentUrl: string = '';
 
-  constructor(private transactionService: TransactionService) {}
+  constructor(
+    private transactionService: TransactionService,
+    private router: Router) {}
 
   ngOnInit() {
     this.transactionService.loadCurrentUserTransactionsArray(this.transactions);
+
     const innerWidth = window.innerWidth;
     this.isMobile = innerWidth <= 900;
+    
+    this.router.events.subscribe(() => {
+      this.currentUrl = this.router.url;
+    });
   }
 }
