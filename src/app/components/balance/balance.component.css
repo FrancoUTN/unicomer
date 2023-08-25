@@ -1,8 +1,8 @@
 .balance-root {
-    padding-left: 5vh;
-    padding-right: 5vh;
     padding-top: 3vh;
+    padding-right: 5vh;
     padding-bottom: 2vh;
+    padding-left: 5vh;
 }
 
 .balance-root h4 {
@@ -12,6 +12,13 @@
 
 @media (max-width: 900px) {
     .balance-root {
-        padding: 3vh 1vh;
+        padding-top: 3vh;
+        padding-right: 2vh;
+        padding-bottom: 2vh;
+        padding-left: 2vh;
+    }
+
+    .balance-root h4 {
+        margin-bottom: .5rem;
     }
 }
