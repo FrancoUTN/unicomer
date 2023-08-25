@@ -3,13 +3,25 @@
       [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
       [mode]="(isHandset$ | async) ? 'over' : 'side'"
       [opened]="(isHandset$ | async) === false">
-    <mat-toolbar>Unicomer</mat-toolbar>
+    <div class="logo-container">
+      <p class="logo-text">Unicomer</p>
+    </div>
     <mat-nav-list>
-      <a mat-list-item href="#">Inicio</a>
-      <a mat-list-item href="#">Tarjetas</a>
-      <a mat-list-item href="#">Préstamos</a>
-      <a mat-list-item href="#">Operaciones</a>
-      <a mat-list-item href="#">Cerrar sesión</a>
+      <a
+        mat-list-item
+        *ngFor="let menuOption of this.menuOptions"        
+      >
+        <div class="menu-option">
+          <mat-icon
+            class="material-icons-outlined"
+            aria-label="Home icon"
+            fontIcon="{{menuOption.iconName}}"
+          ></mat-icon>
+          <span>
+            {{menuOption.description}}
+          </span>
+        </div>
+      </a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -33,8 +45,8 @@
         class="search-bar"
       >
         <mat-icon
-        fontIcon="search"
-        class="material-icons-outlined"
+          fontIcon="search"
+          class="material-icons-outlined"
         ></mat-icon>
         <p>Busca aquí</p>
       </div>

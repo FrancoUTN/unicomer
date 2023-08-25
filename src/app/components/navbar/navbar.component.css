@@ -19,6 +19,25 @@
 }
 
 /* Added */
+.logo-container {
+  height: 15vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo-text {
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.menu-option {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: #888;
+}
+
 .example-spacer {
   flex: 1 1 auto;
 }
