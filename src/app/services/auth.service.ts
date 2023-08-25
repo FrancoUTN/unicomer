@@ -1,5 +1,6 @@
 import { Injectable, inject } from '@angular/core';
-import { Auth, authState } from '@angular/fire/auth';
+import { Auth, User, authState } from '@angular/fire/auth';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,11 +14,15 @@ export class AuthService {
     return this.auth;
   }
   
-  getCurrentUser() {
-    return this.getAuth().currentUser
+  getCurrentUser(): User | null {
+    return this.getAuth().currentUser;
   }
 
-  getAuthState() {
+  getAuthState(): Observable<User | null> {
     return authState(this.auth);
+  }
+
+  signOut(): Promise<void> {
+    return this.auth.signOut();
   }
 }

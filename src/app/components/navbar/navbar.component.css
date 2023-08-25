@@ -1,3 +1,4 @@
+/* Schematic */
 .sidenav-container {
   height: 100%;
 }
@@ -14,4 +15,32 @@
   position: sticky;
   top: 0;
   z-index: 1;
+}
+
+/* Added */
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.header-toolbar {
+  background-color: #eee;
+}
+
+.account-buttons {
+  display: flex;
+  align-items: center;
+  gap: 1vh;
+}
+
+.icon-container {
+  border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+}
+
+.profile-picture {
+  width: 50px;
+  border-radius: 50%;
 }
