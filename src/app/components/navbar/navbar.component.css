@@ -1,6 +1,7 @@
 /* Schematic */
 .sidenav-container {
   height: 100%;
+  background-color: #f5f5f5;
 }
 
 .sidenav {
@@ -23,7 +24,6 @@
 }
 
 .header-toolbar {
-  background-color: #eee;
   padding: 2vh 6vh;
   height: auto;
 }

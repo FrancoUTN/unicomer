@@ -86,7 +86,7 @@ export class IncomeOutcomeComponent {
     this.months = await this.transactionService.getCurrentUserIncomeAndOutcome();
 
     this.lineChartData.datasets[0].label = this.isIncome ? 'Ingresos' : 'Egresos';
-    const chartColorRGB = this.isIncome ? '50, 50, 125' : '100, 150, 225';
+    const chartColorRGB = this.isIncome ? '39, 47, 101' : '93, 149, 190';
     this.lineChartData.datasets[0].backgroundColor = `rgba(${chartColorRGB},0.2)`;
     this.lineChartData.datasets[0].borderColor = `rgba(${chartColorRGB},1)`;
     
