@@ -26,9 +26,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 1rem;
+    justify-content: center;
     color: white;
     border-radius: 50%;
+    height: 72px;
     width: 72px;
 }
 
@@ -118,6 +119,24 @@
 
 @media (max-width: 900px) {
     .root {
+        height: 250px;
         border-radius: 12px;
+    }
+
+    .header {
+        height: 110px;
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+
+    .header-icons-container {
+        width: 56px;
+        height: 56px;
+    }
+    
+    .canvas-container {
+        height: 125px;
+        margin-left: -4px;
+        margin-right: -4px;
     }
 }
