@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 
 import { AuthService } from 'src/app/services/auth.service';
+import { UserService } from 'src/app/services/user.service';
 
 interface MenuOption {
   id: string,
@@ -22,6 +23,8 @@ export class NavbarComponent {
   private breakpointObserver = inject(BreakpointObserver);
   menuOptions: Array<MenuOption> = [];
   currentUrl: string = '';
+	firstName: string | any;
+	lastName: string | any;
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -31,13 +34,22 @@ export class NavbarComponent {
 
   constructor(
     private router: Router,
-    private authService: AuthService) {}
+    private authService: AuthService,
+    private userService: UserService) {}
 
   ngOnInit() {
     this.router.events.subscribe(() => {
       this.currentUrl = this.router.url;
     });
     
+    this.userService.getCurrentUserData().then(userData => {
+      if (!userData) {
+        throw new Error('No data to display');
+      }
+      this.firstName = userData.firstName;
+      this.lastName = userData.lastName;
+    });
+
     this.menuOptions = [
       {
         id: 'home',

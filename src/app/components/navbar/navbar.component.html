@@ -96,7 +96,7 @@
           class="profile-picture"
         >
         <p *ngIf="!(this.isHandset$ | async)">
-          Luz Deny
+          {{this.firstName + ' ' + this.lastName}}
         </p>
       </div>
     </mat-toolbar>
