@@ -125,6 +125,7 @@ export class TransactionService {
       );
       transaction.displayDate = transactionDate.format('DD MMM, YYYY');
       transaction.displayTime = transactionDate.format('hh:mm:ss A');
+      transaction.displayMobile = transactionDate.format('DD/MM');
       transactionsArray.unshift(transaction);
     });
     return;
