@@ -1,9 +1,17 @@
-.root {
+.base {
     background-color: #272f65;
     color: #fdfdfd;
     border-radius: 2rem;
     height: 100%;
     display: flex;
+}
+
+.loader-container {
+    justify-content: center;
+    align-items: center;
+}
+
+.root {
     flex-direction: column;
     padding: 2rem 3rem;
 }

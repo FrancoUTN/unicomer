@@ -2,7 +2,11 @@
   <h4>
     Balance
   </h4>
+  <div *ngIf="this.isLoading" class="loader-container">
+    <mat-progress-bar mode="indeterminate" color="accent"/>
+  </div>
   <canvas
+    *ngIf="!this.isLoading"
     baseChart
     class="chart"
     [data]="barChartData"

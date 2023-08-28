@@ -38,6 +38,10 @@ section {
         display: flex;
         flex-direction: column;
     }
+    
+    .card {
+        flex: auto;
+    }
 
     .balance-and-activity {
         display: flex;

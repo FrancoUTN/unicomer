@@ -31,6 +31,7 @@ export class IncomeOutcomeComponent {
   monthsDifference: number = 0;
   strMonthsDifference: string = '...';
   differenceWithLastMonth: DifferenceWithLastMonth = 'neutral';
+	isLoading: boolean = true;
 
   public lineChartData: ChartConfiguration['data'] = {
     datasets: [
@@ -93,6 +94,7 @@ export class IncomeOutcomeComponent {
     this.updateChart();
     this.setThisMonthTotal();
     this.calculateMonthsDifference();
+    this.isLoading = false;
   }
 
   updateChart() {

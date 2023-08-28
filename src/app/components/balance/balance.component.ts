@@ -12,6 +12,7 @@ import { TransactionService } from 'src/app/services/transaction.service';
 })
 export class BalanceComponent {
   @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
+	isLoading: boolean = true;
   
   public barChartOptions: ChartConfiguration['options'] = {
     responsive: true,
@@ -83,6 +84,7 @@ export class BalanceComponent {
     await this.setChartData();
 
     this.updateChart();
+    this.isLoading = false;
   }
 
   async setChartData() {

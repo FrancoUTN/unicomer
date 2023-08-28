@@ -90,12 +90,16 @@
             class="material-icons-outlined icon"
           ></mat-icon>
         </button>
+        <div *ngIf="this.isLoading" class="name-loader-container">
+          <mat-progress-bar mode="indeterminate" color="accent"/>
+        </div>
         <img
+          *ngIf="!this.isLoading"
           src="https://i.pravatar.cc/150?img=26"
           alt="Profile picture"
           class="profile-picture"
         >
-        <p *ngIf="!(this.isHandset$ | async)">
+        <p *ngIf="!(this.isHandset$ | async) && !this.isLoading">
           {{this.firstName + ' ' + this.lastName}}
         </p>
       </div>

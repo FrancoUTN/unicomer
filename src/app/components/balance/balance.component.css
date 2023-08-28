@@ -10,6 +10,10 @@
     margin-bottom: 1rem;
 }
 
+.loader-container {
+    padding-top: 2rem;
+}
+
 @media (max-width: 900px) {
     .balance-root {
         padding-top: 3vh;

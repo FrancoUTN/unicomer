@@ -10,6 +10,10 @@
     margin-left: 2rem;
 }
 
+.loader-container {
+    padding: 2rem;
+}
+
 .transaction-container {
     display: flex;
     justify-content: space-between;

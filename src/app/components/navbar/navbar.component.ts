@@ -25,6 +25,7 @@ export class NavbarComponent {
   currentUrl: string = '';
 	firstName: string | any;
 	lastName: string | any;
+	isLoading: boolean = true;
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -48,6 +49,7 @@ export class NavbarComponent {
       }
       this.firstName = userData.firstName;
       this.lastName = userData.lastName;
+      this.isLoading = false;
     });
 
     this.menuOptions = [

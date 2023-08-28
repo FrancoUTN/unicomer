@@ -11,6 +11,7 @@ export class CreditCardComponent {
 	balance: string = '...';
 	firstName: string | any;
 	lastName: string | any;
+	isLoading: boolean = true;
 
   constructor(
     private transactionService: TransactionService,
@@ -21,13 +22,15 @@ export class CreditCardComponent {
     .then(currentUserBalance => {
       const strBalance = currentUserBalance.toString();
       this.balance = strBalance.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-    })
-    this.userService.getCurrentUserData().then(userData => {
+    });
+    this.userService.getCurrentUserData()
+    .then(userData => {
       if (!userData) {
         throw new Error('No data to display');
       }
       this.firstName = userData.firstName;
       this.lastName = userData.lastName;
-    })
+      this.isLoading = false;
+    });
   }
 }

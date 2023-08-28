@@ -97,6 +97,10 @@
   border-radius: 50%;
 }
 
+.name-loader-container {
+  width: 250px;
+}
+
 @media (max-width: 900px) {
   .menu-icon {
     color: white;

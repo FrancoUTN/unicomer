@@ -12,13 +12,15 @@ export class ActivityComponent {
   transactions: Array<any> = [];
   isMobile: boolean = false;
   currentUrl: string = '';
+	isLoading: boolean = true;
 
   constructor(
     private transactionService: TransactionService,
     private router: Router) {}
 
   ngOnInit() {
-    this.transactionService.loadCurrentUserTransactionsArray(this.transactions);
+    this.transactionService.loadCurrentUserTransactionsArray(this.transactions)
+      .then(() => this.isLoading = false);
 
     const innerWidth = window.innerWidth;
     this.isMobile = innerWidth <= 900;

@@ -5,7 +5,10 @@
     <h2 *ngIf="this.currentUrl === '/transactions'">
         Todas las transacciones
     </h2>
-    <div>
+    <div *ngIf="this.isLoading" class="loader-container">
+      <mat-progress-bar mode="indeterminate" color="accent"/>
+    </div>
+    <div *ngIf="!this.isLoading">
         <div
             class="transaction-container"
             *ngFor="let transaction of this.transactions; let i = index"
