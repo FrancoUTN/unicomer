@@ -9,15 +9,15 @@ import { AuthService } from './auth.service';
 export class UserService {
   private firestore: Firestore = inject(Firestore);
   private usersRef = collection(this.firestore, 'users');
-  private currentUser = this.authService.getCurrentUser();
 
   constructor(private authService: AuthService) { }
 
-  async getCurrentUserData() {    
-    if (!this.currentUser) {
+  async getCurrentUserData() {
+    const currentUser = this.authService.getCurrentUser();
+    if (!currentUser) {
       throw new Error('There\'s no current user');
     }
-    const uid = this.currentUser.uid;
+    const uid = currentUser.uid;
     const docRef = doc(this.usersRef, uid);
     const docSnap = await getDoc(docRef);
     if (!docSnap.exists()) {
