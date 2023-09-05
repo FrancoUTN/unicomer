@@ -43,15 +43,15 @@ interface Transaction {
 export class TransactionService {
   private firestore: Firestore = inject(Firestore);
   private transactionsRef = collection(this.firestore, 'transactions');
-  private currentUser = this.authService.getCurrentUser();
 
   constructor(private authService: AuthService) { }
 
   private queryCurrentUserTransactions() {
-    if (!this.currentUser) {
+    const currentUser = this.authService.getCurrentUser();
+    if (!currentUser) {
       throw new Error('There\'s no current user to query')
     }
-    const uid = this.currentUser.uid
+    const uid = currentUser.uid
     return query(
       this.transactionsRef,
       or(
@@ -69,12 +69,13 @@ export class TransactionService {
   }
 
   async loadCurrentUserTransactionsArray(transactionsArray: Array<any>) {
+    const currentUser = this.authService.getCurrentUser();
+    if (!currentUser) {
+      throw new Error('There\'s no current user to calculate balance');
+    }
     const qsTransactions = await this.getCurrentUserTransactions();
     
     qsTransactions.forEach(qdsTransaction => {
-      if (!this.currentUser) {
-        throw new Error('There\'s no current user to calculate balance');
-      }
       const transaction = qdsTransaction.data();
       const transactionDate = dayjs(transaction.date.toDate());
       let isIncome: boolean = false;
@@ -84,11 +85,11 @@ export class TransactionService {
         case 'transfer':
             displayType = 'Transferencia';
             let otherUser: any;
-            if (transaction.sender.id === this.currentUser.uid) {
+            if (transaction.sender.id === currentUser.uid) {
               otherUser = transaction.receiver;
               isIncome = false;
             }
-            else if (transaction.receiver.id === this.currentUser.uid) {
+            else if (transaction.receiver.id === currentUser.uid) {
               otherUser = transaction.sender;
               isIncome = true;
             }
@@ -132,19 +133,20 @@ export class TransactionService {
   }
 
   async getCurrentUserBalance() {
+    const currentUser = this.authService.getCurrentUser();
+    if (!currentUser) {
+      throw new Error('There\'s no current user');
+    }
     const q = this.queryCurrentUserTransactions()
 		const qsTransactions = await getDocs(q);
     let accuBalance: number = 0;
     qsTransactions.forEach(qdsTransaction => {
-      if (!this.currentUser) {
-        throw new Error('There\'s no current user to calculate balance');
-      }
       const transaction = qdsTransaction.data();
       if (transaction.type === 'transfer') {
-        if (transaction.sender.id === this.currentUser.uid) {
+        if (transaction.sender.id === currentUser.uid) {
           accuBalance -= transaction.amount;
         }
-        else if (transaction.receiver.id === this.currentUser.uid) {
+        else if (transaction.receiver.id === currentUser.uid) {
           accuBalance += transaction.amount;
         }
         else {
@@ -165,6 +167,10 @@ export class TransactionService {
   }
 
   async getCurrentUserBalanceHistory() {
+    const currentUser = this.authService.getCurrentUser();
+    if (!currentUser) {
+      throw new Error('There\'s no current user');
+    }
     const q = this.queryCurrentUserTransactions();
 		const qsTransactions = await getDocs(q);
     let accuTotalBalance: number = 0;
@@ -173,9 +179,6 @@ export class TransactionService {
     let daysIndex = 0;
     let actualDay: any;
     qsTransactions.forEach(qdsTransaction => {
-      if (!this.currentUser) {
-        throw new Error('There\'s no current user to calculate balance history');
-      }
       const transaction = qdsTransaction.data();
       const transactionDate = dayjs(transaction.date.toDate());
       const transactionAmount = Number(transaction.amount);
@@ -193,10 +196,10 @@ export class TransactionService {
       }
 
       if (transactionType === 'transfer') {
-        if (transaction.sender.id === this.currentUser.uid) {
+        if (transaction.sender.id === currentUser.uid) {
           accuTotalBalance -= transactionAmount;
         }
-        else if (transaction.receiver.id === this.currentUser.uid) {
+        else if (transaction.receiver.id === currentUser.uid) {
           accuTotalBalance += transactionAmount;
         }
         else {
@@ -225,10 +228,11 @@ export class TransactionService {
 
   // Income-outcome
   private queryTransactionsFromDate(date: Timestamp) {
-    if (!this.currentUser) {
-      throw new Error('There\'s no current user to query')
+    const currentUser = this.authService.getCurrentUser();
+    if (!currentUser) {
+      throw new Error('There\'s no current user');
     }
-    const uid = this.currentUser.uid;
+    const uid = currentUser.uid;
     return query(this.transactionsRef,
       and(
         or(
@@ -305,13 +309,14 @@ export class TransactionService {
   }
 
   loadMonthDaysArray(monthDays: Array<Day>, transactions: Array<Transaction>) {
+    const currentUser = this.authService.getCurrentUser();
+    if (!currentUser) {
+      throw new Error('There\'s no current user to load month days array.');
+    }
     let accuDayIncome: number, accuDayOutcome: number;
     let i = 0;
 
     for (const day of monthDays) {
-      if (!this.currentUser) {
-        throw new Error('There\'s no current user to load month days array.');
-      }
       if (!transactions[i]) {
         break;
       }
@@ -327,10 +332,10 @@ export class TransactionService {
           const amount = Number(transactions[i].amount);          
           switch (transactions[i].type) {
             case 'transfer':
-                if (transactions[i].sender?.id === this.currentUser.uid) {
+                if (transactions[i].sender?.id === currentUser.uid) {
                   accuDayOutcome += amount;
                 }
-                else if (transactions[i].receiver?.id === this.currentUser.uid) {
+                else if (transactions[i].receiver?.id === currentUser.uid) {
                   accuDayIncome += amount;
                 }
                 else {
