@@ -1,10 +1,8 @@
-import { Component, inject } from '@angular/core';
-import { createUserWithEmailAndPassword } from '@angular/fire/auth';
-import { doc, setDoc, Firestore } from '@angular/fire/firestore';
+import { Component } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { AuthService } from 'src/app/services/auth.service';
+import { SignupService } from 'src/app/services/signup.service';
 
 interface DocumentType {
   value: string;
@@ -17,7 +15,6 @@ interface DocumentType {
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent {
-  private firestore: Firestore = inject(Firestore);
   // Add better validations (eg: no-spaces for passwords)
   signupForm: FormGroup = new FormGroup({
     'email': new FormControl(null, [
@@ -68,7 +65,7 @@ export class SignupComponent {
   get password() { return this.signupForm.get('password'); }
   get passwordRepeat() { return this.signupForm.get('passwordRepeat'); }
 
-  constructor(private router: Router, private authService: AuthService) { }
+  constructor(private router: Router, private signupService: SignupService) { }
   
   emptyValidator(control: AbstractControl): object | null {
     const valor = control.value;
@@ -97,27 +94,15 @@ export class SignupComponent {
   }
 
   onSubmit() {
-    const formValue = this.signupForm.value;
-    formValue.profilePicture = this.profilePicture;
-    console.log(formValue);
-    return;
     this.errorMessage = '';
     if (!this.signupForm.valid) {
       return;
     }
+    if (!this.profilePicture || this.profilePictureInvalid) {
+      return;
+    }
     this.isLoading = true;
-    createUserWithEmailAndPassword(
-      this.authService.getAuth(),
-      formValue.email,
-      formValue.passwordRepeat
-    ).then(uc => setDoc(doc(this.firestore, 'users', uc.user.uid), {
-      documentType: formValue.documentType,
-      documentNumber: Number(formValue.documentNumber),
-      email: formValue.email,
-      firstName: formValue.firstName,
-      lastName: formValue.lastName,
-      // profilePicture
-    }))
+    this.signupService.signUp(this.signupForm.value, this.profilePicture)
     .then(() => this.router.navigate(['/home']))
     .catch(error => {
       console.log(error.code);

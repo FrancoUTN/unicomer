@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { Firestore, collection, doc, getDoc } from '@angular/fire/firestore';
+import { Firestore, collection, doc, getDoc, setDoc } from '@angular/fire/firestore';
 
 import { AuthService } from './auth.service';
 
@@ -35,5 +35,19 @@ export class UserService {
     } else {
       return docSnap.data();
     }    
+  }
+
+  async createUser(formValue: any, uid: string, profilePictureURL: string) {
+    // It uses Firebase Authentication's automatically-generated user id
+    // as document id, and also saves it's image, which is hosted by
+    // Firebase Storage to a public url
+    return setDoc(doc(this.firestore, 'users', uid), {
+      documentType: formValue.documentType,
+      documentNumber: Number(formValue.documentNumber),
+      email: formValue.email,
+      firstName: formValue.firstName,
+      lastName: formValue.lastName,
+      profilePictureURL
+    });
   }
 }
