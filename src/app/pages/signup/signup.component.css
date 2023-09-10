@@ -11,6 +11,30 @@ mat-form-field {
     margin-bottom: 1rem;
 }
 
+.file-field {
+    margin-bottom: .5rem;
+}
+
+.file-field-button {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    height: 3rem;
+    margin-bottom: .5rem;
+}
+
+.file-field-button button {
+    flex: 1;
+}
+
+.file-field-info {
+    height: 3rem;
+}
+
+.file-name {
+    font-style: italic;
+}
+
 .mdc-text-field__input {
     color: #f5f5f5;
 }

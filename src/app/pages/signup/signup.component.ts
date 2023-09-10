@@ -18,12 +18,45 @@ interface DocumentType {
 })
 export class SignupComponent {
   private firestore: Firestore = inject(Firestore);
-  signupForm: FormGroup | any;
+  // Add better validations (eg: no-spaces for passwords)
+  signupForm: FormGroup = new FormGroup({
+    'email': new FormControl(null, [
+      Validators.required
+    ]),
+    'firstName': new FormControl(null, [
+      Validators.required
+    ]),
+    'lastName': new FormControl(null, [
+      Validators.required
+    ]),
+    'documentType': new FormControl(null, [
+      Validators.required
+    ]),
+    'documentNumber': new FormControl(null, [
+      Validators.required,
+      // Validators.min(999999),
+      Validators.max(99999999)
+    ]),
+    'password': new FormControl(null, [
+      Validators.required,
+      this.emptyValidator,
+      Validators.minLength(6)
+    ]),
+    'passwordRepeat': new FormControl(null, [
+      Validators.required,
+      this.emptyValidator,
+      Validators.minLength(6)
+    ]),
+  });
+  profilePicture: File | any = null;
+  profilePictureTouched: boolean = false;
+  profilePictureInvalid: boolean = false;
   documentTypes: DocumentType[] = [
     {value: 'dni', viewValue: 'DNI'},
     {value: 'cedula', viewValue: 'Cédula'},
     {value: 'pasaporte', viewValue: 'Pasaporte'},
   ];
+  selectedFile: any = null;
   isLoading: boolean = false;
   errorMessage: string = '';
 
@@ -35,41 +68,7 @@ export class SignupComponent {
   get password() { return this.signupForm.get('password'); }
   get passwordRepeat() { return this.signupForm.get('passwordRepeat'); }
 
-  constructor(private router: Router, private authService: AuthService) {
-  }
-
-  // Add better validations (eg: no-spaces for passwords)
-  ngOnInit() {    
-    this.signupForm = new FormGroup({
-      'email': new FormControl(null, [
-        Validators.required
-      ]),
-      'firstName': new FormControl(null, [
-        Validators.required
-      ]),
-      'lastName': new FormControl(null, [
-        Validators.required
-      ]),
-      'documentType': new FormControl(null, [
-        Validators.required
-      ]),
-      'documentNumber': new FormControl(null, [
-        Validators.required,
-        // Validators.min(999999),
-        Validators.max(99999999)
-      ]),
-      'password': new FormControl(null, [
-        Validators.required,
-        this.emptyValidator,
-        Validators.minLength(6)
-      ]),
-      'passwordRepeat': new FormControl(null, [
-        Validators.required,
-        this.emptyValidator,
-        Validators.minLength(6)
-      ]),
-    });
-  }
+  constructor(private router: Router, private authService: AuthService) { }
   
   emptyValidator(control: AbstractControl): object | null {
     const valor = control.value;
@@ -81,13 +80,32 @@ export class SignupComponent {
     return null;
   }
 
+  onFileSelected(event: any): void {
+    const file = event.target.files[0] ?? null;
+    if (!file) {
+      return;
+    }
+    this.profilePictureTouched = true;
+    this.profilePicture = file;
+    const isImage = file['type'].includes('image');
+    if (isImage) {
+      this.profilePictureInvalid = false;
+    }
+    else {
+      this.profilePictureInvalid = true;
+    }
+  }
+
   onSubmit() {
+    const formValue = this.signupForm.value;
+    formValue.profilePicture = this.profilePicture;
+    console.log(formValue);
+    return;
     this.errorMessage = '';
     if (!this.signupForm.valid) {
       return;
     }
     this.isLoading = true;
-    const formValue = this.signupForm.value;
     createUserWithEmailAndPassword(
       this.authService.getAuth(),
       formValue.email,
