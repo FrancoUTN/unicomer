@@ -1,5 +1,14 @@
 import { Injectable, inject } from '@angular/core';
-import { Firestore, collection, doc, getDoc, setDoc } from '@angular/fire/firestore';
+import {
+  Firestore,
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  orderBy,
+  query,
+  setDoc
+} from '@angular/fire/firestore';
 
 import { AuthService } from './auth.service';
 
@@ -27,6 +36,28 @@ export class UserService {
     }
   }
 
+  async getEveryOtherUser() {
+    const currentUser = this.authService.getCurrentUser();
+    if (!currentUser) {
+      throw new Error('There\'s no current user');
+    }
+    // As it orders based in ASCII (I think), we should force
+    // uppercase names at signup (and, potentially, in profile editing)
+    const q = query(
+      this.usersRef,
+      orderBy('firstName', 'asc')
+    );
+    const qsUsers = await getDocs(q);
+    const otherUsers: Array<any> = [];
+    qsUsers.forEach(qdsUser => {
+      if (qdsUser.id !== currentUser.uid) {
+        const user = qdsUser.data();
+        otherUsers.push(user);
+      }
+    });
+    return otherUsers;
+  }
+
   async getUserById(uid: string) {
     const docRef = doc(this.usersRef, uid);
     const docSnap = await getDoc(docRef);
@@ -34,7 +65,7 @@ export class UserService {
       throw new Error('User document doesn\'t exist');
     } else {
       return docSnap.data();
-    }    
+    }
   }
 
   async createUser(formValue: any, uid: string, profilePictureURL: string) {
@@ -42,8 +73,8 @@ export class UserService {
     // as document id, and also saves it's image, which is hosted by
     // Firebase Storage to a public url
     return setDoc(doc(this.firestore, 'users', uid), {
-      documentType: formValue.documentType,
       documentNumber: Number(formValue.documentNumber),
+      documentType: formValue.documentType,
       email: formValue.email,
       firstName: formValue.firstName,
       lastName: formValue.lastName,

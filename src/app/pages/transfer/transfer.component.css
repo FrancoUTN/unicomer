@@ -1,0 +1,9 @@
+main {
+    width: 100%;
+    padding: 3vh 6vh;
+}
+
+.title {
+    font-weight: 600;
+    margin-bottom: 4vh;
+}

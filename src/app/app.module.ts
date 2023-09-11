@@ -38,6 +38,7 @@ import { IncomeOutcomeComponent } from './components/income-outcome/income-outco
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { CardsComponent } from './pages/cards/cards.component';
 import { TransactionsComponent } from './pages/transactions/transactions.component';
+import { TransferComponent } from './pages/transfer/transfer.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { TransactionsComponent } from './pages/transactions/transactions.compone
     IncomeOutcomeComponent,
     NavbarComponent,
     CardsComponent,
-    TransactionsComponent
+    TransactionsComponent,
+    TransferComponent
   ],
   imports: [
     BrowserModule,

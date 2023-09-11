@@ -77,6 +77,7 @@ export class NavbarComponent {
         id: 'transfer',
         iconName: 'people_alt',
         description: 'Transferir',
+        route: '/transfer',
       },
       {
         id: 'logout',
@@ -87,7 +88,6 @@ export class NavbarComponent {
   }
 
   async onMenuOptionClick(menuOptionID: string) {
-    console.log(menuOptionID);
     switch (menuOptionID) {
       case 'logout':
         await this.authService.signOut();

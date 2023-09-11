@@ -11,6 +11,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { CardsComponent } from './pages/cards/cards.component';
 import { TransactionsComponent } from './pages/transactions/transactions.component';
+import { TransferComponent } from './pages/transfer/transfer.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'auth/login', pathMatch: 'full' },
@@ -32,6 +33,11 @@ const routes: Routes = [
   {
     path: 'transactions',
     component: TransactionsComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'transfer',
+    component: TransferComponent,
     canActivate: [AuthGuard],
   },
   { path: '**', component: NotFoundComponent },
