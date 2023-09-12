@@ -1,18 +1,25 @@
 <app-navbar>
     <main>
         <h1 class="title">Transferir dinero</h1>
-        <section>
+        <section
+            *ngIf="!this.selectedUser"
+            class="list-section"
+        >
             <h2>¿A quién le querés transferir?</h2>
             <ul class="unordered-list">
                 <li
                     *ngFor="let user of this.otherUsers; let i = index"
                     class="list-item" 
                     [ngClass]="{'odd-user-container': i % 2 !== 0}"
+                    (click)="this.onUserClick(user)"
                 >
                     <div class="image-container">
                         <img
                             class="user-image"
-                            [src]="user.profilePictureURL || 'https://i.pravatar.cc/150?img=26'"
+                            [src]="
+                                user.profilePictureURL ||
+                                'https://i.pravatar.cc/150?img=26'
+                            "
                             alt="Other user's picture"
                         >
                     </div>
@@ -36,6 +43,73 @@
                     </div>
                 </li>
             </ul>
+        </section>
+        <section
+            *ngIf="this.selectedUser"
+            class="input-section"
+        >
+            <h2>Vas a transferirle a</h2>
+            <div class="list-item">
+                <div class="image-container">
+                    <img
+                        class="user-image"
+                        [src]="
+                            this.selectedUser.profilePictureURL ||
+                            'https://i.pravatar.cc/150?img=26'
+                        "
+                        alt="Other user's picture"
+                    >
+                </div>
+                <p class="fullname-container">
+                    <span>
+                        {{this.selectedUser.firstName}}
+                    </span>
+                    <span>
+                        {{this.selectedUser.lastName}}
+                    </span>
+                </p>
+                <p class="email-container">
+                    <span class="user-email">
+                        {{this.selectedUser.email}}
+                    </span>
+                </p>
+            </div>
+            <h4>Monto:</h4>
+            <mat-form-field>
+                <mat-label>ARS</mat-label>
+                <input
+                    matInput
+                    type="number"
+                    [formControl]="transferAmount"
+                >
+            </mat-form-field>
+            <p class="error" *ngIf="this.notEnoughBalanceError">
+                Error: saldo insuficiente.
+            </p>
+            <p class="error" *ngIf="
+                this.transferAmount.touched &&
+                this.transferAmountNotDefinedError
+            ">
+                Ingresa un monto.
+            </p>
+            <p class="error" *ngIf="this.invalidTransferAmountError">
+                Error: valor inválido.
+            </p>
+            <div>
+                <h4>Tu saldo:</h4>
+                <p>$ {{this.balance}}</p>
+            </div>
+            <button
+                mat-flat-button
+                [disabled]="
+                    !this.transferAmount.touched ||
+                    this.notEnoughBalanceError ||
+                    this.transferAmountNotDefinedError ||
+                    this.invalidTransferAmountError
+                "
+            >
+                Continuar
+            </button>
         </section>
     </main>
 </app-navbar>

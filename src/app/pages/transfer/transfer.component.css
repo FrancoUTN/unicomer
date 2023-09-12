@@ -74,3 +74,8 @@ h2 {
     color: #416191;
     font-weight: 500;
 }
+
+.error {
+    height: 1rem;
+    color: #ec595b;
+}
