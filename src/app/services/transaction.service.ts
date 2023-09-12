@@ -376,12 +376,12 @@ export class TransactionService {
 
   async transferMoney(amount: number, receiver: any) {
     const currentUser = await this.userService.getCurrentUserData();
-    const customSender = {   
+    const customSender: TransferUser = {   
       firstName: currentUser.firstName,
       lastName: currentUser.lastName,
       id: currentUser.id,
     };
-    const customReceiver = {
+    const customReceiver: TransferUser = {
       firstName: receiver.firstName,
       lastName: receiver.lastName,
       id: receiver.id,

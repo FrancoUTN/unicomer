@@ -142,6 +142,11 @@ h4 {
     gap: 2rem;
 }
 
+.summary-info p {
+    font-size: 1.2rem;
+    margin-bottom: .5rem;
+}
+
 .spinner-or-error {
     height: 2rem;
     display: flex;

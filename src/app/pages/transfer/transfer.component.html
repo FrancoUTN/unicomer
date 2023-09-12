@@ -47,7 +47,8 @@
         <section
             *ngIf="
                 this.selectedUser &&
-                !this.isConfirmSection
+                !this.isConfirmSection &&
+                !this.isSummarySection
             "
             class="input-section"
         >
@@ -123,7 +124,6 @@
                 Continuar
             </button>
         </section>
-        
         <section
             *ngIf="this.isConfirmSection"
             class="confirm-section"
@@ -177,6 +177,56 @@
                     (click)="onConfirmClick()"
                 >
                     Aceptar
+                </button>
+            </div>
+        </section>
+        <section
+            *ngIf="this.isSummarySection"
+            class="summary-section"
+        >
+            <h2>¡Hecho!</h2>
+            <h4 class="receiver-title">Datos de la operación:</h4>
+            <div class="summary-info">
+                <p>
+                {{
+                    'De: ' +
+                    this.transferData.sender.firstName +
+                    ' ' +
+                    this.transferData.sender.lastName +
+                    ' (Tú)'
+                }}
+                </p>
+                <p>
+                {{
+                    'Para: ' +
+                    this.transferData.receiver.firstName +
+                    ' ' +
+                    this.transferData.receiver.lastName
+                }}
+                </p>
+                <p>
+                    Monto: ${{this.transferData.amount}}
+                </p>
+                <p>
+                    Fecha: {{this.transferData.date}}
+                </p>
+            </div>
+            <h4 class="confirm-question">
+                ¿Qué deseas hacer?
+            </h4>
+            <div class="confirm-buttons">
+                <button
+                    mat-raised-button
+                    (click)="onGoHomeClick()"
+                >
+                    Volver al inicio
+                </button>            
+                <button
+                    mat-raised-button
+                    color="primary"
+                    (click)="onNewTransferClick()"
+                >
+                    Otra transferencia
                 </button>
             </div>
         </section>
