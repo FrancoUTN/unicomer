@@ -49,7 +49,7 @@
             class="input-section"
         >
             <h2>Vas a transferirle a</h2>
-            <div class="list-item">
+            <div class="selected-user">
                 <div class="image-container">
                     <img
                         class="user-image"
@@ -60,47 +60,55 @@
                         alt="Other user's picture"
                     >
                 </div>
-                <p class="fullname-container">
-                    <span>
-                        {{this.selectedUser.firstName}}
-                    </span>
-                    <span>
-                        {{this.selectedUser.lastName}}
-                    </span>
-                </p>
-                <p class="email-container">
-                    <span class="user-email">
-                        {{this.selectedUser.email}}
-                    </span>
-                </p>
+                <div class="selected-user-info">
+                    <p class="fullname-container">
+                        <span>
+                            {{this.selectedUser.firstName}}
+                        </span>
+                        <span>
+                            {{this.selectedUser.lastName}}
+                        </span>
+                    </p>
+                    <p class="email-container">
+                        <span class="user-email">
+                            {{this.selectedUser.email}}
+                        </span>
+                    </p>
+                </div>
             </div>
-            <h4>Monto:</h4>
-            <mat-form-field>
-                <mat-label>ARS</mat-label>
-                <input
-                    matInput
-                    type="number"
-                    [formControl]="transferAmount"
-                >
-            </mat-form-field>
-            <p class="error" *ngIf="this.notEnoughBalanceError">
-                Error: saldo insuficiente.
-            </p>
-            <p class="error" *ngIf="
-                this.transferAmount.touched &&
-                this.transferAmountNotDefinedError
-            ">
-                Ingresa un monto.
-            </p>
-            <p class="error" *ngIf="this.invalidTransferAmountError">
-                Error: valor inválido.
-            </p>
             <div>
-                <h4>Tu saldo:</h4>
-                <p>$ {{this.balance}}</p>
+                <h4 class="amount-title">Monto:</h4>
+                <mat-form-field appearance="outline">
+                    <mat-label>ARS</mat-label>
+                    <input
+                        matInput
+                        type="number"
+                        [formControl]="transferAmount"
+                    >
+                    <span matTextPrefix>$&nbsp;</span>
+                </mat-form-field>
+                <div class="error-container">
+                    <p class="error" *ngIf="this.notEnoughBalanceError">
+                        Error: saldo insuficiente.
+                    </p>
+                    <p class="error" *ngIf="
+                        this.transferAmount.touched &&
+                        this.transferAmountNotDefinedError
+                    ">
+                        Ingresa un monto.
+                    </p>
+                    <p class="error" *ngIf="this.invalidTransferAmountError">
+                        Error: valor inválido.
+                    </p>
+                </div>
+            </div>
+            <div>
+                <h4>Tu saldo actual:</h4>
+                <p class="balance">$ {{this.strBalance}}</p>
             </div>
             <button
-                mat-flat-button
+                mat-raised-button
+                color="primary"
                 [disabled]="
                     this.transferAmount.pristine ||
                     this.notEnoughBalanceError ||
