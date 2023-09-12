@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FirebaseError } from '@angular/fire/app';
 import { FormControl } from '@angular/forms';
 
 import { TransactionService } from 'src/app/services/transaction.service';
@@ -10,7 +11,8 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./transfer.component.css']
 })
 export class TransferComponent {
-	isLoading: boolean = true;
+	isLoading: boolean = false;
+  errorMessage: string = '';
   otherUsers: Array<any> = [];
   selectedUser: any;
   transferAmount = new FormControl('');
@@ -67,7 +69,21 @@ export class TransferComponent {
     this.isConfirmSection = false;
   }
 
-  onConfirmClick() {
-    // TODO
+  async onConfirmClick() {
+    this.isLoading = true;
+    this.errorMessage = '';
+    let transferData;
+    try {
+      transferData = await this.transactionService.transferMoney(
+        Number(this.transferAmount.value),
+        this.selectedUser);
+    } catch (error) {
+      if (error instanceof FirebaseError) {
+        console.error(error.code);
+        this.errorMessage = error.message;
+      }
+    }
+    this.isLoading = false;
+    console.log(transferData);
   }
 }

@@ -2,17 +2,21 @@ import { Injectable, inject } from '@angular/core';
 import {
   Firestore,
   Timestamp,
+  addDoc,
   and,
   collection,
+  getDoc,
   getDocs,
   or,
   orderBy,
   query,
+  serverTimestamp,
   where
 } from '@angular/fire/firestore';
 import * as dayjs from 'dayjs';
 
 import { AuthService } from './auth.service';
+import { UserService } from './user.service';
 
 type Dayjs = dayjs.Dayjs;
 
@@ -44,7 +48,9 @@ export class TransactionService {
   private firestore: Firestore = inject(Firestore);
   private transactionsRef = collection(this.firestore, 'transactions');
 
-  constructor(private authService: AuthService) { }
+  constructor(
+    private authService: AuthService,
+    private userService: UserService) { }
 
   private queryCurrentUserTransactions() {
     const currentUser = this.authService.getCurrentUser();
@@ -366,5 +372,29 @@ export class TransactionService {
       day.dayIncome = accuDayIncome;
       day.dayOutcome = accuDayOutcome;
     }
+  }
+
+  async transferMoney(amount: number, receiver: any) {
+    const currentUser = await this.userService.getCurrentUserData();
+    const customSender = {   
+      firstName: currentUser.firstName,
+      lastName: currentUser.lastName,
+      id: currentUser.id,
+    };
+    const customReceiver = {
+      firstName: receiver.firstName,
+      lastName: receiver.lastName,
+      id: receiver.id,
+    };
+    const newTransaction = {
+      amount,
+      date: serverTimestamp(),
+      receiver: customReceiver,
+      sender: customSender,
+      type: 'transfer',      
+    };
+    const docRef = await addDoc(this.transactionsRef, newTransaction);
+    const docSnap = await getDoc(docRef);
+    return docSnap.data();
   }
 }

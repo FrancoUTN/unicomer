@@ -32,7 +32,9 @@ export class UserService {
     if (!docSnap.exists()) {
       throw new Error('User document doesn\'t exist');
     } else {
-      return docSnap.data();
+      const user: any = docSnap.data();
+      user.id = uid;
+      return user;
     }
   }
 
@@ -52,6 +54,7 @@ export class UserService {
     qsUsers.forEach(qdsUser => {
       if (qdsUser.id !== currentUser.uid) {
         const user = qdsUser.data();
+        user.id = qdsUser.id;
         otherUsers.push(user);
       }
     });
