@@ -117,3 +117,27 @@ h4 {
     text-align: center;
     font-size: 2rem;
 }
+
+.confirm-section h4 {
+    font-weight: 400;
+}
+
+.receiver-title {
+    margin-bottom: -2vh;
+    text-align: left;
+    font-size: 1.6rem;
+}
+
+.entered-amount {
+    font-size: 1.6rem;
+    font-weight: 500;
+}
+
+.confirm-question {
+    font-size: 1.6rem;
+}
+
+.confirm-buttons {
+    display: flex;
+    gap: 2rem;
+}

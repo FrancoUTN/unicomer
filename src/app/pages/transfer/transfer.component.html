@@ -45,7 +45,10 @@
             </ul>
         </section>
         <section
-            *ngIf="this.selectedUser"
+            *ngIf="
+                this.selectedUser &&
+                !this.isConfirmSection
+            "
             class="input-section"
         >
             <h2>Vas a transferirle a</h2>
@@ -115,9 +118,67 @@
                     this.transferAmountNotDefinedError ||
                     this.invalidTransferAmountError
                 "
+                (click)="onContinueClick()"
             >
                 Continuar
             </button>
+        </section>
+        
+        <section
+            *ngIf="this.isConfirmSection"
+            class="confirm-section"
+        >
+            <h2>Revisa los datos</h2>
+            <h4 class="receiver-title">Destinatario:</h4>
+            <div class="selected-user">
+                <div class="image-container">
+                    <img
+                        class="user-image"
+                        [src]="
+                            this.selectedUser.profilePictureURL ||
+                            'https://i.pravatar.cc/150?img=26'
+                        "
+                        alt="Other user's picture"
+                    >
+                </div>
+                <div class="selected-user-info">
+                    <p class="fullname-container">
+                        <span>
+                            {{this.selectedUser.firstName}}
+                        </span>
+                        <span>
+                            {{this.selectedUser.lastName}}
+                        </span>
+                    </p>
+                    <p class="email-container">
+                        <span class="user-email">
+                            {{this.selectedUser.email}}
+                        </span>
+                    </p>
+                </div>
+            </div>
+            <p class="entered-amount">
+                Monto: $ {{this.transferAmount.value}}
+            </p>
+            <h4 class="confirm-question">
+                ¿Confirmas la operación?
+            </h4>
+            <div class="confirm-buttons">
+                <button
+                    mat-raised-button
+                    color="warn"
+                    (click)="onCancelClick()"
+                >
+                    Cancelar
+                </button>            
+                <button
+                    mat-raised-button
+                    color="primary"
+                    (click)="onConfirmClick()"
+                >
+                    Aceptar
+                </button>
+            </div>
         </section>
     </main>
 </app-navbar>

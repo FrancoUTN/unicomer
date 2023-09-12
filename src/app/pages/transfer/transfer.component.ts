@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { TransactionService } from 'src/app/services/transaction.service';
 
+import { TransactionService } from 'src/app/services/transaction.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -19,6 +19,7 @@ export class TransferComponent {
   invalidTransferAmountError: boolean = false;
 	balance: number|any;
 	strBalance: string = '...';
+  isConfirmSection: boolean = false;
 
   constructor(
     private transactionService: TransactionService,
@@ -56,5 +57,17 @@ export class TransferComponent {
 
   onUserClick(user: any) {
     this.selectedUser = user;
+  }
+
+  onContinueClick() {
+    this.isConfirmSection = true;
+  }
+
+  onCancelClick() {
+    this.isConfirmSection = false;
+  }
+
+  onConfirmClick() {
+    // TODO
   }
 }
