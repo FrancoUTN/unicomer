@@ -102,7 +102,7 @@
             <button
                 mat-flat-button
                 [disabled]="
-                    !this.transferAmount.touched ||
+                    this.transferAmount.pristine ||
                     this.notEnoughBalanceError ||
                     this.transferAmountNotDefinedError ||
                     this.invalidTransferAmountError
