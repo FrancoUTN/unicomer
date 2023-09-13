@@ -10,30 +10,18 @@
         >
             <h2>¿Cuánto vas a ingresar?</h2>
             <div>
-                <h4 class="amount-title">Monto:</h4>
                 <app-amount-input [control]="this.transactionAmount"/>
                 <app-amount-errors
                     [errors]="this.amountErrors"
                     [touched]="this.transactionAmount.touched"
                 />
             </div>
-            <div>
-                <h4>Tu saldo actual:</h4>
-                <p class="balance">$ {{this.strBalance}}</p>
-            </div>
-            <button
-                mat-raised-button
-                color="primary"
-                [disabled]="
-                    this.transactionAmount.pristine ||
-                    this.amountErrors.required ||
-                    this.amountErrors.invalid ||
-                    this.amountErrors.tooLow
-                "
-                (click)="onContinueClick()"
-            >
-                Continuar
-            </button>
+            <app-balance-value [balance]="this.strBalance"/>
+            <app-continue-button
+                [errors]="this.amountErrors"
+                [pristine]="this.transactionAmount.pristine"
+                (onClick)="onContinueClick()"
+            />
         </section>
         <section
             *ngIf="this.isConfirmSection"

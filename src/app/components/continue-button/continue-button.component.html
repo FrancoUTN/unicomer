@@ -1,0 +1,14 @@
+<button
+    mat-raised-button
+    color="primary"
+    [disabled]="
+        this.pristine ||
+        this.errors.required ||
+        this.errors.invalid ||
+        this.errors.tooLow ||
+        this.errors.notEnoughBalance
+    "
+    (click)="this.onClick.emit()"
+>
+    Continuar
+</button>

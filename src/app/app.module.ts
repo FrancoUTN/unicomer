@@ -44,6 +44,8 @@ import { SpinnerOrErrorComponent } from './components/spinner-or-error/spinner-o
 import { BinaryQuestionComponent } from './components/binary-question/binary-question.component';
 import { AmountInputComponent } from './components/amount-input/amount-input.component';
 import { AmountErrorsComponent } from './components/amount-errors/amount-errors.component';
+import { BalanceValueComponent } from './components/balance-value/balance-value.component';
+import { ContinueButtonComponent } from './components/continue-button/continue-button.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +68,9 @@ import { AmountErrorsComponent } from './components/amount-errors/amount-errors.
     SpinnerOrErrorComponent,
     BinaryQuestionComponent,
     AmountInputComponent,
-    AmountErrorsComponent
+    AmountErrorsComponent,
+    BalanceValueComponent,
+    ContinueButtonComponent
   ],
   imports: [
     BrowserModule,

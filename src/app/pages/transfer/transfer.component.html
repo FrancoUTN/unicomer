@@ -81,31 +81,18 @@
                 </div>
             </div>
             <div>
-                <h4 class="amount-title">Monto:</h4>
                 <app-amount-input [control]="this.transferAmount"/>
                 <app-amount-errors
                     [errors]="this.amountErrors"
                     [touched]="this.transferAmount.touched"
                 />
             </div>
-            <div>
-                <h4>Tu saldo actual:</h4>
-                <p class="balance">$ {{this.strBalance}}</p>
-            </div>
-            <button
-                mat-raised-button
-                color="primary"
-                [disabled]="
-                    this.transferAmount.pristine ||
-                    this.amountErrors.required ||
-                    this.amountErrors.invalid ||
-                    this.amountErrors.tooLow ||
-                    this.amountErrors.notEnoughBalance
-                "
-                (click)="onContinueClick()"
-            >
-                Continuar
-            </button>
+            <app-balance-value [balance]="this.strBalance"/>
+            <app-continue-button
+                [errors]="this.amountErrors"
+                [pristine]="this.transferAmount.pristine"
+                (onClick)="onContinueClick()"
+            />
         </section>
         <section
             *ngIf="this.isConfirmSection"
@@ -187,9 +174,6 @@
                     Fecha: {{this.transferData.date}}
                 </p>
             </div>
-            <h4 class="confirm-question">
-                ¿Qué deseas hacer?
-            </h4>
             <app-binary-question
                 questionText="¿Qué deseas hacer?"
                 cancelText="Volver al inicio"
