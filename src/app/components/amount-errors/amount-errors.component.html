@@ -1,0 +1,17 @@
+<div class="error-container" *ngIf="this.errors">
+    <p class="error" *ngIf="
+        this.touched &&
+        this.errors.required
+    ">
+        Ingresa un monto.
+    </p>
+    <p class="error" *ngIf="this.errors.invalid">
+        Ingresa solo números.
+    </p>
+    <p class="error" *ngIf="this.errors.tooLow">
+        El valor debe ser mayor que 0.
+    </p>    
+    <p class="error" *ngIf="this.errors.notEnoughBalance">
+        Error: saldo insuficiente.
+    </p>
+</div>

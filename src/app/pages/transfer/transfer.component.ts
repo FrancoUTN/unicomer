@@ -19,10 +19,12 @@ export class TransferComponent {
   otherUsers: Array<any> = [];
   selectedUser: any;
   transferAmount = new FormControl('');
-  notEnoughBalanceError: boolean = false;
-  transferAmountNotDefinedError: boolean = true;
-  invalidTransferAmountError: boolean = false;
-  tooLowTransferAmountError: boolean = false;
+  amountErrors: any = {
+    required: false,
+    invalid: false,
+    tooLow: false,
+    notEnoughBalance: false,
+  };
 	balance: number|any;
 	strBalance: string = '...';
   isConfirmSection: boolean = false;
@@ -62,24 +64,24 @@ export class TransferComponent {
       this.setBalanceProperties(balance);
       // Input validation
       this.transferAmount.valueChanges.subscribe(value => {
-        this.transferAmountNotDefinedError = false;
-        this.notEnoughBalanceError = false;
-        this.invalidTransferAmountError = false;
-        this.tooLowTransferAmountError = false;
+        this.amountErrors.required = false
+        this.amountErrors.invalid = false;
+        this.amountErrors.tooLow = false;
+        this.amountErrors.notEnoughBalance = false;
         if (!value) {
-          this.transferAmountNotDefinedError = true;
+          this.amountErrors.required = true;
         }
         else {
           const onlyNumbersRegexp = /^\d+$/;
           if (!onlyNumbersRegexp.test(value)) {
-            this.invalidTransferAmountError = true;
+            this.amountErrors.invalid = true;
           }
           const amount = Number(value);
           if (amount > this.balance) {
-            this.notEnoughBalanceError = true;
+            this.amountErrors.notEnoughBalance = true;
           }
           if (amount <= 0) {
-            this.tooLowTransferAmountError = true;
+            this.amountErrors.tooLow = true;
           }
         }
       });

@@ -83,23 +83,10 @@
             <div>
                 <h4 class="amount-title">Monto:</h4>
                 <app-amount-input [control]="this.transferAmount"/>
-                <div class="error-container">
-                    <p class="error" *ngIf="this.notEnoughBalanceError">
-                        Error: saldo insuficiente.
-                    </p>
-                    <p class="error" *ngIf="
-                        this.transferAmount.touched &&
-                        this.transferAmountNotDefinedError
-                    ">
-                        Ingresa un monto.
-                    </p>
-                    <p class="error" *ngIf="this.invalidTransferAmountError">
-                        Ingresa solo números.
-                    </p>
-                    <p class="error" *ngIf="this.tooLowTransferAmountError">
-                        El valor debe ser mayor que 0.
-                    </p>
-                </div>
+                <app-amount-errors
+                    [errors]="this.amountErrors"
+                    [touched]="this.transferAmount.touched"
+                />
             </div>
             <div>
                 <h4>Tu saldo actual:</h4>
@@ -110,10 +97,10 @@
                 color="primary"
                 [disabled]="
                     this.transferAmount.pristine ||
-                    this.notEnoughBalanceError ||
-                    this.transferAmountNotDefinedError ||
-                    this.invalidTransferAmountError ||
-                    this.tooLowTransferAmountError
+                    this.amountErrors.required ||
+                    this.amountErrors.invalid ||
+                    this.amountErrors.tooLow ||
+                    this.amountErrors.notEnoughBalance
                 "
                 (click)="onContinueClick()"
             >

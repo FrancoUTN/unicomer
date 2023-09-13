@@ -16,9 +16,11 @@ export class DepositComponent {
 	isLoading: boolean = false;
   errorMessage: string = '';
   transactionAmount = new FormControl('');
-  transactionAmountNotDefinedError: boolean = true;
-  invalidTransactionAmountError: boolean = false;
-  tooLowTransactionAmountError: boolean = false;
+  amountErrors: any = {
+    required: false,
+    invalid: false,
+    tooLow: false,
+  };
 	balance: number|any;
 	strBalance: string = '...';
   isConfirmSection: boolean = false;
@@ -56,20 +58,20 @@ export class DepositComponent {
       this.setBalanceProperties(balance);
       // Input validation
       this.transactionAmount.valueChanges.subscribe(value => {
-        this.transactionAmountNotDefinedError = false;
-        this.invalidTransactionAmountError = false;
-        this.tooLowTransactionAmountError = false;
+        this.amountErrors.required = false
+        this.amountErrors.invalid = false;
+        this.amountErrors.tooLow = false;
         if (!value) {
-          this.transactionAmountNotDefinedError = true;
+          this.amountErrors.required = true;
         }
         else {
           const onlyNumbersRegexp = /^\d+$/;
           if (!onlyNumbersRegexp.test(value)) {
-            this.invalidTransactionAmountError = true;
+            this.amountErrors.invalid = true;
           }
           const amount = Number(value);
           if (amount <= 0) {
-            this.tooLowTransactionAmountError = true;
+            this.amountErrors.tooLow = true;
           }
         }
       });

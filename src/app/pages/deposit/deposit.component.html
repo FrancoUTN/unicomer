@@ -12,20 +12,10 @@
             <div>
                 <h4 class="amount-title">Monto:</h4>
                 <app-amount-input [control]="this.transactionAmount"/>
-                <div class="error-container">
-                    <p class="error" *ngIf="
-                        this.transactionAmount.touched &&
-                        this.transactionAmountNotDefinedError
-                    ">
-                        Ingresa un monto.
-                    </p>
-                    <p class="error" *ngIf="this.invalidTransactionAmountError">
-                        Ingresa solo números.
-                    </p>
-                    <p class="error" *ngIf="this.tooLowTransactionAmountError">
-                        El valor debe ser mayor que 0.
-                    </p>
-                </div>
+                <app-amount-errors
+                    [errors]="this.amountErrors"
+                    [touched]="this.transactionAmount.touched"
+                />
             </div>
             <div>
                 <h4>Tu saldo actual:</h4>
@@ -36,9 +26,9 @@
                 color="primary"
                 [disabled]="
                     this.transactionAmount.pristine ||
-                    this.transactionAmountNotDefinedError ||
-                    this.invalidTransactionAmountError ||
-                    this.tooLowTransactionAmountError
+                    this.amountErrors.required ||
+                    this.amountErrors.invalid ||
+                    this.amountErrors.tooLow
                 "
                 (click)="onContinueClick()"
             >
