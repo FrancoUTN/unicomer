@@ -82,15 +82,7 @@
             </div>
             <div>
                 <h4 class="amount-title">Monto:</h4>
-                <mat-form-field appearance="outline">
-                    <mat-label>ARS</mat-label>
-                    <input
-                        matInput
-                        type="tel"
-                        [formControl]="transferAmount"
-                    >
-                    <span matTextPrefix>$&nbsp;</span>
-                </mat-form-field>
+                <app-amount-input [control]="this.transferAmount"/>
                 <div class="error-container">
                     <p class="error" *ngIf="this.notEnoughBalanceError">
                         Error: saldo insuficiente.

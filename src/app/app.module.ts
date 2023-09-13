@@ -42,6 +42,7 @@ import { TransferComponent } from './pages/transfer/transfer.component';
 import { DepositComponent } from './pages/deposit/deposit.component';
 import { SpinnerOrErrorComponent } from './components/spinner-or-error/spinner-or-error.component';
 import { BinaryQuestionComponent } from './components/binary-question/binary-question.component';
+import { AmountInputComponent } from './components/amount-input/amount-input.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import { BinaryQuestionComponent } from './components/binary-question/binary-que
     TransferComponent,
     DepositComponent,
     SpinnerOrErrorComponent,
-    BinaryQuestionComponent
+    BinaryQuestionComponent,
+    AmountInputComponent
   ],
   imports: [
     BrowserModule,

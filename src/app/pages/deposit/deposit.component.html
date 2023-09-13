@@ -11,15 +11,7 @@
             <h2>¿Cuánto vas a ingresar?</h2>
             <div>
                 <h4 class="amount-title">Monto:</h4>
-                <mat-form-field appearance="outline">
-                    <mat-label>ARS</mat-label>
-                    <input
-                        matInput
-                        type="tel"
-                        [formControl]="transactionAmount"
-                    >
-                    <span matTextPrefix>$&nbsp;</span>
-                </mat-form-field>
+                <app-amount-input [control]="this.transactionAmount"/>
                 <div class="error-container">
                     <p class="error" *ngIf="
                         this.transactionAmount.touched &&
