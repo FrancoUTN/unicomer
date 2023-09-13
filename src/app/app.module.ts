@@ -46,6 +46,7 @@ import { AmountInputComponent } from './components/amount-input/amount-input.com
 import { AmountErrorsComponent } from './components/amount-errors/amount-errors.component';
 import { BalanceValueComponent } from './components/balance-value/balance-value.component';
 import { ContinueButtonComponent } from './components/continue-button/continue-button.component';
+import { SummaryComponent } from './components/summary/summary.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +71,8 @@ import { ContinueButtonComponent } from './components/continue-button/continue-b
     AmountInputComponent,
     AmountErrorsComponent,
     BalanceValueComponent,
-    ContinueButtonComponent
+    ContinueButtonComponent,
+    SummaryComponent
   ],
   imports: [
     BrowserModule,

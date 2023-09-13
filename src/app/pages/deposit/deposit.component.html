@@ -46,19 +46,10 @@
             *ngIf="this.isSummarySection"
             class="summary-section"
         >
-            <h2>¡Hecho!</h2>
-            <h4 class="receiver-title">Datos de la operación:</h4>
-            <div class="summary-info">
-                <p>
-                    Tipo: Depósito
-                </p>
-                <p>
-                    Monto: ${{this.transactionData.amount}}
-                </p>
-                <p>
-                    Fecha: {{this.transactionData.date}}
-                </p>
-            </div>
+            <app-summary
+                [amount]="this.transactionData.amount"
+                [date]="this.transactionData.date"
+            />
             <app-binary-question
                 questionText="¿Qué deseas hacer?"
                 cancelText="Volver al inicio"

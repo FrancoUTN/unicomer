@@ -1,0 +1,37 @@
+<div class="root">
+    <h2>¡Hecho!</h2>
+    <h4 class="summary-title">Datos de la operación:</h4>
+    <div class="summary-info">
+        <p>
+            Tipo:
+            {{
+                this.receiver ?
+                ' Transferencia' :
+                ' Depósito'
+            }}
+        </p>
+        <p *ngIf="this.sender">
+        {{
+            'De: ' +
+            this.sender.firstName +
+            ' ' +
+            this.sender.lastName +
+            ' (Tú)'
+        }}
+        </p>
+        <p *ngIf="this.receiver">
+        {{
+            'Para: ' +
+            this.receiver.firstName +
+            ' ' +
+            this.receiver.lastName
+        }}
+        </p>
+        <p>
+            Monto: ${{this.amount}}
+        </p>
+        <p>
+            Fecha: {{this.date}}
+        </p>
+    </div>
+</div>

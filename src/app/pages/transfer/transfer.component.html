@@ -144,36 +144,12 @@
             *ngIf="this.isSummarySection"
             class="summary-section"
         >
-            <h2>¡Hecho!</h2>
-            <h4 class="receiver-title">Datos de la operación:</h4>
-            <div class="summary-info">
-                <p>
-                    Tipo: Transferencia
-                </p>
-                <p>
-                {{
-                    'De: ' +
-                    this.transferData.sender.firstName +
-                    ' ' +
-                    this.transferData.sender.lastName +
-                    ' (Tú)'
-                }}
-                </p>
-                <p>
-                {{
-                    'Para: ' +
-                    this.transferData.receiver.firstName +
-                    ' ' +
-                    this.transferData.receiver.lastName
-                }}
-                </p>
-                <p>
-                    Monto: ${{this.transferData.amount}}
-                </p>
-                <p>
-                    Fecha: {{this.transferData.date}}
-                </p>
-            </div>
+            <app-summary
+                [amount]="this.transferData.amount"
+                [date]="this.transferData.date"
+                [receiver]="this.transferData.receiver"
+                [sender]="this.transferData.sender"
+            />
             <app-binary-question
                 questionText="¿Qué deseas hacer?"
                 cancelText="Volver al inicio"
