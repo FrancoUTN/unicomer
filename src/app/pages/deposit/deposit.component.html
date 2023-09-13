@@ -1,0 +1,128 @@
+<app-navbar>
+    <main>
+        <h1 class="title">Depositar dinero</h1>
+        <section
+            *ngIf="
+                !this.isConfirmSection &&
+                !this.isSummarySection
+            "
+            class="input-section"
+        >
+            <h2>¿Cuánto vas a ingresar?</h2>
+            <div>
+                <h4 class="amount-title">Monto:</h4>
+                <mat-form-field appearance="outline">
+                    <mat-label>ARS</mat-label>
+                    <input
+                        matInput
+                        type="tel"
+                        [formControl]="transactionAmount"
+                    >
+                    <span matTextPrefix>$&nbsp;</span>
+                </mat-form-field>
+                <div class="error-container">
+                    <p class="error" *ngIf="
+                        this.transactionAmount.touched &&
+                        this.transactionAmountNotDefinedError
+                    ">
+                        Ingresa un monto.
+                    </p>
+                    <p class="error" *ngIf="this.invalidTransactionAmountError">
+                        Ingresa solo números.
+                    </p>
+                    <p class="error" *ngIf="this.tooLowTransactionAmountError">
+                        El valor debe ser mayor que 0.
+                    </p>
+                </div>
+            </div>
+            <div>
+                <h4>Tu saldo actual:</h4>
+                <p class="balance">$ {{this.strBalance}}</p>
+            </div>
+            <button
+                mat-raised-button
+                color="primary"
+                [disabled]="
+                    this.transactionAmount.pristine ||
+                    this.transactionAmountNotDefinedError ||
+                    this.invalidTransactionAmountError ||
+                    this.tooLowTransactionAmountError
+                "
+                (click)="onContinueClick()"
+            >
+                Continuar
+            </button>
+        </section>
+        <section
+            *ngIf="this.isConfirmSection"
+            class="confirm-section"
+        >
+            <h2>Revisa los datos</h2>
+            <h4 class="receiver-title">Ingresaste:</h4>
+            <p class="entered-amount">
+                Monto: $ {{this.transactionAmount.value}}
+            </p>
+            <h4 class="confirm-question">
+                ¿Confirmas la operación?
+            </h4>
+            <div class="confirm-buttons">
+                <button
+                    mat-raised-button
+                    color="warn"
+                    (click)="onCancelClick()"
+                >
+                    Cancelar
+                </button>            
+                <button
+                    mat-raised-button
+                    color="primary"
+                    (click)="onConfirmClick()"
+                >
+                    Aceptar
+                </button>
+            </div>
+        </section>
+        <section
+            *ngIf="this.isSummarySection"
+            class="summary-section"
+        >
+            <h2>¡Hecho!</h2>
+            <h4 class="receiver-title">Datos de la operación:</h4>
+            <div class="summary-info">
+                <p>
+                    Tipo: Depósito
+                </p>
+                <p>
+                    Monto: ${{this.transactionData.amount}}
+                </p>
+                <p>
+                    Fecha: {{this.transactionData.date}}
+                </p>
+            </div>
+            <h4 class="confirm-question">
+                ¿Qué deseas hacer?
+            </h4>
+            <div class="confirm-buttons">
+                <button
+                    mat-raised-button
+                    (click)="onGoHomeClick()"
+                >
+                    Volver al inicio
+                </button>            
+                <button
+                    mat-raised-button
+                    color="primary"
+                    (click)="onNewTransactionClick()"
+                >
+                    Otro depósito
+                </button>
+            </div>
+        </section>
+        <div class="spinner-or-error">
+            <mat-spinner *ngIf="this.isLoading" diameter="40"/>
+            <p *ngIf="!this.isLoading">
+            {{this.errorMessage}}
+            </p>
+        </div>
+    </main>
+</app-navbar>

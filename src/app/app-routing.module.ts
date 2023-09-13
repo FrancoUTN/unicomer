@@ -12,6 +12,7 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { CardsComponent } from './pages/cards/cards.component';
 import { TransactionsComponent } from './pages/transactions/transactions.component';
 import { TransferComponent } from './pages/transfer/transfer.component';
+import { DepositComponent } from './pages/deposit/deposit.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'auth/login', pathMatch: 'full' },
@@ -38,6 +39,11 @@ const routes: Routes = [
   {
     path: 'transfer',
     component: TransferComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'deposit',
+    component: DepositComponent,
     canActivate: [AuthGuard],
   },
   { path: '**', component: NotFoundComponent },

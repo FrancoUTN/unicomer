@@ -21,6 +21,14 @@ export class UserService {
 
   constructor(private authService: AuthService) { }
 
+  async getCurrentUserID() {
+    const currentUser = this.authService.getCurrentUser();
+    if (!currentUser) {
+      throw new Error('There\'s no current user');
+    }
+    return currentUser.uid;
+  }
+
   async getCurrentUserData() {
     const currentUser = this.authService.getCurrentUser();
     if (!currentUser) {

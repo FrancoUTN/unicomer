@@ -39,6 +39,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { CardsComponent } from './pages/cards/cards.component';
 import { TransactionsComponent } from './pages/transactions/transactions.component';
 import { TransferComponent } from './pages/transfer/transfer.component';
+import { DepositComponent } from './pages/deposit/deposit.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { TransferComponent } from './pages/transfer/transfer.component';
     NavbarComponent,
     CardsComponent,
     TransactionsComponent,
-    TransferComponent
+    TransferComponent,
+    DepositComponent
   ],
   imports: [
     BrowserModule,

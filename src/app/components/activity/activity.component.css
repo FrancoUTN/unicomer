@@ -36,6 +36,11 @@
     flex: 6;
 }
 
+.transaction-title {
+    padding-right: 1rem;
+    padding-left: .2rem;
+}
+
 .transaction-options {
     font-size: 2rem;
     flex: 1;

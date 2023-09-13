@@ -1,0 +1,161 @@
+main {
+    width: 100%;
+    padding: 3vh 6vh;
+    margin-bottom: 10vh;
+}
+
+.title {
+    font-weight: 600;
+    margin-bottom: 4vh;
+}
+
+section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4vh;
+}
+
+h2 {
+    font-weight: 500;
+    font-size: 2rem;
+}
+
+h4 {
+    font-size: 2rem;
+    font-weight: 500;
+}
+
+.unordered-list {
+    list-style: none;
+    width: 60%;
+}
+
+.list-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    height: 90px;
+    padding: 0 1rem;
+}
+
+.list-item:hover {
+    cursor: pointer;
+    .transfer-sign-container {
+        visibility: visible;
+    }
+}
+
+.odd-user-container {
+    background-color: #fff;
+}
+
+.image-container {
+    flex: 1;
+}
+
+.user-image {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.fullname-container {
+    flex: 3;
+    font-weight: 500;
+}
+
+.email-container {
+    flex: 3;
+}
+
+.user-email {
+    opacity: .8;
+}
+
+.transfer-sign-container {
+    visibility: hidden;
+    flex: 2;
+    text-align: center;
+    color: #416191;
+    font-weight: 500;
+}
+
+.selected-user {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    height: 90px;
+    font-size: 1.2rem;
+    padding: .5rem 1rem;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+}
+
+.selected-user-info .fullname-container {
+    margin-bottom: .2rem;
+}
+
+.selected-user-info .email-container {
+    font-size: 1rem;
+}
+
+.amount-title {
+    text-align: center;
+    margin-bottom: .5rem;
+}
+
+.error-container {
+    height: 1rem;
+    text-align: center;
+}
+
+.error {
+    color: #ec595b;
+}
+
+.balance {
+    text-align: center;
+    font-size: 2rem;
+}
+
+.confirm-section h4 {
+    font-weight: 400;
+}
+
+.receiver-title {
+    margin-bottom: -2vh;
+    text-align: left;
+    font-size: 1.6rem;
+}
+
+.entered-amount {
+    font-size: 1.6rem;
+    font-weight: 500;
+}
+
+.confirm-question {
+    font-size: 1.6rem;
+}
+
+.confirm-buttons {
+    display: flex;
+    gap: 2rem;
+}
+
+.summary-info p {
+    font-size: 1.2rem;
+    margin-bottom: .5rem;
+}
+
+.spinner-or-error {
+    height: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-top: 3vh;
+    margin-bottom: 5vh;
+    color: #ec595b;
+}

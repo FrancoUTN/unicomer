@@ -80,6 +80,12 @@ export class NavbarComponent {
         route: '/transfer',
       },
       {
+        id: 'deposit',
+        iconName: 'arrow_upward',
+        description: 'Depositar',
+        route: '/deposit',
+      },
+      {
         id: 'logout',
         iconName: 'logout',
         description: 'Cerrar sesión',

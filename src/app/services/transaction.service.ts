@@ -374,6 +374,12 @@ export class TransactionService {
     }
   }
 
+  async addTransaction(newTransaction: any) {
+    const docRef = await addDoc(this.transactionsRef, newTransaction);
+    const docSnap = await getDoc(docRef);
+    return docSnap.data();
+  }
+
   async transferMoney(amount: number, receiver: any) {
     const currentUser = await this.userService.getCurrentUserData();
     const customSender: TransferUser = {   
@@ -391,10 +397,19 @@ export class TransactionService {
       date: serverTimestamp(),
       receiver: customReceiver,
       sender: customSender,
-      type: 'transfer',      
+      type: 'transfer',
     };
-    const docRef = await addDoc(this.transactionsRef, newTransaction);
-    const docSnap = await getDoc(docRef);
-    return docSnap.data();
+    return this.addTransaction(newTransaction);
+  }
+  
+  async depositMoney(amount: number) {
+    const currentUserID = await this.userService.getCurrentUserID();
+    const newTransaction = {
+      amount,
+      date: serverTimestamp(),
+      user: currentUserID,
+      type: 'deposit',
+    };
+    return this.addTransaction(newTransaction);
   }
 }
