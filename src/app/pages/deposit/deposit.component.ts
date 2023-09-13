@@ -82,12 +82,12 @@ export class DepositComponent {
     this.isConfirmSection = true;
   }
 
-  onCancelClick() {
+  onCancelClickHandler() {
     this.isConfirmSection = false;
     this.errorMessage = '';
   }
   
-  async onConfirmClick() {
+  async onConfirmClickHandler() {
     this.isLoading = true;
     this.errorMessage = '';
     try {
@@ -127,6 +127,7 @@ export class DepositComponent {
     this.balance = null;
     this.strBalance = '...';
     this.transactionData = null;
+    this.onLoad();
     // Go back to first page
     this.isSummarySection = false;
   }

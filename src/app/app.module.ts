@@ -41,6 +41,7 @@ import { TransactionsComponent } from './pages/transactions/transactions.compone
 import { TransferComponent } from './pages/transfer/transfer.component';
 import { DepositComponent } from './pages/deposit/deposit.component';
 import { SpinnerOrErrorComponent } from './components/spinner-or-error/spinner-or-error.component';
+import { BinaryQuestionComponent } from './components/binary-question/binary-question.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { SpinnerOrErrorComponent } from './components/spinner-or-error/spinner-o
     TransactionsComponent,
     TransferComponent,
     DepositComponent,
-    SpinnerOrErrorComponent
+    SpinnerOrErrorComponent,
+    BinaryQuestionComponent
   ],
   imports: [
     BrowserModule,

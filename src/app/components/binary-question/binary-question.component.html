@@ -1,0 +1,21 @@
+<div class="root">
+    <h4 class="confirm-question">
+        {{this.questionText}}
+    </h4>
+    <div class="confirm-buttons">
+        <button
+            mat-raised-button
+            [color]="this.cancelMatColor"
+            (click)="onCancelClick()"
+        >
+            {{this.cancelText}}        
+        </button>
+        <button
+            mat-raised-button
+            [color]="this.proceedMatColor"
+            (click)="onProceedClick()"
+        >
+            {{this.proceedText}}
+        </button>
+    </div>
+</div>

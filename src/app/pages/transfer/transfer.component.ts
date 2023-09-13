@@ -93,12 +93,12 @@ export class TransferComponent {
     this.isConfirmSection = true;
   }
 
-  onCancelClick() {
+  onCancelClickHandler() {
     this.isConfirmSection = false;
     this.errorMessage = '';
   }
   
-  async onConfirmClick() {
+  async onConfirmClickHandler() {
     this.isLoading = true;
     this.errorMessage = '';
     try {

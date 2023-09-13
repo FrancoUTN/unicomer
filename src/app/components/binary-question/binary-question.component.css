@@ -1,0 +1,16 @@
+.root {    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4vh;
+}
+
+.confirm-question {
+    font-size: 1.6rem;
+    font-weight: 400;
+}
+
+.confirm-buttons {
+    display: flex;
+    gap: 2rem;
+}

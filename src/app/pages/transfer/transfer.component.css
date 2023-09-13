@@ -135,15 +135,6 @@ h4 {
     font-weight: 500;
 }
 
-.confirm-question {
-    font-size: 1.6rem;
-}
-
-.confirm-buttons {
-    display: flex;
-    gap: 2rem;
-}
-
 .summary-info p {
     font-size: 1.2rem;
     margin-bottom: .5rem;
