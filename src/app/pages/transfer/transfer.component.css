@@ -16,89 +16,9 @@ section {
     gap: 4vh;
 }
 
-h2 {
+h2, h4 {
     font-weight: 500;
     font-size: 2rem;
-}
-
-h4 {
-    font-size: 2rem;
-    font-weight: 500;
-}
-
-.unordered-list {
-    list-style: none;
-    width: 60%;
-}
-
-.list-item {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    height: 90px;
-    padding: 0 1rem;
-}
-
-.list-item:hover {
-    cursor: pointer;
-    .transfer-sign-container {
-        visibility: visible;
-    }
-}
-
-.odd-user-container {
-    background-color: #fff;
-}
-
-.image-container {
-    flex: 1;
-}
-
-.user-image {
-    width: 60px;
-    height: 60px;
-    object-fit: cover;
-    border-radius: 50%;
-}
-
-.fullname-container {
-    flex: 3;
-    font-weight: 500;
-}
-
-.email-container {
-    flex: 3;
-}
-
-.user-email {
-    opacity: .8;
-}
-
-.transfer-sign-container {
-    visibility: hidden;
-    flex: 2;
-    text-align: center;
-    color: #416191;
-    font-weight: 500;
-}
-
-.selected-user {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    height: 90px;
-    font-size: 1.2rem;
-    padding: .5rem 1rem;
-    border: 1px solid #ccc;
-    border-radius: 2px;
-}
-
-.selected-user-info .fullname-container {
-    margin-bottom: .2rem;
-}
-
-.selected-user-info .email-container {
-    font-size: 1rem;
 }
 
 .confirm-section h4 {

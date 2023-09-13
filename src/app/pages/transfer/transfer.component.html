@@ -1,49 +1,12 @@
 <app-navbar>
     <main>
         <h1 class="title">Transferir dinero</h1>
-        <section
+        <app-users-list
             *ngIf="!this.selectedUser"
-            class="list-section"
-        >
-            <h2>¿A quién le querés transferir?</h2>
-            <ul class="unordered-list">
-                <li
-                    *ngFor="let user of this.otherUsers; let i = index"
-                    class="list-item" 
-                    [ngClass]="{'odd-user-container': i % 2 !== 0}"
-                    (click)="this.onUserClick(user)"
-                >
-                    <div class="image-container">
-                        <img
-                            class="user-image"
-                            [src]="
-                                user.profilePictureURL ||
-                                'https://i.pravatar.cc/150?img=26'
-                            "
-                            alt="Other user's picture"
-                        >
-                    </div>
-                    <p class="fullname-container">
-                        <span>
-                            {{user.firstName}}
-                        </span>
-                        <span>
-                            {{user.lastName}}
-                        </span>
-                    </p>
-                    <p class="email-container">
-                        <span class="user-email">
-                            {{user.email}}
-                        </span>
-                    </p>
-                    <div class="transfer-sign-container">
-                        <p>
-                            Transferir
-                        </p>
-                    </div>
-                </li>
-            </ul>
-        </section>
+            [users]="this.otherUsers"
+            [selectedUser]="this.selectedUser"
+            (onUserClick)="this.onUserClick($event)"
+        />
         <section
             *ngIf="
                 this.selectedUser &&
@@ -53,33 +16,7 @@
             class="input-section"
         >
             <h2>Vas a transferirle a</h2>
-            <div class="selected-user">
-                <div class="image-container">
-                    <img
-                        class="user-image"
-                        [src]="
-                            this.selectedUser.profilePictureURL ||
-                            'https://i.pravatar.cc/150?img=26'
-                        "
-                        alt="Other user's picture"
-                    >
-                </div>
-                <div class="selected-user-info">
-                    <p class="fullname-container">
-                        <span>
-                            {{this.selectedUser.firstName}}
-                        </span>
-                        <span>
-                            {{this.selectedUser.lastName}}
-                        </span>
-                    </p>
-                    <p class="email-container">
-                        <span class="user-email">
-                            {{this.selectedUser.email}}
-                        </span>
-                    </p>
-                </div>
-            </div>
+            <app-selected-user [selectedUser]="this.selectedUser"/>
             <div>
                 <app-amount-input [control]="this.transferAmount"/>
                 <app-amount-errors
@@ -100,33 +37,7 @@
         >
             <h2>Revisa los datos</h2>
             <h4 class="receiver-title">Destinatario:</h4>
-            <div class="selected-user">
-                <div class="image-container">
-                    <img
-                        class="user-image"
-                        [src]="
-                            this.selectedUser.profilePictureURL ||
-                            'https://i.pravatar.cc/150?img=26'
-                        "
-                        alt="Other user's picture"
-                    >
-                </div>
-                <div class="selected-user-info">
-                    <p class="fullname-container">
-                        <span>
-                            {{this.selectedUser.firstName}}
-                        </span>
-                        <span>
-                            {{this.selectedUser.lastName}}
-                        </span>
-                    </p>
-                    <p class="email-container">
-                        <span class="user-email">
-                            {{this.selectedUser.email}}
-                        </span>
-                    </p>
-                </div>
-            </div>
+            <app-selected-user [selectedUser]="this.selectedUser"/>
             <p class="entered-amount">
                 Monto: $ {{this.transferAmount.value}}
             </p>

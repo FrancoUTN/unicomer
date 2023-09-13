@@ -1,0 +1,42 @@
+.image-container {
+    flex: 1;
+}
+
+.user-image {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.fullname-container {
+    flex: 3;
+    font-weight: 500;
+}
+
+.email-container {
+    flex: 3;
+}
+
+.user-email {
+    opacity: .8;
+}
+
+.selected-user {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    height: 90px;
+    font-size: 1.2rem;
+    padding: .5rem 1rem;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+}
+
+.selected-user-info .fullname-container {
+    margin-bottom: .2rem;
+}
+
+.selected-user-info .email-container {
+    font-size: 1rem;
+}

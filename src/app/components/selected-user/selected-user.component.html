@@ -1,0 +1,27 @@
+<div class="selected-user" *ngIf="this.selectedUser">
+    <div class="image-container">
+        <img
+            class="user-image"
+            [src]="
+                this.selectedUser.profilePictureURL ||
+                'https://i.pravatar.cc/150?img=26'
+            "
+            alt="Other user's picture"
+        >
+    </div>
+    <div class="selected-user-info">
+        <p class="fullname-container">
+            <span>
+                {{this.selectedUser.firstName}}
+            </span>
+            <span>
+                {{this.selectedUser.lastName}}
+            </span>
+        </p>
+        <p class="email-container">
+            <span class="user-email">
+                {{this.selectedUser.email}}
+            </span>
+        </p>
+    </div>
+</div>

@@ -47,6 +47,8 @@ import { AmountErrorsComponent } from './components/amount-errors/amount-errors.
 import { BalanceValueComponent } from './components/balance-value/balance-value.component';
 import { ContinueButtonComponent } from './components/continue-button/continue-button.component';
 import { SummaryComponent } from './components/summary/summary.component';
+import { UsersListComponent } from './components/users-list/users-list.component';
+import { SelectedUserComponent } from './components/selected-user/selected-user.component';
 
 @NgModule({
   declarations: [
@@ -72,7 +74,9 @@ import { SummaryComponent } from './components/summary/summary.component';
     AmountErrorsComponent,
     BalanceValueComponent,
     ContinueButtonComponent,
-    SummaryComponent
+    SummaryComponent,
+    UsersListComponent,
+    SelectedUserComponent
   ],
   imports: [
     BrowserModule,
