@@ -22,6 +22,7 @@ export class TransferComponent {
   notEnoughBalanceError: boolean = false;
   transferAmountNotDefinedError: boolean = true;
   invalidTransferAmountError: boolean = false;
+  tooLowTransferAmountError: boolean = false;
 	balance: number|any;
 	strBalance: string = '...';
   isConfirmSection: boolean = false;
@@ -64,16 +65,21 @@ export class TransferComponent {
         this.transferAmountNotDefinedError = false;
         this.notEnoughBalanceError = false;
         this.invalidTransferAmountError = false;
+        this.tooLowTransferAmountError = false;
         if (!value) {
           this.transferAmountNotDefinedError = true;
         }
         else {
+          const onlyNumbersRegexp = /^\d+$/;
+          if (!onlyNumbersRegexp.test(value)) {
+            this.invalidTransferAmountError = true;
+          }
           const amount = Number(value);
           if (amount > this.balance) {
             this.notEnoughBalanceError = true;
           }
           if (amount <= 0) {
-            this.invalidTransferAmountError = true;
+            this.tooLowTransferAmountError = true;
           }
         }
       });

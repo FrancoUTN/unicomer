@@ -55,7 +55,9 @@ h4 {
 }
 
 .user-image {
-    width: 65px;
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
     border-radius: 50%;
 }
 
