@@ -40,6 +40,7 @@ import { CardsComponent } from './pages/cards/cards.component';
 import { TransactionsComponent } from './pages/transactions/transactions.component';
 import { TransferComponent } from './pages/transfer/transfer.component';
 import { DepositComponent } from './pages/deposit/deposit.component';
+import { SpinnerOrErrorComponent } from './components/spinner-or-error/spinner-or-error.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { DepositComponent } from './pages/deposit/deposit.component';
     CardsComponent,
     TransactionsComponent,
     TransferComponent,
-    DepositComponent
+    DepositComponent,
+    SpinnerOrErrorComponent
   ],
   imports: [
     BrowserModule,
