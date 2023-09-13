@@ -5,6 +5,11 @@ section {
     gap: 4vh;
 }
 
+h2 {
+    font-weight: 500;
+    font-size: 2rem;
+}
+
 .unordered-list {
     list-style: none;
     width: 60%;
