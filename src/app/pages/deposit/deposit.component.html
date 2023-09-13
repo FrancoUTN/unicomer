@@ -10,7 +10,10 @@
         >
             <h2>¿Cuánto vas a ingresar?</h2>
             <div>
-                <app-amount-input [control]="this.transactionAmount"/>
+                <app-amount-input
+                    [control]="this.transactionAmount"
+                    [isLoading]="this.isLoading"
+                />
                 <app-amount-errors
                     [errors]="this.amountErrors"
                     [touched]="this.transactionAmount.touched"

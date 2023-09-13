@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, SimpleChanges } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 @Component({
@@ -8,4 +8,13 @@ import { FormControl } from '@angular/forms';
 })
 export class AmountInputComponent {
   @Input() control = new FormControl('');
+  @Input() isLoading: boolean = false;
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.isLoading.currentValue === false) {
+      this.control.enable();
+    } else {
+      this.control.disable();
+    }
+  }
 }

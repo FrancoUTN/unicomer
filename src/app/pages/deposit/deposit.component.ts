@@ -17,7 +17,7 @@ export class DepositComponent {
 	isLoading: boolean = false;
   errorMessage: string = '';
   // Transaction
-  transactionAmount = new FormControl('');
+  transactionAmount = new FormControl({ value: '', disabled: true });
   amountErrors: any = {
     required: false,
     invalid: false,
