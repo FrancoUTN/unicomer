@@ -40,7 +40,7 @@ export class TransferComponent {
     this.isLoading = true;
     this.errorMessage = '';
     try {
-      this.otherUsers = await this.userService.getEveryOtherUser();      
+      this.otherUsers = await this.userService.getEveryOtherUser();
       this.isLoading = false;
     } catch(error) {
       console.log(error);
@@ -54,7 +54,7 @@ export class TransferComponent {
     this.strBalance = strBalance.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   }
 
-  async onUserClick(user: any) {    
+  async onUserClick(user: any) {
     this.isLoading = true;
     this.errorMessage = '';
     this.selectedUser = user;
