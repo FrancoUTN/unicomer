@@ -59,6 +59,10 @@
       <div
         *ngIf="!(this.isHandset$ | async)"
         class="search-bar"
+        [matTooltipDisabled]="true"
+        #searchBarTooltip="matTooltip" 
+        matTooltip="Próximamente"
+        (click)="displaySearchBarTooltip()"
       >
         <mat-icon
           fontIcon="search"
@@ -71,6 +75,10 @@
         <button
           *ngIf="!(this.isHandset$ | async)"
           mat-icon-button
+          [matTooltipDisabled]="true"
+          #settingsTooltip="matTooltip" 
+          matTooltip="Próximamente"
+          (click)="displaySettingsTooltip()"
           aria-label="Icon-button with settings icon"
           class="icon-container"
         >
@@ -82,6 +90,10 @@
         <button
           *ngIf="!(this.isHandset$ | async)"
           mat-icon-button
+          [matTooltipDisabled]="true"
+          #notificationsTooltip="matTooltip" 
+          matTooltip="Próximamente"
+          (click)="displayNotificationsTooltip()"
           aria-label="Icon-button with notifications icon"
           class="icon-container"
         >
@@ -98,6 +110,10 @@
           src="{{this.profilePictureURL}}"
           alt="Profile picture"
           class="profile-picture"
+          [matTooltipDisabled]="true"
+          #profilePictureTooltip="matTooltip" 
+          matTooltip="Próximamente"
+          (click)="displayProfilePictureTooltip()"
         >
         <p *ngIf="!(this.isHandset$ | async) && !this.isLoading">
           {{this.firstName + ' ' + this.lastName}}

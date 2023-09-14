@@ -3,10 +3,14 @@
 </div>
 <router-outlet></router-outlet>
 <div class="keyboard-container">
-    <div
+    <!-- <div
         *ngIf="!this.virtualKeyboardEnabled"
         class="keyboard-button"
         (click)="this.virtualKeyboardEnabled = !this.virtualKeyboardEnabled"
+    > -->
+    <div
+        class="keyboard-button"
+        matTooltip="Próximamente"
     >
         <mat-icon
             aria-hidden="false"
@@ -16,13 +20,13 @@
         ></mat-icon>
         <p>Teclado virtual</p>
     </div>
-    <div
+    <!-- <div
         *ngIf="this.virtualKeyboardEnabled"
         class="keyboard"
         (click)="this.virtualKeyboardEnabled = !this.virtualKeyboardEnabled"
     >
         Próximamente...
-    </div>
+    </div> -->
 </div>
 <div class="switch-anchor-container">
     <p *ngIf="this.currentUrl === '/auth/login'">

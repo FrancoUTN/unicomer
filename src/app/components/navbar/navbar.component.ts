@@ -1,6 +1,7 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { MatTooltip } from '@angular/material/tooltip';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 
@@ -27,6 +28,10 @@ export class NavbarComponent {
 	lastName: string | any;
 	profilePictureURL: string | any;
 	isLoading: boolean = true;
+  @ViewChild("searchBarTooltip") searchBar?: MatTooltip;
+  @ViewChild("settingsTooltip") settingsTooltip?: MatTooltip;
+  @ViewChild("notificationsTooltip") notificationsTooltip?: MatTooltip;
+  @ViewChild("profilePictureTooltip") profilePictureTooltip?: MatTooltip;
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -105,6 +110,54 @@ export class NavbarComponent {
         await this.authService.signOut();
         this.router.navigate(['/auth']);
         break;
+    }
+  }
+
+  displaySearchBarTooltip(){
+    if (this.searchBar) {
+      this.searchBar.disabled = false;
+      this.searchBar.show();
+      setTimeout(() => {
+        if (this.searchBar) {
+          this.searchBar.disabled = true;
+        }
+      }, 1000);
+    }
+  }
+
+  displaySettingsTooltip(){
+    if (this.settingsTooltip) {
+      this.settingsTooltip.disabled = false;
+      this.settingsTooltip.show();
+      setTimeout(() => {
+        if (this.settingsTooltip) {
+          this.settingsTooltip.disabled = true;
+        }
+      }, 1000);
+    }
+  }
+
+  displayNotificationsTooltip(){
+    if (this.notificationsTooltip) {
+      this.notificationsTooltip.disabled = false;
+      this.notificationsTooltip.show();
+      setTimeout(() => {
+        if (this.notificationsTooltip) {
+          this.notificationsTooltip.disabled = true;
+        }
+      }, 1000);
+    }
+  }
+  
+  displayProfilePictureTooltip(){
+    if (this.profilePictureTooltip) {
+      this.profilePictureTooltip.disabled = false;
+      this.profilePictureTooltip.show();
+      setTimeout(() => {
+        if (this.profilePictureTooltip) {
+          this.profilePictureTooltip.disabled = true;
+        }
+      }, 1000);
     }
   }
 }
