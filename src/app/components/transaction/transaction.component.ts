@@ -61,7 +61,7 @@ export class TransactionComponent {
           this.transactionType = 'withdrawal';
           break;
       }
-      // First operations (fix this)
+      // First operations (this shouldn't be here)
       this.onLoad();
     });
   }
@@ -122,7 +122,7 @@ export class TransactionComponent {
     });
   }
 
-  async onUserClick(user: any) {
+  onUserClick(user: any) {
     this.selectedUser = user;
   }
 
@@ -215,6 +215,5 @@ export class TransactionComponent {
       this.selectedUser = null;
     }
     this.isSummarySection = false;
-
   }
 }

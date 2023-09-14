@@ -7,9 +7,6 @@ import { FormControl } from '@angular/forms';
   styleUrls: ['./deposit.component.css']
 })
 export class DepositComponent {
-  // Asynchronism
-	@Input() isLoading: boolean = false;
-  @Input() errorMessage: string = '';
   // Transaction
   @Input() transactionAmount = new FormControl({ value: '', disabled: true });
   @Input() amountErrors: any;

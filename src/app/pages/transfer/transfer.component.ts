@@ -7,9 +7,6 @@ import { FormControl } from '@angular/forms';
   styleUrls: ['./transfer.component.css']
 })
 export class TransferComponent {
-  // Asynchronism
-	@Input() isLoading: boolean = false;
-  @Input() errorMessage: string = '';
   // Transaction
   @Input() transferAmount = new FormControl(
     { value: '', disabled: true });

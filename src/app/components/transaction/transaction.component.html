@@ -2,8 +2,6 @@
     <main>
         <app-deposit
             *ngIf="this.transactionType === 'deposit'"
-            [isLoading]="this.isLoading"
-            [errorMessage]="this.errorMessage"
             [transactionAmount]="this.transactionAmount"
             [amountErrors]="this.amountErrors"
             [transactionData]="this.transactionData"
@@ -19,8 +17,6 @@
         />
         <app-transfer
             *ngIf="this.transactionType === 'transfer'"
-            [isLoading]="this.isLoading"
-            [errorMessage]="this.errorMessage"
             [transferAmount]="this.transactionAmount"
             [amountErrors]="this.amountErrors"
             [transferData]="this.transactionData"
@@ -36,6 +32,10 @@
             (confirm)="this.onConfirmClick()"
             (goHome)="this.onGoHomeClick()"
             (restart)="this.onRestartClick()"
+        />
+        <app-spinner-or-error
+            [isLoading]="this.isLoading"
+            [errorMessage]="this.errorMessage"
         />
     </main>
 </app-navbar>

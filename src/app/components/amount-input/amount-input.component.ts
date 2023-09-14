@@ -8,10 +8,10 @@ import { FormControl } from '@angular/forms';
 })
 export class AmountInputComponent {
   @Input() control = new FormControl('');
-  @Input() isLoading: boolean = false;
+  @Input() balance: number|any;
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes.isLoading.currentValue === false) {
+    if (changes.balance.currentValue) {
       this.control.enable();
     } else {
       this.control.disable();

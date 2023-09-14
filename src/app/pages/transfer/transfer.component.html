@@ -11,14 +11,13 @@
         !this.isConfirmSection &&
         !this.isSummarySection
     "
-    class="input-section"
 >
     <h2>Vas a transferirle a</h2>
     <app-selected-user [selectedUser]="this.selectedUser"/>
     <div>
         <app-amount-input
             [control]="this.transferAmount"            
-            [isLoading]="this.isLoading"
+            [balance]="this.balance"
         />
         <app-amount-errors
             [errors]="this.amountErrors"
@@ -32,12 +31,9 @@
         (onClick)="onContinueClick()"
     />
 </section>
-<section
-    *ngIf="this.isConfirmSection"
-    class="confirm-section"
->
+<section *ngIf="this.isConfirmSection">
     <h2>Revisa los datos</h2>
-    <h4 class="receiver-title">Destinatario:</h4>
+    <h4 class="confirm-subtitle">Destinatario:</h4>
     <app-selected-user [selectedUser]="this.selectedUser"/>
     <p class="entered-amount">
         Monto: $ {{this.transferAmount.value}}
@@ -52,10 +48,7 @@
         (proceed)="this.onConfirmClick()"
     />
 </section>
-<section
-    *ngIf="this.isSummarySection"
-    class="summary-section"
->
+<section *ngIf="this.isSummarySection">
     <app-summary
         [amount]="this.transferData.amount"
         [date]="this.transferData.date"
@@ -71,7 +64,3 @@
         (proceed)="this.onRestartClick()"
     />
 </section>
-<app-spinner-or-error
-    [isLoading]="this.isLoading"
-    [errorMessage]="this.errorMessage"
-/>

@@ -4,13 +4,12 @@
         !this.isConfirmSection &&
         !this.isSummarySection
     "
-    class="input-section"
 >
     <h2>¿Cuánto vas a ingresar?</h2>
     <div>
         <app-amount-input
             [control]="this.transactionAmount"
-            [isLoading]="this.isLoading"
+            [balance]="this.balance"
         />
         <app-amount-errors
             [errors]="this.amountErrors"
@@ -24,12 +23,9 @@
         (onClick)="onContinueClick()"
     />
 </section>
-<section
-    *ngIf="this.isConfirmSection"
-    class="confirm-section"
->
+<section *ngIf="this.isConfirmSection">
     <h2>Revisa los datos</h2>
-    <h4 class="receiver-title">Ingresaste:</h4>
+    <h4 class="confirm-subtitle">Ingresaste:</h4>
     <p class="entered-amount">
         $ {{this.transactionAmount.value}}
     </p>
@@ -43,10 +39,7 @@
         (proceed)="this.onConfirmClick()"
     />
 </section>
-<section
-    *ngIf="this.isSummarySection"
-    class="summary-section"
->
+<section *ngIf="this.isSummarySection">
     <app-summary
         [amount]="this.transactionData.amount"
         [date]="this.transactionData.date"
@@ -60,7 +53,3 @@
         (proceed)="this.onRestartClick()"
     />
 </section>
-<app-spinner-or-error
-    [isLoading]="this.isLoading"
-    [errorMessage]="this.errorMessage"
-/>
