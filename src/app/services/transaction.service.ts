@@ -222,10 +222,12 @@ export class TransactionService {
         throw new Error('Transaction with unknown type');
       }
     });
-    while (!actualDay.isSame(dayjs(), 'day')) {
-      days[daysIndex] = accuTotalBalance;
-      daysIndex++;
-      actualDay = actualDay.add(1, 'day');
+    if (actualDay) {
+      while (!actualDay.isSame(dayjs(), 'day')) {
+        days[daysIndex] = accuTotalBalance;
+        daysIndex++;
+        actualDay = actualDay.add(1, 'day');
+      }
     }
     // One last time for today:
     days[daysIndex] = accuTotalBalance;
