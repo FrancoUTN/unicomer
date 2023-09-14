@@ -39,8 +39,8 @@
         proceedText="Aceptar"
         cancelMatColor="warn"
         proceedMatColor="primary"
-        (cancel)="this.onCancelClickHandler()"
-        (proceed)="this.onConfirmClickHandler()"
+        (cancel)="this.onCancelClick()"
+        (proceed)="this.onConfirmClick()"
     />
 </section>
 <section
@@ -57,7 +57,7 @@
         proceedText="Otro depósito"
         proceedMatColor="primary"
         (cancel)="this.onGoHomeClick()"
-        (proceed)="this.onNewTransactionClick()"
+        (proceed)="this.onRestartClick()"
     />
 </section>
 <app-spinner-or-error

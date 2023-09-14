@@ -1,11 +1,5 @@
-import { Component } from '@angular/core';
-import { FirebaseError } from '@angular/fire/app';
-import { Timestamp } from '@angular/fire/firestore';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Router } from '@angular/router';
-import * as dayjs from 'dayjs';
-
-import { TransactionService } from 'src/app/services/transaction.service';
 
 @Component({
   selector: 'app-deposit',
@@ -14,128 +8,42 @@ import { TransactionService } from 'src/app/services/transaction.service';
 })
 export class DepositComponent {
   // Asynchronism
-	isLoading: boolean = false;
-  errorMessage: string = '';
+	@Input() isLoading: boolean = false;
+  @Input() errorMessage: string = '';
   // Transaction
-  transactionAmount = new FormControl({ value: '', disabled: true });
-  amountErrors: any = {
-    required: false,
-    invalid: false,
-    tooLow: false,
-  };
-  transactionData: any;
+  @Input() transactionAmount = new FormControl({ value: '', disabled: true });
+  @Input() amountErrors: any;
+  @Input() transactionData: any;
   // Balance
-	balance: number|any;
-	strBalance: string = '...';
+	@Input() balance: number|any;
+	@Input() strBalance: string = '...';
   // Flow control
-  isConfirmSection: boolean = false;
-  isSummarySection: boolean = false;
-
-  constructor(
-    private transactionService: TransactionService,
-    private router: Router) { }
-
-  ngOnInit() {
-    this.onLoad();
-  }
-
-  setBalanceProperties(balance: number) {
-    this.balance = balance;
-    const strBalance = balance.toString();
-    this.strBalance = strBalance.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-  }
-
-  async onLoad() {
-    this.isLoading = true;
-    this.errorMessage = '';
-    try {
-      // Balance setting
-      const balance = await this.transactionService.getCurrentUserBalance();
-      this.setBalanceProperties(balance);
-      // Input validation
-      this.transactionAmount.valueChanges.subscribe(value => {
-        this.amountErrors.required = false
-        this.amountErrors.invalid = false;
-        this.amountErrors.tooLow = false;
-        if (!value) {
-          this.amountErrors.required = true;
-        }
-        else {
-          const onlyNumbersRegexp = /^\d+$/;
-          if (!onlyNumbersRegexp.test(value)) {
-            this.amountErrors.invalid = true;
-          }
-          const amount = Number(value);
-          if (amount <= 0) {
-            this.amountErrors.tooLow = true;
-          }
-        }
-      });
-    } catch(error) {
-      console.log(error);
-      this.errorMessage = 'Algo salió mal.';
-    }
-    this.isLoading = false;
-  }
+  @Input() isConfirmSection: boolean = false;
+  @Input() isSummarySection: boolean = false;
+  // Output
+  @Output() continue = new EventEmitter();
+  @Output() cancel = new EventEmitter();
+  @Output() confirm = new EventEmitter();
+  @Output() goHome = new EventEmitter();
+  @Output() restart = new EventEmitter();
 
   onContinueClick() {
-    // Next page
-    this.isConfirmSection = true;
+    this.continue.emit();
   }
 
-  onCancelClickHandler() {
-    // Previous page
-    this.isConfirmSection = false;
+  onCancelClick() {
+    this.cancel.emit();
   }
   
-  async onConfirmClickHandler() {
-    this.isLoading = true;
-    this.errorMessage = '';
-    try {
-      // Save transaction in database and get it's info back
-      const transactionData = await this.transactionService.depositMoney(
-        Number(this.transactionAmount.value));
-      this.setTransactionData(transactionData);
-      // Next page
-      this.isConfirmSection = false;
-      this.isSummarySection = true;
-    } catch (error) {
-      if (error instanceof FirebaseError) {
-        console.error(error.code);
-        this.errorMessage = error.message;
-      }
-    }
-    this.isLoading = false;
-  }
-
-  setTransactionData(transactionData: any) {
-    // Format amount
-    const strAmount = String(transactionData.amount);
-    const formattedAmount = strAmount.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-    // Format date
-    const serverTimestamp: Timestamp = transactionData.date;
-    const serverDate = serverTimestamp.toDate();
-    const serverDateJS = dayjs(serverDate);
-    const formattedDate = serverDateJS.format('DD/MM/YYYY - HH:mm:ss');
-    // Set property with formatted data
-    this.transactionData = {
-      amount: formattedAmount,
-      date: formattedDate,
-    };
-  }
-
-  onNewTransactionClick() {
-    // Reset everything
-    this.transactionAmount.reset();
-    this.transactionData = null;
-    this.balance = null;
-    this.strBalance = '...';
-    this.onLoad();
-    // Go back to the first page
-    this.isSummarySection = false;
+  onConfirmClick() {
+    this.confirm.emit();
   }
 
   onGoHomeClick() {
-    this.router.navigate(['/home']);
+    this.goHome.emit();
+  }
+
+  onRestartClick() {
+    this.restart.emit();    
   }
 }

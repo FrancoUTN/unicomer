@@ -1,11 +1,24 @@
 <app-navbar>
     <main>
         <app-deposit
-            *ngIf="this.currentUrl === '/deposit'"
-
+            *ngIf="this.transactionType === 'deposit'"
+            [isLoading]="this.isLoading"
+            [errorMessage]="this.errorMessage"
+            [transactionAmount]="this.transactionAmount"
+            [amountErrors]="this.amountErrors"
+            [transactionData]="this.transactionData"
+            [balance]="this.balance"
+            [strBalance]="this.strBalance"
+            [isConfirmSection]="this.isConfirmSection"
+            [isSummarySection]="this.isSummarySection"
+            (continue)="this.onContinueClick()"
+            (cancel)="this.onCancelClick()"
+            (confirm)="this.onConfirmClick()"
+            (goHome)="this.onGoHomeClick()"
+            (restart)="this.onRestartClick()"
         />
         <app-transfer
-            *ngIf="this.currentUrl === '/transfer'"
+            *ngIf="this.transactionType === 'transfer'"
 
         />
     </main>

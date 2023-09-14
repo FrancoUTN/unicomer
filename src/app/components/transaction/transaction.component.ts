@@ -13,7 +13,7 @@ import { TransactionService } from 'src/app/services/transaction.service';
   styleUrls: ['./transaction.component.css']
 })
 export class TransactionComponent {
-  currentUrl: string = "";
+  transactionType: string = "";
   // Asynchronism
 	isLoading: boolean = false;
   errorMessage: string = '';
@@ -37,10 +37,20 @@ export class TransactionComponent {
     private router: Router) { }
 
   ngOnInit() {
-    this.router.events.subscribe(event => {
-      this.currentUrl = this.router.url;
-      console.log(this.currentUrl);
-    })
+    this.router.events.subscribe(() => {
+      const currentUrl = this.router.url;
+      switch (currentUrl) {
+        case '/transfer':
+          this.transactionType = 'transfer';
+          break;
+        case '/deposit':
+          this.transactionType = 'deposit';
+          break;
+        case '/withdrawal':
+          this.transactionType = 'withdrawal';
+          break;
+      }
+    });
     this.onLoad();
   }
 
@@ -88,12 +98,12 @@ export class TransactionComponent {
     this.isConfirmSection = true;
   }
 
-  onCancelClickHandler() {
+  onCancelClick() {
     // Previous page
     this.isConfirmSection = false;
   }
   
-  async onConfirmClickHandler() {
+  async onConfirmClick() {
     this.isLoading = true;
     this.errorMessage = '';
     try {
@@ -129,7 +139,11 @@ export class TransactionComponent {
     };
   }
 
-  onNewTransactionClick() {
+  onGoHomeClick() {
+    this.router.navigate(['/home']);
+  }
+
+  onRestartClick() {
     // Reset everything
     this.transactionAmount.reset();
     this.transactionData = null;
@@ -138,9 +152,5 @@ export class TransactionComponent {
     this.onLoad();
     // Go back to the first page
     this.isSummarySection = false;
-  }
-
-  onGoHomeClick() {
-    this.router.navigate(['/home']);
   }
 }
