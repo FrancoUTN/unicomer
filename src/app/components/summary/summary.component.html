@@ -5,9 +5,13 @@
         <p>
             Tipo:
             {{
-                this.receiver ?
+                this.type === 'transfer' ?
                 ' Transferencia' :
-                ' Depósito'
+                (
+                    this.type === 'withdrawal' ?
+                    ' Extracción' :
+                    ' Depósito'
+                )
             }}
         </p>
         <p *ngIf="this.sender">

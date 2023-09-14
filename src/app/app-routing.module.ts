@@ -51,6 +51,11 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
+    path: 'withdrawal',
+    component: TransactionComponent,
+    canActivate: [AuthGuard],
+  },
+  {
     path: 'deposit',
     component: TransactionComponent,
     canActivate: [AuthGuard],

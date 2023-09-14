@@ -50,6 +50,7 @@ import { SummaryComponent } from './components/summary/summary.component';
 import { UsersListComponent } from './components/users-list/users-list.component';
 import { SelectedUserComponent } from './components/selected-user/selected-user.component';
 import { TransactionComponent } from './components/transaction/transaction.component';
+import { WithdrawalComponent } from './pages/withdrawal/withdrawal.component';
 
 @NgModule({
   declarations: [
@@ -78,7 +79,8 @@ import { TransactionComponent } from './components/transaction/transaction.compo
     SummaryComponent,
     UsersListComponent,
     SelectedUserComponent,
-    TransactionComponent
+    TransactionComponent,
+    WithdrawalComponent
   ],
   imports: [
     BrowserModule,

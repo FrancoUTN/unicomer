@@ -1,16 +1,15 @@
-<h1 class="title">Depositar dinero</h1>
+<h1 class="title">Extraer dinero</h1>
 <section
     *ngIf="
         !this.isConfirmSection &&
         !this.isSummarySection
     "
 >
-    <h2>¿Cuánto vas a ingresar?</h2>
+    <h2>¿Cuánto vas a retirar?</h2>
     <div>
         <app-amount-input
             [control]="this.transactionAmount"
             [balance]="this.balance"
-            [dismissBalance]="true"
         />
         <app-amount-errors
             [errors]="this.amountErrors"
@@ -26,7 +25,7 @@
 </section>
 <section *ngIf="this.isConfirmSection">
     <h2>Revisa los datos</h2>
-    <h4 class="confirm-subtitle">Ingresaste:</h4>
+    <h4 class="confirm-subtitle">Vas a retirar:</h4>
     <p class="entered-amount">
         $ {{this.transactionAmount.value}}
     </p>
@@ -49,7 +48,7 @@
     <app-binary-question
         questionText="¿Qué deseas hacer?"
         cancelText="Volver al inicio"
-        proceedText="Otro depósito"
+        proceedText="Otra extracción"
         proceedMatColor="primary"
         (cancel)="this.onGoHomeClick()"
         (proceed)="this.onRestartClick()"

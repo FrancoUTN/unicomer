@@ -402,13 +402,13 @@ export class TransactionService {
     return this.addTransaction(newTransaction);
   }
   
-  async depositMoney(amount: number) {
+  async depositOrWithdrawMoney(amount: number, type: string) {
     const currentUserID = await this.userService.getCurrentUserID();
     const newTransaction = {
       amount,
       date: serverTimestamp(),
       user: currentUserID,
-      type: 'deposit',
+      type,
     };
     return this.addTransaction(newTransaction);
   }

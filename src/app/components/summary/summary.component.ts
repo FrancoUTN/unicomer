@@ -10,4 +10,5 @@ export class SummaryComponent {
   @Input() date: any;
   @Input() receiver: any;
   @Input() sender: any;
+  @Input() type: any;
 }

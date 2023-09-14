@@ -9,11 +9,13 @@ import { FormControl } from '@angular/forms';
 export class AmountInputComponent {
   @Input() control = new FormControl('');
   @Input() balance: number|any;
+  @Input() dismissBalance: boolean = false;
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes.balance.currentValue) {
+    if (this.dismissBalance || changes.balance.currentValue) {
       this.control.enable();
-    } else {
+    }
+    else {
       this.control.disable();
     }
   }

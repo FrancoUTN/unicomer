@@ -1,7 +1,25 @@
 <app-navbar>
     <main>
-        <app-deposit
-            *ngIf="this.transactionType === 'deposit'"
+        <app-transfer
+            *ngIf="this.transactionType === 'transfer'"
+            [transferAmount]="this.transactionAmount"
+            [amountErrors]="this.amountErrors"
+            [transferData]="this.transactionData"
+            [balance]="this.balance"
+            [strBalance]="this.strBalance"
+            [isConfirmSection]="this.isConfirmSection"
+            [isSummarySection]="this.isSummarySection"
+            [otherUsers]="this.otherUsers"
+            [selectedUser]="this.selectedUser"
+            (selectUser)="this.onUserClick($event)"
+            (continue)="this.onContinueClick()"
+            (cancel)="this.onCancelClick()"
+            (confirm)="this.onConfirmClick()"
+            (goHome)="this.onGoHomeClick()"
+            (restart)="this.onRestartClick()"
+        />
+        <app-withdrawal
+            *ngIf="this.transactionType === 'withdrawal'"
             [transactionAmount]="this.transactionAmount"
             [amountErrors]="this.amountErrors"
             [transactionData]="this.transactionData"
@@ -15,18 +33,15 @@
             (goHome)="this.onGoHomeClick()"
             (restart)="this.onRestartClick()"
         />
-        <app-transfer
-            *ngIf="this.transactionType === 'transfer'"
-            [transferAmount]="this.transactionAmount"
+        <app-deposit
+            *ngIf="this.transactionType === 'deposit'"
+            [transactionAmount]="this.transactionAmount"
             [amountErrors]="this.amountErrors"
-            [transferData]="this.transactionData"
+            [transactionData]="this.transactionData"
             [balance]="this.balance"
             [strBalance]="this.strBalance"
             [isConfirmSection]="this.isConfirmSection"
             [isSummarySection]="this.isSummarySection"
-            [otherUsers]="this.otherUsers"
-            [selectedUser]="this.selectedUser"
-            (selectUser)="this.onUserClick($event)"
             (continue)="this.onContinueClick()"
             (cancel)="this.onCancelClick()"
             (confirm)="this.onConfirmClick()"

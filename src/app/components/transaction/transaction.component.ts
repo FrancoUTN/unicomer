@@ -97,7 +97,10 @@ export class TransactionComponent {
       this.amountErrors.required = false
       this.amountErrors.invalid = false;
       this.amountErrors.tooLow = false;
-      if (this.transactionType === 'transfer') {
+      if (
+        this.transactionType === 'transfer' ||
+        this.transactionType === 'withdrawal'
+      ) {
         this.amountErrors.notEnoughBalance = false;
       }
       // Set errors
@@ -113,7 +116,10 @@ export class TransactionComponent {
         if (amount <= 0) {
           this.amountErrors.tooLow = true;
         }
-        if (this.transactionType === 'transfer') {
+        if (
+          this.transactionType === 'transfer' ||
+          this.transactionType === 'withdrawal'
+        ) {
           if (amount > this.balance) {
             this.amountErrors.notEnoughBalance = true;
           }
@@ -164,9 +170,10 @@ export class TransactionComponent {
         Number(this.transactionAmount.value),
         this.selectedUser);
     }
-    else if (this.transactionType === 'deposit') {
-      transactionData = await this.transactionService.depositMoney(
-        Number(this.transactionAmount.value));
+    else {
+      transactionData = await this.transactionService.depositOrWithdrawMoney(
+        Number(this.transactionAmount.value),
+        this.transactionType);
     }
     this.transactionData = this.formatTransactionData(transactionData);
   }
@@ -186,14 +193,16 @@ export class TransactionComponent {
       formattedData = {
         amount: formattedAmount,
         date: formattedDate,
-        sender: transactionData.sender,
         receiver: transactionData.receiver,
+        sender: transactionData.sender,
+        type: transactionData.type,
       };
     }
-    else if (this.transactionType === 'deposit') {
+    else {
       formattedData = {
         amount: formattedAmount,
         date: formattedDate,
+        type: transactionData.type,
       };
     }
     return formattedData;
