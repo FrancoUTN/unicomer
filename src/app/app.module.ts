@@ -39,7 +39,6 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { CardsComponent } from './pages/cards/cards.component';
 import { TransactionsComponent } from './pages/transactions/transactions.component';
 import { TransferComponent } from './pages/transfer/transfer.component';
-import { DepositComponent } from './pages/deposit/deposit.component';
 import { SpinnerOrErrorComponent } from './components/spinner-or-error/spinner-or-error.component';
 import { BinaryQuestionComponent } from './components/binary-question/binary-question.component';
 import { AmountInputComponent } from './components/amount-input/amount-input.component';
@@ -50,7 +49,7 @@ import { SummaryComponent } from './components/summary/summary.component';
 import { UsersListComponent } from './components/users-list/users-list.component';
 import { SelectedUserComponent } from './components/selected-user/selected-user.component';
 import { TransactionComponent } from './components/transaction/transaction.component';
-import { WithdrawalComponent } from './pages/withdrawal/withdrawal.component';
+import { DepositWithdrawalComponent } from './pages/deposit-withdrawal/deposit-withdrawal.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +68,6 @@ import { WithdrawalComponent } from './pages/withdrawal/withdrawal.component';
     CardsComponent,
     TransactionsComponent,
     TransferComponent,
-    DepositComponent,
     SpinnerOrErrorComponent,
     BinaryQuestionComponent,
     AmountInputComponent,
@@ -80,7 +78,7 @@ import { WithdrawalComponent } from './pages/withdrawal/withdrawal.component';
     UsersListComponent,
     SelectedUserComponent,
     TransactionComponent,
-    WithdrawalComponent
+    DepositWithdrawalComponent
   ],
   imports: [
     BrowserModule,

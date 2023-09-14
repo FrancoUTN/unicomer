@@ -18,23 +18,9 @@
             (goHome)="this.onGoHomeClick()"
             (restart)="this.onRestartClick()"
         />
-        <app-withdrawal
-            *ngIf="this.transactionType === 'withdrawal'"
-            [transactionAmount]="this.transactionAmount"
-            [amountErrors]="this.amountErrors"
-            [transactionData]="this.transactionData"
-            [balance]="this.balance"
-            [strBalance]="this.strBalance"
-            [isConfirmSection]="this.isConfirmSection"
-            [isSummarySection]="this.isSummarySection"
-            (continue)="this.onContinueClick()"
-            (cancel)="this.onCancelClick()"
-            (confirm)="this.onConfirmClick()"
-            (goHome)="this.onGoHomeClick()"
-            (restart)="this.onRestartClick()"
-        />
-        <app-deposit
-            *ngIf="this.transactionType === 'deposit'"
+        <app-deposit-withdrawal
+            *ngIf="this.transactionType !== 'transfer'"
+            [transactionType]="this.transactionType"
             [transactionAmount]="this.transactionAmount"
             [amountErrors]="this.amountErrors"
             [transactionData]="this.transactionData"

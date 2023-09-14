@@ -2,11 +2,13 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 @Component({
-  selector: 'app-withdrawal',
-  templateUrl: './withdrawal.component.html',
-  styleUrls: ['./withdrawal.component.css']
+  selector: 'app-deposit-withdrawal',
+  templateUrl: './deposit-withdrawal.component.html',
+  styleUrls: ['./deposit-withdrawal.component.css']
 })
-export class WithdrawalComponent {
+export class DepositWithdrawalComponent {
+  // Type
+  @Input() transactionType: string = '';
   // Transaction
   @Input() transactionAmount = new FormControl(
     { value: '', disabled: true });
