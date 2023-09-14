@@ -16,7 +16,10 @@
     <h2>Vas a transferirle a</h2>
     <app-selected-user [selectedUser]="this.selectedUser"/>
     <div>
-        <app-amount-input [control]="this.transferAmount"/>
+        <app-amount-input
+            [control]="this.transferAmount"            
+            [isLoading]="this.isLoading"
+        />
         <app-amount-errors
             [errors]="this.amountErrors"
             [touched]="this.transferAmount.touched"
@@ -45,8 +48,8 @@
         proceedText="Aceptar"
         cancelMatColor="warn"
         proceedMatColor="primary"
-        (cancel)="this.onCancelClickHandler()"
-        (proceed)="this.onConfirmClickHandler()"
+        (cancel)="this.onCancelClick()"
+        (proceed)="this.onConfirmClick()"
     />
 </section>
 <section
@@ -65,7 +68,7 @@
         proceedText="Otra transferencia"
         proceedMatColor="primary"
         (cancel)="this.onGoHomeClick()"
-        (proceed)="this.onNewTransferClick()"
+        (proceed)="this.onRestartClick()"
     />
 </section>
 <app-spinner-or-error
