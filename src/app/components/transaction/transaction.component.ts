@@ -6,29 +6,25 @@ import { Router } from '@angular/router';
 import * as dayjs from 'dayjs';
 
 import { TransactionService } from 'src/app/services/transaction.service';
-import { UserService } from 'src/app/services/user.service';
 
 @Component({
-  selector: 'app-transfer',
-  templateUrl: './transfer.component.html',
-  styleUrls: ['./transfer.component.css']
+  selector: 'app-transaction',
+  templateUrl: './transaction.component.html',
+  styleUrls: ['./transaction.component.css']
 })
-export class TransferComponent {
+export class TransactionComponent {
+  currentUrl: string = "";
   // Asynchronism
 	isLoading: boolean = false;
   errorMessage: string = '';
-  // Other user(s)
-  otherUsers: Array<any> = [];
-  selectedUser: any;
-  // Transfer
-  transferAmount = new FormControl('');
+  // Transaction
+  transactionAmount = new FormControl({ value: '', disabled: true });
   amountErrors: any = {
     required: false,
     invalid: false,
     tooLow: false,
-    notEnoughBalance: false,
   };
-  transferData: any;
+  transactionData: any;
   // Balance
 	balance: number|any;
 	strBalance: string = '...';
@@ -38,19 +34,14 @@ export class TransferComponent {
 
   constructor(
     private transactionService: TransactionService,
-    private userService: UserService,
     private router: Router) { }
 
-  async ngOnInit() {
-    this.isLoading = true;
-    this.errorMessage = '';
-    try {
-      this.otherUsers = await this.userService.getEveryOtherUser();
-      this.isLoading = false;
-    } catch(error) {
-      console.log(error);
-      this.errorMessage = 'Algo salió mal.';
-    }
+  ngOnInit() {
+    this.router.events.subscribe(event => {
+      this.currentUrl = this.router.url;
+      console.log(this.currentUrl);
+    })
+    this.onLoad();
   }
 
   setBalanceProperties(balance: number) {
@@ -59,20 +50,18 @@ export class TransferComponent {
     this.strBalance = strBalance.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   }
 
-  async onUserClick(user: any) {
+  async onLoad() {
     this.isLoading = true;
     this.errorMessage = '';
-    this.selectedUser = user;
     try {
+      // Balance setting
       const balance = await this.transactionService.getCurrentUserBalance();
-      this.isLoading = false;
       this.setBalanceProperties(balance);
       // Input validation
-      this.transferAmount.valueChanges.subscribe(value => {
+      this.transactionAmount.valueChanges.subscribe(value => {
         this.amountErrors.required = false
         this.amountErrors.invalid = false;
         this.amountErrors.tooLow = false;
-        this.amountErrors.notEnoughBalance = false;
         if (!value) {
           this.amountErrors.required = true;
         }
@@ -82,9 +71,6 @@ export class TransferComponent {
             this.amountErrors.invalid = true;
           }
           const amount = Number(value);
-          if (amount > this.balance) {
-            this.amountErrors.notEnoughBalance = true;
-          }
           if (amount <= 0) {
             this.amountErrors.tooLow = true;
           }
@@ -94,6 +80,7 @@ export class TransferComponent {
       console.log(error);
       this.errorMessage = 'Algo salió mal.';
     }
+    this.isLoading = false;
   }
 
   onContinueClick() {
@@ -110,12 +97,11 @@ export class TransferComponent {
     this.isLoading = true;
     this.errorMessage = '';
     try {
-      // Save transfer in database and get it's info back
-      const transferData = await this.transactionService.transferMoney(
-        Number(this.transferAmount.value),
-        this.selectedUser);
-      this.setTransferData(transferData);
-      // Go to next page
+      // Save transaction in database and get it's info back
+      const transactionData = await this.transactionService.depositMoney(
+        Number(this.transactionAmount.value));
+      this.setTransactionData(transactionData);
+      // Next page
       this.isConfirmSection = false;
       this.isSummarySection = true;
     } catch (error) {
@@ -127,32 +113,30 @@ export class TransferComponent {
     this.isLoading = false;
   }
 
-  setTransferData(transferData: any) {
+  setTransactionData(transactionData: any) {
     // Format amount
-    const strAmount = String(transferData.amount);
+    const strAmount = String(transactionData.amount);
     const formattedAmount = strAmount.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     // Format date
-    const serverTimestamp: Timestamp = transferData.date;
+    const serverTimestamp: Timestamp = transactionData.date;
     const serverDate = serverTimestamp.toDate();
     const serverDateJS = dayjs(serverDate);
     const formattedDate = serverDateJS.format('DD/MM/YYYY - HH:mm:ss');
     // Set property with formatted data
-    this.transferData = {
+    this.transactionData = {
       amount: formattedAmount,
       date: formattedDate,
-      sender: transferData.sender,
-      receiver: transferData.receiver,
     };
   }
 
-  onNewTransferClick() {
+  onNewTransactionClick() {
     // Reset everything
-    this.transferAmount.reset();
-    this.transferData = null;
+    this.transactionAmount.reset();
+    this.transactionData = null;
     this.balance = null;
     this.strBalance = '...';
-    // Go back to users list
-    this.selectedUser = null;
+    this.onLoad();
+    // Go back to the first page
     this.isSummarySection = false;
   }
 

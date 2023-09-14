@@ -11,16 +11,25 @@ import { HomeComponent } from './pages/home/home.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { CardsComponent } from './pages/cards/cards.component';
 import { TransactionsComponent } from './pages/transactions/transactions.component';
-import { TransferComponent } from './pages/transfer/transfer.component';
-import { DepositComponent } from './pages/deposit/deposit.component';
+import { TransactionComponent } from './components/transaction/transaction.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'auth/login', pathMatch: 'full' },
-  { path: 'auth', redirectTo: 'auth/login', pathMatch: 'full' },
-  { path: 'auth', component: AuthComponent, children: [
-    { path: 'login', component: LoginComponent },
-    { path: 'signup', component: SignupComponent },
-  ]},
+  {
+    path: '',
+    redirectTo: 'auth/login',
+    pathMatch: 'full',
+  },
+  {
+    path: 'auth',
+    redirectTo: 'auth/login',
+    pathMatch: 'full',
+  },
+  {
+    path: 'auth', component: AuthComponent, children: [
+      { path: 'login', component: LoginComponent },
+      { path: 'signup', component: SignupComponent },
+    ],
+  },
   {
     path: 'home',
     component: HomeComponent,
@@ -38,15 +47,18 @@ const routes: Routes = [
   },
   {
     path: 'transfer',
-    component: TransferComponent,
+    component: TransactionComponent,
     canActivate: [AuthGuard],
   },
   {
     path: 'deposit',
-    component: DepositComponent,
+    component: TransactionComponent,
     canActivate: [AuthGuard],
   },
-  { path: '**', component: NotFoundComponent },
+  {
+    path: '**',
+    component: NotFoundComponent,
+  },
 ];
 
 @NgModule({

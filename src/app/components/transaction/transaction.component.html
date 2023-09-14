@@ -1,0 +1,12 @@
+<app-navbar>
+    <main>
+        <app-deposit
+            *ngIf="this.currentUrl === '/deposit'"
+
+        />
+        <app-transfer
+            *ngIf="this.currentUrl === '/transfer'"
+
+        />
+    </main>
+</app-navbar>

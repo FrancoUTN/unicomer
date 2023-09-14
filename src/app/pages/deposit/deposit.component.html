@@ -1,70 +1,66 @@
-<app-navbar>
-    <main>
-        <h1 class="title">Depositar dinero</h1>
-        <section
-            *ngIf="
-                !this.isConfirmSection &&
-                !this.isSummarySection
-            "
-            class="input-section"
-        >
-            <h2>¿Cuánto vas a ingresar?</h2>
-            <div>
-                <app-amount-input
-                    [control]="this.transactionAmount"
-                    [isLoading]="this.isLoading"
-                />
-                <app-amount-errors
-                    [errors]="this.amountErrors"
-                    [touched]="this.transactionAmount.touched"
-                />
-            </div>
-            <app-balance-value [balance]="this.strBalance"/>
-            <app-continue-button
-                [errors]="this.amountErrors"
-                [pristine]="this.transactionAmount.pristine"
-                (onClick)="onContinueClick()"
-            />
-        </section>
-        <section
-            *ngIf="this.isConfirmSection"
-            class="confirm-section"
-        >
-            <h2>Revisa los datos</h2>
-            <h4 class="receiver-title">Ingresaste:</h4>
-            <p class="entered-amount">
-                $ {{this.transactionAmount.value}}
-            </p>
-            <app-binary-question
-                questionText="¿Confirmas la operación?"
-                cancelText="Cancelar"
-                proceedText="Aceptar"
-                cancelMatColor="warn"
-                proceedMatColor="primary"
-                (cancel)="this.onCancelClickHandler()"
-                (proceed)="this.onConfirmClickHandler()"
-            />
-        </section>
-        <section
-            *ngIf="this.isSummarySection"
-            class="summary-section"
-        >
-            <app-summary
-                [amount]="this.transactionData.amount"
-                [date]="this.transactionData.date"
-            />
-            <app-binary-question
-                questionText="¿Qué deseas hacer?"
-                cancelText="Volver al inicio"
-                proceedText="Otro depósito"
-                proceedMatColor="primary"
-                (cancel)="this.onGoHomeClick()"
-                (proceed)="this.onNewTransactionClick()"
-            />
-        </section>
-        <app-spinner-or-error
+<h1 class="title">Depositar dinero</h1>
+<section
+    *ngIf="
+        !this.isConfirmSection &&
+        !this.isSummarySection
+    "
+    class="input-section"
+>
+    <h2>¿Cuánto vas a ingresar?</h2>
+    <div>
+        <app-amount-input
+            [control]="this.transactionAmount"
             [isLoading]="this.isLoading"
-            [errorMessage]="this.errorMessage"
         />
-    </main>
-</app-navbar>
+        <app-amount-errors
+            [errors]="this.amountErrors"
+            [touched]="this.transactionAmount.touched"
+        />
+    </div>
+    <app-balance-value [balance]="this.strBalance"/>
+    <app-continue-button
+        [errors]="this.amountErrors"
+        [pristine]="this.transactionAmount.pristine"
+        (onClick)="onContinueClick()"
+    />
+</section>
+<section
+    *ngIf="this.isConfirmSection"
+    class="confirm-section"
+>
+    <h2>Revisa los datos</h2>
+    <h4 class="receiver-title">Ingresaste:</h4>
+    <p class="entered-amount">
+        $ {{this.transactionAmount.value}}
+    </p>
+    <app-binary-question
+        questionText="¿Confirmas la operación?"
+        cancelText="Cancelar"
+        proceedText="Aceptar"
+        cancelMatColor="warn"
+        proceedMatColor="primary"
+        (cancel)="this.onCancelClickHandler()"
+        (proceed)="this.onConfirmClickHandler()"
+    />
+</section>
+<section
+    *ngIf="this.isSummarySection"
+    class="summary-section"
+>
+    <app-summary
+        [amount]="this.transactionData.amount"
+        [date]="this.transactionData.date"
+    />
+    <app-binary-question
+        questionText="¿Qué deseas hacer?"
+        cancelText="Volver al inicio"
+        proceedText="Otro depósito"
+        proceedMatColor="primary"
+        (cancel)="this.onGoHomeClick()"
+        (proceed)="this.onNewTransactionClick()"
+    />
+</section>
+<app-spinner-or-error
+    [isLoading]="this.isLoading"
+    [errorMessage]="this.errorMessage"
+/>

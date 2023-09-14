@@ -1,78 +1,74 @@
-<app-navbar>
-    <main>
-        <h1 class="title">Transferir dinero</h1>
-        <app-users-list
-            *ngIf="!this.selectedUser"
-            [users]="this.otherUsers"
-            [selectedUser]="this.selectedUser"
-            (onUserClick)="this.onUserClick($event)"
+<h1 class="title">Transferir dinero</h1>
+<app-users-list
+    *ngIf="!this.selectedUser"
+    [users]="this.otherUsers"
+    [selectedUser]="this.selectedUser"
+    (onUserClick)="this.onUserClick($event)"
+/>
+<section
+    *ngIf="
+        this.selectedUser &&
+        !this.isConfirmSection &&
+        !this.isSummarySection
+    "
+    class="input-section"
+>
+    <h2>Vas a transferirle a</h2>
+    <app-selected-user [selectedUser]="this.selectedUser"/>
+    <div>
+        <app-amount-input [control]="this.transferAmount"/>
+        <app-amount-errors
+            [errors]="this.amountErrors"
+            [touched]="this.transferAmount.touched"
         />
-        <section
-            *ngIf="
-                this.selectedUser &&
-                !this.isConfirmSection &&
-                !this.isSummarySection
-            "
-            class="input-section"
-        >
-            <h2>Vas a transferirle a</h2>
-            <app-selected-user [selectedUser]="this.selectedUser"/>
-            <div>
-                <app-amount-input [control]="this.transferAmount"/>
-                <app-amount-errors
-                    [errors]="this.amountErrors"
-                    [touched]="this.transferAmount.touched"
-                />
-            </div>
-            <app-balance-value [balance]="this.strBalance"/>
-            <app-continue-button
-                [errors]="this.amountErrors"
-                [pristine]="this.transferAmount.pristine"
-                (onClick)="onContinueClick()"
-            />
-        </section>
-        <section
-            *ngIf="this.isConfirmSection"
-            class="confirm-section"
-        >
-            <h2>Revisa los datos</h2>
-            <h4 class="receiver-title">Destinatario:</h4>
-            <app-selected-user [selectedUser]="this.selectedUser"/>
-            <p class="entered-amount">
-                Monto: $ {{this.transferAmount.value}}
-            </p>
-            <app-binary-question
-                questionText="¿Confirmas la operación?"
-                cancelText="Cancelar"
-                proceedText="Aceptar"
-                cancelMatColor="warn"
-                proceedMatColor="primary"
-                (cancel)="this.onCancelClickHandler()"
-                (proceed)="this.onConfirmClickHandler()"
-            />
-        </section>
-        <section
-            *ngIf="this.isSummarySection"
-            class="summary-section"
-        >
-            <app-summary
-                [amount]="this.transferData.amount"
-                [date]="this.transferData.date"
-                [receiver]="this.transferData.receiver"
-                [sender]="this.transferData.sender"
-            />
-            <app-binary-question
-                questionText="¿Qué deseas hacer?"
-                cancelText="Volver al inicio"
-                proceedText="Otra transferencia"
-                proceedMatColor="primary"
-                (cancel)="this.onGoHomeClick()"
-                (proceed)="this.onNewTransferClick()"
-            />
-        </section>
-        <app-spinner-or-error
-            [isLoading]="this.isLoading"
-            [errorMessage]="this.errorMessage"
-        />
-    </main>
-</app-navbar>
+    </div>
+    <app-balance-value [balance]="this.strBalance"/>
+    <app-continue-button
+        [errors]="this.amountErrors"
+        [pristine]="this.transferAmount.pristine"
+        (onClick)="onContinueClick()"
+    />
+</section>
+<section
+    *ngIf="this.isConfirmSection"
+    class="confirm-section"
+>
+    <h2>Revisa los datos</h2>
+    <h4 class="receiver-title">Destinatario:</h4>
+    <app-selected-user [selectedUser]="this.selectedUser"/>
+    <p class="entered-amount">
+        Monto: $ {{this.transferAmount.value}}
+    </p>
+    <app-binary-question
+        questionText="¿Confirmas la operación?"
+        cancelText="Cancelar"
+        proceedText="Aceptar"
+        cancelMatColor="warn"
+        proceedMatColor="primary"
+        (cancel)="this.onCancelClickHandler()"
+        (proceed)="this.onConfirmClickHandler()"
+    />
+</section>
+<section
+    *ngIf="this.isSummarySection"
+    class="summary-section"
+>
+    <app-summary
+        [amount]="this.transferData.amount"
+        [date]="this.transferData.date"
+        [receiver]="this.transferData.receiver"
+        [sender]="this.transferData.sender"
+    />
+    <app-binary-question
+        questionText="¿Qué deseas hacer?"
+        cancelText="Volver al inicio"
+        proceedText="Otra transferencia"
+        proceedMatColor="primary"
+        (cancel)="this.onGoHomeClick()"
+        (proceed)="this.onNewTransferClick()"
+    />
+</section>
+<app-spinner-or-error
+    [isLoading]="this.isLoading"
+    [errorMessage]="this.errorMessage"
+/>

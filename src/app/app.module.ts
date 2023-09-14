@@ -49,6 +49,7 @@ import { ContinueButtonComponent } from './components/continue-button/continue-b
 import { SummaryComponent } from './components/summary/summary.component';
 import { UsersListComponent } from './components/users-list/users-list.component';
 import { SelectedUserComponent } from './components/selected-user/selected-user.component';
+import { TransactionComponent } from './components/transaction/transaction.component';
 
 @NgModule({
   declarations: [
@@ -76,7 +77,8 @@ import { SelectedUserComponent } from './components/selected-user/selected-user.
     ContinueButtonComponent,
     SummaryComponent,
     UsersListComponent,
-    SelectedUserComponent
+    SelectedUserComponent,
+    TransactionComponent
   ],
   imports: [
     BrowserModule,
