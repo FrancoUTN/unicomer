@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 @Component({
@@ -10,13 +10,9 @@ export class TransferComponent {
   // Transaction
   @Input() transferAmount = new FormControl(
     { value: '', disabled: true });
-  @Input() amountErrors: any = {
-    required: false,
-    invalid: false,
-    tooLow: false,
-    notEnoughBalance: false,
-  };
+  @Input() amountErrors: any;
   @Input() transferData: any;
+  @Input() strAmount: string = '';
   // Balance
 	@Input() balance: number|any;
 	@Input() strBalance: string = '...';

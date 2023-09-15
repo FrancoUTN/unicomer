@@ -19,13 +19,16 @@ export class TransactionComponent {
 	isLoading: boolean = false;
   errorMessage: string = '';
   // Transaction
-  transactionAmount = new FormControl({ value: '', disabled: true });
+  transactionAmount = new FormControl(
+    { value: '', disabled: true });
   amountErrors: any = {
     required: false,
     invalid: false,
     tooLow: false,
+    notEnoughBalance: false,
   };
   transactionData: any;
+  strAmount: string = '';
   // Balance
 	balance: number|any;
 	strBalance: string = '...';
@@ -135,6 +138,10 @@ export class TransactionComponent {
   onContinueClick() {
     // Next page
     this.isConfirmSection = true;
+    if (this.transactionAmount.value) {
+      this.strAmount = this.transactionAmount.value
+        .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    }
   }
 
   onCancelClick() {
