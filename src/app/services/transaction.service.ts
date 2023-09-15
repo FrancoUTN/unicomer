@@ -396,7 +396,10 @@ export class TransactionService {
     };
     const newTransaction = {
       amount,
+      // // AUXILIAR TESTING! REPLACE IN PRODUCTION
       date: serverTimestamp(),
+      // date: this.testDate(),
+      // //
       receiver: customReceiver,
       sender: customSender,
       type: 'transfer',
@@ -408,10 +411,24 @@ export class TransactionService {
     const currentUserID = await this.userService.getCurrentUserID();
     const newTransaction = {
       amount,
+      // // AUXILIAR TESTING! REPLACE IN PRODUCTION
       date: serverTimestamp(),
+      // date: this.testDate(),
+      // //
       user: currentUserID,
       type,
     };
     return this.addTransaction(newTransaction);
+  }
+
+  // TESTING
+  testDate() {
+    let day = dayjs();
+    // // Alter these for testing purposes:
+    day = day.subtract(1, 'month');
+    day = day.subtract(2, 'day');
+    // //
+    const fakeDate = day.toDate();
+    return Timestamp.fromDate(fakeDate);
   }
 }
