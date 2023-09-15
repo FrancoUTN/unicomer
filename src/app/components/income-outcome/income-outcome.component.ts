@@ -162,8 +162,9 @@ export class IncomeOutcomeComponent {
       this.differenceWithLastMonth = 'neutral';
     }
 
-    absoluteDifference = Math.abs(absoluteDifference);
-    const relativeDifference = absoluteDifference * 100 / lastMonthTotal;
+    absoluteDifference = Math.abs(absoluteDifference);    
+    let relativeDifference = absoluteDifference * 100 / lastMonthTotal;
+    relativeDifference = Math.floor(relativeDifference);
 
     this.monthsDifference = relativeDifference;
     const strDifference = this.monthsDifference.toString();
