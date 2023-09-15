@@ -88,6 +88,33 @@
     opacity: .7;
 }
 
+.pages-controller {
+    padding: 2rem 2rem 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.showing-items {
+    font-weight: 500;
+}
+
+.controller-buttons {
+    display: flex;
+    gap: 1rem;
+}
+
+.button-icon:hover {
+    cursor: pointer;
+}
+
+.disabled-button {
+    opacity: .5;
+}
+
+.disabled-button:hover {
+    cursor: auto;
+}
+
 @media (max-width: 900px) {
     .root {
         border-radius: 12px;

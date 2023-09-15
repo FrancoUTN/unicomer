@@ -11,7 +11,11 @@
     <div *ngIf="!this.isLoading">
         <div
             class="transaction-container"
-            *ngFor="let transaction of this.transactions; let i = index"
+            *ngFor="
+                let transaction of this.currentUrl === '/transactions' ?
+                    this.allTransactions :
+                    this.pages[this.currentPageIndex];
+                let i = index"
             [ngClass]="{'odd-transaction-container': i % 2 !== 0}"
         >
             <div class="transaction-icon">
@@ -111,6 +115,41 @@
                 <div class="options-container">
                     <span>···</span>
                 </div>
+            </div>
+        </div>
+        <div
+            class="pages-controller"
+            *ngIf="this.currentUrl !== '/transactions'"
+        >
+            <p>
+                Mostrando
+                <span class="showing-items">
+                    {{this.showingItems}}
+                </span>
+                de 
+                <span class="showing-items">
+                    {{this.totalItems}}
+                </span>
+            </p>
+            <div class="controller-buttons">
+                <mat-icon
+                    aria-hidden="false"
+                    aria-label="Left arrow icon"
+                    fontIcon="arrow_left"
+                    class="material-icons-outlined button-icon"
+                    [class.disabled-button]="this.currentPageIndex <= 0"
+                    (click)="this.onPreviousPageClick()"
+                ></mat-icon>
+                <mat-icon
+                    aria-hidden="false"
+                    aria-label="Right arrow icon"
+                    fontIcon="arrow_right"
+                    class="material-icons-outlined button-icon"
+                    [class.disabled-button]="
+                        this.currentPageIndex >= this.pages.length - 1
+                    "
+                    (click)="this.onForwardPageClick()"
+                ></mat-icon>
             </div>
         </div>
     </div>
