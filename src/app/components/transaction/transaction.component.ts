@@ -74,7 +74,8 @@ export class TransactionComponent {
         // this.isLoading = false;
       }
       await this.getBalance();
-      this.setInputValidations();
+      // this.setInputValidations();
+      this.transactionAmount.valueChanges.subscribe(this.validateInput);
     } catch(error) {
       console.log(error);
       this.errorMessage = 'Algo salió mal.';
@@ -89,42 +90,41 @@ export class TransactionComponent {
     return;
   }
 
-  setInputValidations() {
-    // TODO: Create observer rather than this function
-    this.transactionAmount.valueChanges.subscribe(value => {
-      // Reset errors
-      this.amountErrors.required = false
-      this.amountErrors.invalid = false;
-      this.amountErrors.tooLow = false;
+  // Observer.
+  // Needs to be an arrow function in order to preserve "this" context
+  validateInput = (value: string | null) => {
+    // Reset errors
+    this.amountErrors.required = false
+    this.amountErrors.invalid = false;
+    this.amountErrors.tooLow = false;
+    if (
+      this.transactionType === 'transfer' ||
+      this.transactionType === 'withdrawal'
+    ) {
+      this.amountErrors.notEnoughBalance = false;
+    }
+    // Set errors
+    if (!value) {
+      this.amountErrors.required = true;
+    }
+    else {
+      const onlyNumbersRegexp = /^\d+$/;
+      if (!onlyNumbersRegexp.test(value)) {
+        this.amountErrors.invalid = true;
+      }
+      const amount = Number(value);
+      if (amount <= 0) {
+        this.amountErrors.tooLow = true;
+      }
       if (
         this.transactionType === 'transfer' ||
         this.transactionType === 'withdrawal'
       ) {
-        this.amountErrors.notEnoughBalance = false;
-      }
-      // Set errors
-      if (!value) {
-        this.amountErrors.required = true;
-      }
-      else {
-        const onlyNumbersRegexp = /^\d+$/;
-        if (!onlyNumbersRegexp.test(value)) {
-          this.amountErrors.invalid = true;
-        }
-        const amount = Number(value);
-        if (amount <= 0) {
-          this.amountErrors.tooLow = true;
-        }
-        if (
-          this.transactionType === 'transfer' ||
-          this.transactionType === 'withdrawal'
-        ) {
-          if (amount > this.balance) {
-            this.amountErrors.notEnoughBalance = true;
-          }
+        if (amount > this.balance) {
+          this.amountErrors.notEnoughBalance = true;
         }
       }
-    });
+    }
   }
 
   onUserClick(user: any) {
