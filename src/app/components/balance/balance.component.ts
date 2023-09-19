@@ -81,9 +81,13 @@ export class BalanceComponent {
   constructor(private transactionService: TransactionService) {}
 
   async ngOnInit() {
-    await this.setChartData();
-
-    this.updateChart();
+    try {
+      await this.setChartData();
+      this.updateChart();
+    }
+    catch (e) {
+      console.log(e);
+    }
     this.isLoading = false;
   }
 

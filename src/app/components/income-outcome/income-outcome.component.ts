@@ -84,16 +84,21 @@ export class IncomeOutcomeComponent {
   constructor(private transactionService: TransactionService) {}
 
   async ngOnInit() {
-    this.months = await this.transactionService.getCurrentUserIncomeAndOutcome();
+    try {
+      this.months = await this.transactionService.getCurrentUserIncomeAndOutcome();
 
-    this.lineChartData.datasets[0].label = this.isIncome ? 'Ingresos' : 'Egresos';
-    const chartColorRGB = this.isIncome ? '39, 47, 101' : '93, 149, 190';
-    this.lineChartData.datasets[0].backgroundColor = `rgba(${chartColorRGB},0.2)`;
-    this.lineChartData.datasets[0].borderColor = `rgba(${chartColorRGB},1)`;
-    
-    this.updateChart();
-    this.setThisMonthTotal();
-    this.calculateMonthsDifference();
+      this.lineChartData.datasets[0].label = this.isIncome ? 'Ingresos' : 'Egresos';
+      const chartColorRGB = this.isIncome ? '39, 47, 101' : '93, 149, 190';
+      this.lineChartData.datasets[0].backgroundColor = `rgba(${chartColorRGB},0.2)`;
+      this.lineChartData.datasets[0].borderColor = `rgba(${chartColorRGB},1)`;
+      
+      this.updateChart();
+      this.setThisMonthTotal();
+      this.calculateMonthsDifference();
+    }
+    catch (e) {
+      console.log(e);
+    }
     this.isLoading = false;
   }
 
