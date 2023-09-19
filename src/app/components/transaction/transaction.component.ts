@@ -47,26 +47,22 @@ export class TransactionComponent {
   ngOnInit() {
     // Set transaction type based on URL
     this.setTransactionType();
+    // First operations
+    this.onLoad();
   }
 
   setTransactionType() {
-    // TODO: Create observer rather than this function
-    this.router.events.subscribe(() => {
-      const currentUrl = this.router.url;
-      switch (currentUrl) {
-        case '/transfer':
-          this.transactionType = 'transfer';
-          break;
-        case '/deposit':
-          this.transactionType = 'deposit';
-          break;
-        case '/withdrawal':
-          this.transactionType = 'withdrawal';
-          break;
-      }
-      // First operations (this shouldn't be here)
-      this.onLoad();
-    });
+    switch (this.router.url) {
+      case '/transfer':
+        this.transactionType = 'transfer';
+        break;
+      case '/deposit':
+        this.transactionType = 'deposit';
+        break;
+      case '/withdrawal':
+        this.transactionType = 'withdrawal';
+        break;
+    }
   }
 
   async onLoad() {

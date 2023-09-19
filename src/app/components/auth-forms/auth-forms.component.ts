@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatTooltip } from '@angular/material/tooltip';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-auth-forms',
@@ -9,13 +9,22 @@ import { Router } from '@angular/router';
 })
 export class AuthFormsComponent implements OnInit {
   currentUrl: string = "";
+  routeSubscription?: Subscription;
   // virtualKeyboardEnabled: boolean = false;
 
   constructor(private router: Router) {}
 
   ngOnInit() {
-    this.router.events.subscribe(event => {
-      this.currentUrl = this.router.url;
-    })
+    this.routeSubscription = this.router.events.subscribe(() => {
+      if (this.currentUrl !== this.router.url) {
+        this.currentUrl = this.router.url;
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    if (this.routeSubscription) {
+      this.routeSubscription.unsubscribe();
+    }
   }
 }

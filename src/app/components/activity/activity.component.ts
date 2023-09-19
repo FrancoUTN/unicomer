@@ -26,14 +26,12 @@ export class ActivityComponent {
     const innerWidth = window.innerWidth;
     this.isMobile = innerWidth <= 900;
     
-    this.router.events.subscribe(() => {
-      this.currentUrl = this.router.url;
-      if (this.currentUrl === '/transactions') {
-        this.loadAllTransactions();
-      } else {
-        this.loadTransactionPages();
-      }
-    });
+    this.currentUrl = this.router.url;
+    if (this.currentUrl === '/transactions') {
+      this.loadAllTransactions();
+    } else {
+      this.loadTransactionPages();
+    }
   }
 
   async loadAllTransactions() {

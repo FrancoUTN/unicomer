@@ -45,9 +45,7 @@ export class NavbarComponent {
     private userService: UserService) {}
 
   ngOnInit() {
-    this.router.events.subscribe(() => {
-      this.currentUrl = this.router.url;
-    });
+    this.currentUrl = this.router.url;
     
     this.userService.getCurrentUserData().then(userData => {
       if (!userData) {
