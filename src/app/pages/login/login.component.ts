@@ -1,8 +1,9 @@
 import { Component, inject } from '@angular/core';
 import { signInWithEmailAndPassword } from '@angular/fire/auth';
-import { Firestore, collection, doc, getDoc, getDocs, limit, query, where } from '@angular/fire/firestore';
-import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Firestore, collection, getDocs, limit, query, where } from '@angular/fire/firestore';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+
 import { AuthService } from 'src/app/services/auth.service';
 
 interface DocumentType {
@@ -30,33 +31,16 @@ export class LoginComponent {
   get documentNumber() { return this.loginForm.get('documentNumber'); }
   get password() { return this.loginForm.get('password'); }
 
-  constructor(private router: Router, private authService: AuthService) {
-  }
+  constructor(
+    private router: Router,
+    private authService: AuthService) { }
 
   ngOnInit() {
     this.loginForm = new FormGroup({
-      'documentType': new FormControl(null, [
-        Validators.required
-      ]),
-      'documentNumber': new FormControl(null, [
-        Validators.required,
-        // Validators.min(999999),
-        Validators.max(99999999)]
-        ),
-      'password': new FormControl(null, [
-        Validators.required, this.emptyValidator
-      ]),
+      'documentType': new FormControl(null, Validators.required),
+      'documentNumber': new FormControl(null, Validators.required),
+      'password': new FormControl(null, Validators.required),
     });
-  }
-  
-  emptyValidator(control: AbstractControl): object | null {
-    const valor = control.value;
-    if (valor) {
-      if (valor.trim().length === 0) {
-        return { emptyField: true};
-      };
-    };
-    return null;
   }
 
   onSubmit() {
@@ -90,7 +74,12 @@ export class LoginComponent {
       () => this.router.navigate(['/home'])
     ).catch(error => {
       console.log(error.code);
-      this.errorMessage = error.message;
+      if (error.code === 'auth/wrong-password') {
+        this.errorMessage = 'Clave incorrecta.';
+      }
+      else {
+        this.errorMessage = error.message;
+      }
     }).finally(() => {
       this.isLoading = false;
     });

@@ -9,19 +9,19 @@
             {{documentType.viewValue}}
             </mat-option>
         </mat-select>
-        <mat-error *ngIf="!documentType?.valid && documentType?.touched">
+        <mat-error *ngIf="!documentType.valid">
             Tipo requerido
         </mat-error>
     </mat-form-field>
     <mat-form-field>
         <mat-label>Número de documento</mat-label>
         <input
-            type="number"
+            type="tel"
             matInput
             formControlName="documentNumber"
         >
-        <mat-error *ngIf="!documentNumber?.valid && documentNumber?.touched">
-            Número inválido
+        <mat-error *ngIf="!documentNumber.valid">
+            Número requerido
         </mat-error>
     </mat-form-field>
     <mat-form-field>
@@ -31,8 +31,8 @@
             matInput
             formControlName="password"
         >
-        <mat-error *ngIf="!password?.valid && password?.touched">
-            Clave inválida
+        <mat-error *ngIf="!password.valid">
+            Clave requerida
         </mat-error>
     </mat-form-field>
     <button mat-flat-button>

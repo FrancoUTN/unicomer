@@ -7,7 +7,10 @@
             formControlName="email"
             placeholder="user@example.com"
         >
-        <mat-error *ngIf="!email?.valid && email?.touched">
+        <mat-error *ngIf="email.errors?.['required']">
+            Correo requerido
+        </mat-error>
+        <mat-error *ngIf="email.errors?.['email']">
             Correo inválido
         </mat-error>
     </mat-form-field>
@@ -17,8 +20,16 @@
             matInput
             formControlName="firstName"
         >
-        <mat-error *ngIf="!firstName?.valid && firstName?.touched">
-            Nombre inválido
+        <mat-error *ngIf="firstName.errors?.['required']">
+            Nombre requerido
+        </mat-error>
+        <mat-error *ngIf="firstName.errors?.['pattern']">
+            No deje espacios al principio ni al final de su nombre
+        </mat-error>
+        <mat-error *ngIf="
+            !firstName.errors?.['pattern'] &&
+            firstName.errors?.['maxlength']">
+            El nombre no debe superar los 35 caracteres
         </mat-error>
     </mat-form-field>
     <mat-form-field>
@@ -27,8 +38,89 @@
             matInput
             formControlName="lastName"
         >
-        <mat-error *ngIf="!lastName?.valid && lastName?.touched">
-            Apellido inválido
+        <mat-error *ngIf="lastName.errors?.['required']">
+            Apellido requerido
+        </mat-error>
+        <mat-error *ngIf="lastName.errors?.['pattern']">
+            No deje espacios al principio ni al final de su apellido
+        </mat-error>
+        <mat-error *ngIf="
+            !lastName.errors?.['pattern'] &&
+            lastName.errors?.['maxlength']">
+            El apellido no debe superar los 35 caracteres
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Tipo de documento</mat-label>
+        <mat-select formControlName="documentType">
+            <mat-option
+                *ngFor="let documentType of documentTypes"
+                [value]="documentType.value"
+            >
+            {{documentType.viewValue}}
+            </mat-option>
+        </mat-select>
+        <mat-error *ngIf="!documentType?.valid">
+            Tipo requerido
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Número de documento</mat-label>
+        <input
+            type="tel"
+            matInput
+            formControlName="documentNumber"
+        >
+        <mat-error *ngIf="documentNumber.errors?.['required']">
+            Número requerido
+        </mat-error>
+        <mat-error *ngIf="documentNumber.errors?.['pattern']">
+            Error: solo números
+        </mat-error>
+        <mat-error *ngIf="
+            !documentNumber.errors?.['pattern'] &&
+            documentNumber.errors?.['max']">
+            Número demasiado grande
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Clave</mat-label>
+        <input
+            type="password"
+            matInput
+            formControlName="password"
+        >
+        <mat-error *ngIf="password.errors?.['required']">
+            Clave requerida
+        </mat-error>
+        <mat-error *ngIf="password.errors?.['pattern']">
+            La clave no puede contener espacios
+        </mat-error>
+        <mat-error *ngIf="
+            !password.errors?.['pattern'] &&
+            password.errors?.['minlength']">
+            La clave debe tener al menos 6 caracteres
+        </mat-error>
+        <mat-error *ngIf="
+            !password.errors?.['pattern'] &&
+            password.errors?.['maxlength']">
+            La clave no puede superar los 18 caracteres
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Repetir clave</mat-label>
+        <input
+            type="password"
+            matInput
+            formControlName="passwordRepeat"
+            pattern="{{this.password?.value}}"
+        >
+        <!-- Kind of weird, but it works -->
+        <mat-error *ngIf="
+            password?.valid &&
+            !passwordRepeat?.valid"
+        >
+            Las claves no coinciden
         </mat-error>
     </mat-form-field>
     <div class="file-field">
@@ -46,64 +138,11 @@
             <mat-error *ngIf="!profilePicture && this.profilePictureTouched">
                 Foto requerida
             </mat-error>
-            <mat-error *ngIf="profilePictureInvalid && this.profilePictureTouched">
+            <mat-error *ngIf="profilePictureInvalid">
                 Error: debe ser una imagen
             </mat-error>
         </div>
     </div>
-    <mat-form-field>
-        <mat-label>Tipo de documento</mat-label>
-        <mat-select formControlName="documentType">
-            <mat-option
-                *ngFor="let documentType of documentTypes"
-                [value]="documentType.value"
-            >
-            {{documentType.viewValue}}
-            </mat-option>
-        </mat-select>
-        <mat-error *ngIf="!documentType?.valid && documentType?.touched">
-            Tipo requerido
-        </mat-error>
-    </mat-form-field>
-    <mat-form-field>
-        <mat-label>Número de documento</mat-label>
-        <input
-            type="number"
-            matInput
-            formControlName="documentNumber"
-        >
-        <mat-error *ngIf="!documentNumber?.valid && documentNumber?.touched">
-            Número inválido
-        </mat-error>
-    </mat-form-field>
-    <mat-form-field>
-        <mat-label>Clave</mat-label>
-        <input
-            type="password"
-            matInput
-            formControlName="password"
-        >
-        <mat-error *ngIf="!password?.valid && password?.touched">
-            Clave inválida
-        </mat-error>
-    </mat-form-field>
-    <mat-form-field>
-        <mat-label>Repetir clave</mat-label>
-        <input
-            type="password"
-            matInput
-            formControlName="passwordRepeat"
-            pattern="{{this.password?.value}}"
-        >
-        <!-- Kind of weird, but it works -->
-        <mat-error *ngIf="
-            password?.valid &&
-            !passwordRepeat?.valid &&
-            passwordRepeat?.touched"
-        >
-            Las claves no coinciden
-        </mat-error>
-    </mat-form-field>
     <button mat-flat-button>
         Registrarme
     </button>

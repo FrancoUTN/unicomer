@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { SignupService } from 'src/app/services/signup.service';
@@ -15,36 +15,7 @@ interface DocumentType {
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent {
-  // Add better validations (eg: no-spaces for passwords)
-  signupForm: FormGroup = new FormGroup({
-    'email': new FormControl(null, [
-      Validators.required
-    ]),
-    'firstName': new FormControl(null, [
-      Validators.required
-    ]),
-    'lastName': new FormControl(null, [
-      Validators.required
-    ]),
-    'documentType': new FormControl(null, [
-      Validators.required
-    ]),
-    'documentNumber': new FormControl(null, [
-      Validators.required,
-      // Validators.min(999999),
-      Validators.max(99999999)
-    ]),
-    'password': new FormControl(null, [
-      Validators.required,
-      this.emptyValidator,
-      Validators.minLength(6)
-    ]),
-    'passwordRepeat': new FormControl(null, [
-      Validators.required,
-      this.emptyValidator,
-      Validators.minLength(6)
-    ]),
-  });
+  signupForm: FormGroup | any;
   profilePicture: File | any = null;
   profilePictureTouched: boolean = false;
   profilePictureInvalid: boolean = false;
@@ -65,16 +36,47 @@ export class SignupComponent {
   get password() { return this.signupForm.get('password'); }
   get passwordRepeat() { return this.signupForm.get('passwordRepeat'); }
 
-  constructor(private router: Router, private signupService: SignupService) { }
-  
-  emptyValidator(control: AbstractControl): object | null {
-    const valor = control.value;
-    if (valor) {
-      if (valor.trim().length === 0) {
-        return { emptyField: true};
-      };
-    };
-    return null;
+  constructor(
+    private router: Router,
+    private signupService: SignupService) { }
+
+  ngOnInit() {
+    this.signupForm = new FormGroup({
+      'email': new FormControl(null, [
+        Validators.required,
+        Validators.email,
+      ]),
+      'firstName': new FormControl(null, [
+        Validators.required,
+        Validators.pattern(/^(?! ).*(?<! )$/),
+        Validators.maxLength(35),
+      ]),
+      'lastName': new FormControl(null, [
+        Validators.required,
+        Validators.pattern(/^(?! ).*(?<! )$/),
+        Validators.maxLength(35),
+      ]),
+      'documentType': new FormControl(null, [
+        Validators.required,
+      ]),
+      'documentNumber': new FormControl(null, [
+        Validators.required,
+        Validators.pattern(/^\d+$/),
+        Validators.max(999999999),
+      ]),
+      'password': new FormControl(null, [
+        Validators.required,
+        Validators.minLength(6),
+        Validators.maxLength(18),
+        Validators.pattern(/^\S*$/),
+      ]),
+      'passwordRepeat': new FormControl(null, [
+        Validators.required,
+        Validators.minLength(6),
+        Validators.maxLength(18),
+        Validators.pattern(/^\S*$/),
+      ]),
+    });
   }
 
   onFileSelected(event: any): void {
@@ -82,7 +84,6 @@ export class SignupComponent {
     if (!file) {
       return;
     }
-    this.profilePictureTouched = true;
     this.profilePicture = file;
     const isImage = file['type'].includes('image');
     if (isImage) {
@@ -95,6 +96,7 @@ export class SignupComponent {
 
   onSubmit() {
     this.errorMessage = '';
+    this.profilePictureTouched = true;
     if (!this.signupForm.valid) {
       return;
     }
