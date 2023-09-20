@@ -4,6 +4,8 @@
     border-radius: 2rem;
     height: 100%;
     display: flex;
+    position: relative;
+    z-index: -2;
 }
 
 .loader-container {
@@ -40,6 +42,7 @@
     justify-content: flex-end;
     align-items: center;
     font-size: 1.2rem;
+    z-index: 0;
 }
 
 .card-details-container {
@@ -54,14 +57,85 @@
     margin-bottom: .5rem;
 }
 
+.graphics-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 30%;
+    z-index: -1;
+    padding-top: 2rem;
+    overflow: hidden;
+    border-bottom-right-radius: 2rem;
+}
+
+.circle {
+    position: absolute;
+    background-color: white;
+    width: 3rem;
+    height: 3rem;
+    top: 2.5rem;
+    border-radius: 100%;
+    opacity: .6;
+}
+
+.first-circle {
+    left: 0;
+}
+
+.second-circle {
+    left: 2.5rem;
+}
+
+.mountain {
+    position: absolute;
+    width: 60%;
+    bottom: 0;
+    border-top-left-radius: 9999px;
+    border-top-right-radius: 9999px;
+}
+
+.first-mountain {
+    background-color: #416191;
+    height: 55%;
+    right: 15%;
+}
+
+.second-mountain {
+    background-color: #5d95be;
+    height: 70%;
+    right: -10%;
+}
+
 @media (max-width: 900px) {
     .root {
         border-radius: 12px;
         padding: 2rem;
     }
-
     
     .card-number-container {
         margin: 3vh 0;
+    }
+
+    .graphics-container {
+        border-radius: 12px;
+    }
+
+    .circle {
+        width: 2.5rem;
+        height: 2.5rem;
+        top: 2rem;
+    }
+
+    .second-circle {
+        left: 2rem;
+    }
+    
+    .first-mountain {
+        height: 50%;
+    }
+
+    .second-mountain {
+        height: 65%;
     }
 }
