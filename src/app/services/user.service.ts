@@ -5,6 +5,7 @@ import {
   doc,
   getDoc,
   getDocs,
+  limit,
   orderBy,
   query,
   setDoc,
@@ -47,15 +48,30 @@ export class UserService {
     }
   }
 
-  // Asynchronously returns true if the document already exists;
-  // false otherwise
-  async checkDocumentAlreadyInUse(docType: string, docNumber: number) {
+  queryUserDocument(docType: string, docNumber: number) {
     const q = query(
       this.usersRef,
       where('documentType', '==', docType),
       where('documentNumber', '==', docNumber)
     );
-    const qsUsers = await getDocs(q);
+    return getDocs(q);
+  }
+
+  // Asynchronously returns the email associated to the document;
+  // or throws an error if the document doesn't exist in the database
+  async getEmailByDocument(docType: string, docNumber: number) {
+    const qsUsers = await this.queryUserDocument(docType, docNumber);
+    const userDocument = qsUsers.docs[0];
+    if (!userDocument) {
+      throw new Error('El documento ingresado no ha sido registrado.');
+    }
+    return userDocument.data().email;
+  }
+
+  // Asynchronously returns true if the document already exists;
+  // false otherwise
+  async checkDocumentAlreadyInUse(docType: string, docNumber: number) {
+    const qsUsers = await this.queryUserDocument(docType, docNumber);
     if (qsUsers.empty) {
       return false;
     }

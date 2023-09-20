@@ -1,10 +1,8 @@
-import { Component, inject } from '@angular/core';
-import { signInWithEmailAndPassword } from '@angular/fire/auth';
-import { Firestore, collection, getDocs, limit, query, where } from '@angular/fire/firestore';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { AuthService } from 'src/app/services/auth.service';
+import { LoginService } from 'src/app/services/login.service';
 
 interface DocumentType {
   value: string;
@@ -17,7 +15,6 @@ interface DocumentType {
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  private firestore: Firestore = inject(Firestore);
   loginForm: FormGroup | any;
   documentTypes: DocumentType[] = [
     {value: 'dni', viewValue: 'DNI'},
@@ -33,7 +30,7 @@ export class LoginComponent {
 
   constructor(
     private router: Router,
-    private authService: AuthService) { }
+    private loginService: LoginService) { }
 
   ngOnInit() {
     this.loginForm = new FormGroup({
@@ -49,30 +46,9 @@ export class LoginComponent {
       return;
     }
     this.isLoading = true;
-    const formValue = this.loginForm.value;
-    const usersRef = collection(this.firestore, 'users');
-    const docNumber = Number(formValue.documentNumber);
-    const docType = formValue.documentType;
-    const q = query(
-      usersRef,
-      where('documentNumber', '==', docNumber),
-      where('documentType', '==', docType),
-      limit(1)
-    );
-    getDocs(q).then(qs => {
-      const userDocument = qs.docs[0];
-      if (!userDocument) {
-        throw new Error('El documento ingresado no ha sido registrado.');
-      }
-      const email = userDocument.data().email;
-      return signInWithEmailAndPassword(
-        this.authService.getAuth(),
-        email,
-        formValue.password
-      );
-    }).then(
-      () => this.router.navigate(['/home'])
-    ).catch(error => {
+    this.loginService.logIn(this.loginForm.value)
+    .then(() => this.router.navigate(['/home']))
+    .catch(error => {
       console.log(error.code);
       if (error.code === 'auth/wrong-password') {
         this.errorMessage = 'Clave incorrecta.';
