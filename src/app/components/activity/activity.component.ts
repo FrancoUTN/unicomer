@@ -83,8 +83,13 @@ export class ActivityComponent {
   }
 
   setShowing() {
-    const from = (this.currentPageIndex * 5) + 1;
-    const to = from + this.pages[this.currentPageIndex].length - 1;
-    this.showingItems = `${from}-${to}`;
+    if (this.pages.length) {
+      const from = (this.currentPageIndex * 5) + 1;
+      const to = from + this.pages[this.currentPageIndex].length - 1;
+      this.showingItems = `${from}-${to}`;
+    }
+    else {
+      this.showingItems = '0';
+    }
   }
 }
