@@ -7,7 +7,8 @@ import {
   getDocs,
   orderBy,
   query,
-  setDoc
+  setDoc,
+  where
 } from '@angular/fire/firestore';
 
 import { AuthService } from './auth.service';
@@ -44,6 +45,21 @@ export class UserService {
       user.id = uid;
       return user;
     }
+  }
+
+  // Asynchronously returns true if the document already exists;
+  // false otherwise
+  async checkDocumentAlreadyInUse(docType: string, docNumber: number) {
+    const q = query(
+      this.usersRef,
+      where('documentType', '==', docType),
+      where('documentNumber', '==', docNumber)
+    );
+    const qsUsers = await getDocs(q);
+    if (qsUsers.empty) {
+      return false;
+    }
+    return true;
   }
 
   async getEveryOtherUser() {
