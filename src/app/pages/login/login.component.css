@@ -17,6 +17,10 @@ mat-form-field {
     color: #f5f5f5;
 }
 
+.sample-user-button {
+    margin: 4vh auto 0;
+}
+
 @media (max-width: 900px) {
     :host {
         padding-top: 0;

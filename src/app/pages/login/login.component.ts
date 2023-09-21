@@ -40,6 +40,14 @@ export class LoginComponent {
     });
   }
 
+  onSampleUserClick() {
+    this.loginForm.patchValue({
+      documentType: 'dni',
+      documentNumber: '123',
+      password: '123123',
+    });
+  }
+
   onSubmit() {
     this.errorMessage = '';
     if (!this.loginForm.valid) {

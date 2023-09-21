@@ -35,8 +35,17 @@
             Clave requerida
         </mat-error>
     </mat-form-field>
-    <button mat-flat-button color="primary">
+    <button mat-raised-button color="primary">
         Ingresar
+    </button>
+    <button
+        mat-stroked-button
+        color="other"
+        type="button"
+        class="sample-user-button"
+        (click)="onSampleUserClick()"
+    >
+        Usuario de ejemplo
     </button>
     <app-spinner-or-error
         [isLoading]="this.isLoading"
