@@ -50,11 +50,21 @@ export class LoginComponent {
     .then(() => this.router.navigate(['/home']))
     .catch(error => {
       console.log(error.code);
-      if (error.code === 'auth/wrong-password') {
-        this.errorMessage = 'Clave incorrecta.';
-      }
-      else {
-        this.errorMessage = error.message;
+      switch (error.code) {
+        case 'auth/wrong-password':
+          this.errorMessage = 'Clave incorrecta.';
+          break;
+        case 'auth/too-many-requests':
+          this.errorMessage = `Demasiadas solicitudes.
+            Vuelva a intentarlo dentro de un rato.`;
+          break;
+        case 'auth/internal-error':
+          this.errorMessage = `Falló el servidor.
+            Intente nuevamente.`;
+          break;
+        default:
+          this.errorMessage = error.message;
+          break;
       }
     }).finally(() => {
       this.isLoading = false;
