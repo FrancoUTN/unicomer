@@ -33,6 +33,7 @@ export class TransactionComponent {
   // Balance
 	balance: number|any;
 	strBalance: string = '...';
+	balanceIsSet: boolean = false;
   // Flow control
   isConfirmSection: boolean = false;
   isSummarySection: boolean = false;
@@ -72,10 +73,9 @@ export class TransactionComponent {
     try {
       if (this.transactionType === 'transfer') {
         this.otherUsers = await this.userService.getEveryOtherUser();
-        // this.isLoading = false;
+      } else {
+        await this.setupAmount();
       }
-      await this.getBalance();
-      this.transactionAmount.valueChanges.subscribe(this.validateInput);
     } catch(error) {
       console.log(error);
       this.errorMessage = 'Algo salió mal.';
@@ -83,10 +83,16 @@ export class TransactionComponent {
     this.isLoading = false;
   }
 
+  async setupAmount() {
+    await this.getBalance();
+    this.transactionAmount.valueChanges.subscribe(this.validateInput);
+  }
+
   async getBalance() {
     this.balance = await this.transactionService.getCurrentUserBalance();
     const strBalance = this.balance.toString();
     this.strBalance = strBalance.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    this.balanceIsSet = true;
     return;
   }
 
@@ -131,8 +137,21 @@ export class TransactionComponent {
     }
   }
 
-  onUserClick(user: any) {
+  async onUserClick(user: any) {
     this.selectedUser = user;
+    if (this.balanceIsSet) {
+      return;
+    }
+    this.isLoading = true;
+    this.errorMessage = '';
+    try {
+      await this.setupAmount();
+    }
+    catch(error) {
+      console.log(error);
+      this.errorMessage = 'Algo salió mal.';
+    }
+    this.isLoading = false;
   }
   
   onGoBackClick() {
@@ -231,6 +250,7 @@ export class TransactionComponent {
     this.transactionData = null;
     this.balance = null;
     this.strBalance = '...';
+    this.balanceIsSet = false;
     this.onLoad();
     // Go back to the first page    
     if (this.transactionType === 'transfer') {
