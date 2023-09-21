@@ -71,11 +71,11 @@ h2 {
 
 @media (max-width: 900px) {
     .unordered-list {
-        width: 100%;
+        width: auto;
     }
     
     .wrappable-text-container {
-        width: 220px;
+        width: 60vw;
     }
 
     .transfer-sign-container {
