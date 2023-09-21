@@ -116,15 +116,19 @@
             pattern="{{this.password?.value}}"
         >
         <!-- Kind of weird, but it works -->
+        <mat-error *ngIf="passwordRepeat.errors?.['required']">
+            Clave repetida requerida
+        </mat-error>
         <mat-error *ngIf="
             password?.valid &&
+            !passwordRepeat.errors?.['required'] &&
             !passwordRepeat?.valid"
         >
             Las claves no coinciden
         </mat-error>
     </mat-form-field>
     <div class="file-field">
-        <div class="file-field-button">
+        <div class="file-field-container">
             <p>Foto *</p>
             <button
                 type="button"
@@ -143,7 +147,7 @@
             </mat-error>
         </div>
     </div>
-    <button mat-flat-button>
+    <button mat-flat-button color="primary">
         Registrarme
     </button>
     <div class="spinner-or-error">

@@ -1,5 +1,6 @@
 :host {
     width: 100%;
+    padding-top: 10vh;
 }
 
 form {
@@ -7,15 +8,21 @@ form {
     flex-direction: column;
 }
 
+/* Angular material */
 mat-form-field {
-    margin-bottom: 1rem;
+    margin-bottom: 1.2rem;
 }
 
+.mdc-text-field__input {
+    color: #f5f5f5;
+}
+
+/* File */
 .file-field {
     margin-bottom: .5rem;
 }
 
-.file-field-button {
+.file-field-container {
     display: flex;
     align-items: center;
     gap: 1rem;
@@ -23,7 +30,7 @@ mat-form-field {
     margin-bottom: .5rem;
 }
 
-.file-field-button button {
+.file-field-container button {
     flex: 1;
 }
 
@@ -35,10 +42,7 @@ mat-form-field {
     font-style: italic;
 }
 
-.mdc-text-field__input {
-    color: #f5f5f5;
-}
-
+/* Others */
 .spinner-or-error {
     height: 2rem;
     display: flex;
@@ -50,6 +54,8 @@ mat-form-field {
     color: #ec595b;
 }
 
-@media (max-width: 566px) {
-    /* Scrollable form */
+@media (max-width: 900px) {
+    mat-form-field {
+        margin-bottom: 1.5rem;
+    }
 }
