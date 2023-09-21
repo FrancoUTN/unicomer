@@ -25,6 +25,7 @@ export class TransactionComponent {
     required: false,
     invalid: false,
     tooLow: false,
+    tooHigh: false,
     notEnoughBalance: false,
   };
   transactionData: any;
@@ -74,7 +75,6 @@ export class TransactionComponent {
         // this.isLoading = false;
       }
       await this.getBalance();
-      // this.setInputValidations();
       this.transactionAmount.valueChanges.subscribe(this.validateInput);
     } catch(error) {
       console.log(error);
@@ -97,6 +97,7 @@ export class TransactionComponent {
     this.amountErrors.required = false
     this.amountErrors.invalid = false;
     this.amountErrors.tooLow = false;
+    this.amountErrors.tooHigh = false;
     if (
       this.transactionType === 'transfer' ||
       this.transactionType === 'withdrawal'
@@ -115,6 +116,9 @@ export class TransactionComponent {
       const amount = Number(value);
       if (amount <= 0) {
         this.amountErrors.tooLow = true;
+      }
+      else if (amount > 50000) {
+        this.amountErrors.tooHigh = true;
       }
       if (
         this.transactionType === 'transfer' ||

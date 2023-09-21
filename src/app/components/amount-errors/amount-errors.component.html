@@ -10,8 +10,14 @@
     </p>
     <p class="error" *ngIf="this.errors.tooLow">
         El valor debe ser mayor que 0.
-    </p>    
-    <p class="error" *ngIf="this.errors.notEnoughBalance">
+    </p>
+    <p class="error" *ngIf="this.errors.tooHigh">
+        Máximo $50.000 por operación.
+    </p>
+    <p class="error" *ngIf="
+        !this.errors.tooHigh &&
+        this.errors.notEnoughBalance
+    ">
         Error: saldo insuficiente.
     </p>
 </div>
