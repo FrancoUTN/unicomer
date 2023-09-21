@@ -7,14 +7,22 @@
             [ngClass]="{'odd-user-container': i % 2 !== 0}"
             (click)="this.onUserClickHandler(user)"
         >
-            <img
-                class="user-image"
-                [src]="
-                    user.profilePictureURL ||
-                    'https://i.pravatar.cc/150?img=26'
-                "
-                alt="Other user's picture"
-            >
+            <div class="spinner-or-image">
+                <mat-spinner
+                    *ngIf="!this.imageLoaded"
+                    diameter="30"
+                />
+                <img
+                    class="user-image"
+                    [class.do-display]="this.imageLoaded"
+                    [src]="
+                        user.profilePictureURL ||
+                        'https://i.pravatar.cc/150?img=26'
+                    "
+                    (load)="onImageLoaded()"
+                    alt="Other user's picture"
+                >
+            </div>
             <div class="fullname-and-email-container">
                 <p class="fullname-container wrappable-text-container">
                     {{user.firstName}}

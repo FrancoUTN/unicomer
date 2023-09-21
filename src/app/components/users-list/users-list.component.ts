@@ -9,8 +9,13 @@ export class UsersListComponent {
   @Input() selectedUser: any;
   @Input() users: Array<any> = [];
   @Output() onUserClick = new EventEmitter();
+  imageLoaded: boolean = false;
 
   onUserClickHandler(user: any) {
     this.onUserClick.emit(user);
+  }
+
+  onImageLoaded() {
+    this.imageLoaded = true;
   }
 }

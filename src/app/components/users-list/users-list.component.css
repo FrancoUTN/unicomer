@@ -37,11 +37,24 @@ h2 {
     background-color: #fff;
 }
 
+.spinner-or-image {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .user-image {
     width: 60px;
     height: 60px;
     object-fit: cover;
-    border-radius: 50%;
+    border-radius: 50%;    
+    display: none;
+}
+
+.do-display {
+    display: unset;
 }
 
 .fullname-and-email-container {
