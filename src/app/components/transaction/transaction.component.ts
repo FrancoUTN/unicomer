@@ -130,6 +130,12 @@ export class TransactionComponent {
   onUserClick(user: any) {
     this.selectedUser = user;
   }
+  
+  onGoBackClick() {
+    // Back to users list
+    this.transactionAmount.reset();
+    this.selectedUser = null;
+  }
 
   onContinueClick() {
     // Next page

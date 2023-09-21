@@ -15,6 +15,11 @@ h2, h4 {
     margin-bottom: 4vh;
 }
 
+.first-buttons {
+    display: flex;
+    gap: 2rem;
+}
+
 .confirm-subtitle {
     font-weight: 400;
 }

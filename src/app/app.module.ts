@@ -51,6 +51,7 @@ import { UsersListComponent } from './components/users-list/users-list.component
 import { SelectedUserComponent } from './components/selected-user/selected-user.component';
 import { TransactionComponent } from './components/transaction/transaction.component';
 import { DepositWithdrawalComponent } from './pages/deposit-withdrawal/deposit-withdrawal.component';
+import { GoBackButtonComponent } from './components/go-back-button/go-back-button.component';
 
 @NgModule({
   declarations: [
@@ -79,7 +80,8 @@ import { DepositWithdrawalComponent } from './pages/deposit-withdrawal/deposit-w
     UsersListComponent,
     SelectedUserComponent,
     TransactionComponent,
-    DepositWithdrawalComponent
+    DepositWithdrawalComponent,
+    GoBackButtonComponent
   ],
   imports: [
     BrowserModule,

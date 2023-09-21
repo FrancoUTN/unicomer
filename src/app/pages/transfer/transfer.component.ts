@@ -24,11 +24,16 @@ export class TransferComponent {
   @Input() selectedUser: any;
   // Output
   @Output() selectUser = new EventEmitter();
+  @Output() goBack = new EventEmitter();
   @Output() continue = new EventEmitter();
   @Output() cancel = new EventEmitter();
   @Output() confirm = new EventEmitter();
   @Output() goHome = new EventEmitter();
   @Output() restart = new EventEmitter();
+
+  onGoBackClick() {
+    this.goBack.emit();
+  }
 
   onContinueClick() {
     this.continue.emit();

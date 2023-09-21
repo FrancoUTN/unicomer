@@ -13,6 +13,7 @@
             [otherUsers]="this.otherUsers"
             [selectedUser]="this.selectedUser"
             (selectUser)="this.onUserClick($event)"
+            (goBack)="this.onGoBackClick()"
             (continue)="this.onContinueClick()"
             (cancel)="this.onCancelClick()"
             (confirm)="this.onConfirmClick()"

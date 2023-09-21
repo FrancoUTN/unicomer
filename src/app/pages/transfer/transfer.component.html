@@ -25,11 +25,14 @@
         />
     </div>
     <app-balance-value [balance]="this.strBalance"/>
-    <app-continue-button
-        [errors]="this.amountErrors"
-        [pristine]="this.transferAmount.pristine"
-        (onClick)="onContinueClick()"
-    />
+    <div class="first-buttons">
+        <app-go-back-button (onClick)="onGoBackClick()"/>
+        <app-continue-button
+            [errors]="this.amountErrors"
+            [pristine]="this.transferAmount.pristine"
+            (onClick)="onContinueClick()"
+        />
+    </div>
 </section>
 <section *ngIf="this.isConfirmSection">
     <h2>Revisa los datos</h2>
