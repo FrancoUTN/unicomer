@@ -101,11 +101,16 @@
   height: 58px;
   object-fit: cover;
   border-radius: 50%;
+  display: none;
 }
 
 .profile-picture:hover {
   cursor: pointer;
   opacity: .9;
+}
+
+.do-display {
+  display: unset;
 }
 
 .name-loader-container {

@@ -106,13 +106,14 @@
           <mat-progress-bar mode="indeterminate" color="accent"/>
         </div>
         <img
-          *ngIf="!this.isLoading"
           src="{{this.profilePictureURL}}"
           alt="Profile picture"
           class="profile-picture"
+          [class.do-display]="!this.isLoading"
           [matTooltipDisabled]="true"
           #profilePictureTooltip="matTooltip" 
           matTooltip="Próximamente"
+          (load)="onImageLoaded()"
           (click)="displayProfilePictureTooltip()"
         >
         <p *ngIf="!(this.isHandset$ | async) && !this.isLoading">

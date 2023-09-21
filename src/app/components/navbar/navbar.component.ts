@@ -54,8 +54,7 @@ export class NavbarComponent {
       this.firstName = userData.firstName;
       this.lastName = userData.lastName;
       this.profilePictureURL = userData.profilePictureURL;
-      this.isLoading = false;
-    });
+    }).catch(console.log);
 
     this.menuOptions = [
       {
@@ -100,6 +99,10 @@ export class NavbarComponent {
         description: 'Cerrar sesión',
       },
     ];
+  }
+
+  onImageLoaded() {
+    this.isLoading = false;
   }
 
   async onMenuOptionClick(menuOptionID: string) {
