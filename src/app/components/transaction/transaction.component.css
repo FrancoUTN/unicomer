@@ -1,5 +1,10 @@
 main {
     width: 100%;
     padding: 3vh 6vh;
-    margin-bottom: 10vh;
+}
+
+@media (max-width: 900px) {
+    main {
+        padding: 3vh;
+    }
 }

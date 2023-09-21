@@ -8,19 +8,22 @@ section {
 h2 {
     font-weight: 500;
     font-size: 2rem;
+    text-align: center;
 }
 
 .unordered-list {
     list-style: none;
-    width: 60%;
+    width: 900px;
+    box-shadow: 0px 1px 5px rgba(0,0,0,0.1);
+    border-radius: .2rem;
 }
 
 .list-item {
     display: flex;
     align-items: center;
+    justify-content: space-around;
     gap: 1rem;
-    height: 90px;
-    padding: 0 1rem;
+    padding: 1rem;
 }
 
 .list-item:hover {
@@ -34,10 +37,6 @@ h2 {
     background-color: #fff;
 }
 
-.image-container {
-    flex: 1;
-}
-
 .user-image {
     width: 60px;
     height: 60px;
@@ -45,23 +44,41 @@ h2 {
     border-radius: 50%;
 }
 
+.fullname-and-email-container {
+    display: flex;
+    flex-direction: column;
+}
+
 .fullname-container {
-    flex: 3;
     font-weight: 500;
 }
 
 .email-container {
-    flex: 3;
+    opacity: .8;
 }
 
-.user-email {
-    opacity: .8;
+.wrappable-text-container {
+    width: 700px;
+    word-wrap: break-word;
 }
 
 .transfer-sign-container {
     visibility: hidden;
-    flex: 2;
     text-align: center;
     color: #416191;
     font-weight: 500;
+}
+
+@media (max-width: 900px) {
+    .unordered-list {
+        width: 100%;
+    }
+    
+    .wrappable-text-container {
+        width: 220px;
+    }
+
+    .transfer-sign-container {
+        display: none;
+    }
 }

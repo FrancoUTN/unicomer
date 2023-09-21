@@ -1,8 +1,4 @@
-
-<section
-    *ngIf="this.users"
-    class="list-section"
->
+<section *ngIf="this.users">
     <h2>¿A quién le querés transferir?</h2>
     <ul class="unordered-list">
         <li
@@ -11,29 +7,24 @@
             [ngClass]="{'odd-user-container': i % 2 !== 0}"
             (click)="this.onUserClickHandler(user)"
         >
-            <div class="image-container">
-                <img
-                    class="user-image"
-                    [src]="
-                        user.profilePictureURL ||
-                        'https://i.pravatar.cc/150?img=26'
-                    "
-                    alt="Other user's picture"
-                >
-            </div>
-            <p class="fullname-container">
-                <span>
+            <img
+                class="user-image"
+                [src]="
+                    user.profilePictureURL ||
+                    'https://i.pravatar.cc/150?img=26'
+                "
+                alt="Other user's picture"
+            >
+            <div class="fullname-and-email-container">
+                <p class="fullname-container wrappable-text-container">
                     {{user.firstName}}
-                </span>
-                <span>
+                    {{' '}}
                     {{user.lastName}}
-                </span>
-            </p>
-            <p class="email-container">
-                <span class="user-email">
+                </p>
+                <p class="email-container wrappable-text-container">
                     {{user.email}}
-                </span>
-            </p>
+                </p>
+            </div>
             <div class="transfer-sign-container">
                 <p>
                     Transferir
