@@ -107,6 +107,51 @@
     right: -10%;
 }
 
+@media (min-width: 901px) and (max-width: 1600px) {
+    .root {
+        padding: 2rem;
+    }
+
+    .base {
+        font-size: 14px;
+    }
+
+    .card-balance-amount {
+        font-size: 20px;
+    }
+
+    .card-number-container {
+        font-size: 18px;
+        margin: 3vh 0;
+    }
+
+    .card-details-header {
+        font-size: 12px;
+    }
+
+    .graphics-container {
+        border-radius: 2rem;
+    }
+
+    .circle {
+        width: 2.5rem;
+        height: 2.5rem;
+        top: 2rem;
+    }
+
+    .second-circle {
+        left: 2rem;
+    }
+    
+    .first-mountain {
+        height: 50%;
+    }
+
+    .second-mountain {
+        height: 65%;
+    }
+}
+
 @media (max-width: 900px) {
     .root {
         border-radius: 12px;

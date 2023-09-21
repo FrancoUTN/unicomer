@@ -125,6 +125,52 @@
     margin-right: -4px;
 }
 
+@media (min-width: 901px) and (max-width: 1600px) {
+    .header {
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+    
+    .icons-and-value {
+        gap: .8rem;
+    }
+    
+    .header-icons-container {
+        height: 56px;
+        width: 56px;
+    }
+        
+    .icon {
+        height: 18px;
+        width: 18px;
+        font-size: 18px;
+    }
+    
+    .icon-sm {
+        height: 18px;
+        width: 18px;
+        font-size: 18px;
+    }
+
+    .last-month {
+        font-size: 14px;
+    }
+
+    .last-month-icon-container {
+        height: 18px;
+    }
+    
+    .last-month-icon {
+        height: 18px;
+        width: 18px;
+        font-size: 18px;
+    }    
+        
+    .total {
+        font-size: 20px;
+    }
+}
+
 @media (max-width: 900px) {
     .root {
         height: 250px;
