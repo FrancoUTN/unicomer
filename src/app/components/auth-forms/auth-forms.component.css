@@ -13,6 +13,10 @@
     align-self: flex-start;
 }
 
+.logo {
+    width: 60px;
+}
+
 .keyboard-container {
     /* height: 18vh; */
     width: 100%;
@@ -59,15 +63,27 @@
     font-weight: 500;
 }
 
+@media (min-width: 901px) and (max-width: 1600px) {
+    .logo {
+      width: 50px;
+    }
+}
+
 @media (max-width: 900px) {
+    :host {
+        padding: 10% 15% 5%;
+    }
+
     .keyboard-container {
         display: none;
     }
+
     .switch-anchor-container {
         margin-top: 1vh;
         margin-bottom: 5vh;
     }
-    :host {
-        padding: 10% 15% 5%;
+
+    .logo-container {
+        align-self: unset;
     }
 }
