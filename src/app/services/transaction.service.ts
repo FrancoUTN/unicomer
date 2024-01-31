@@ -274,7 +274,7 @@ export class TransactionService {
 
     k = 0;
 
-    while(iteratingDate.date() <= today.date()) {
+    while(iteratingDate <= today) {
       thisMonthDays[k] = {
         date: iteratingDate,
         dayIncome: 0,

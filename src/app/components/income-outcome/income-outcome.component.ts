@@ -1,9 +1,8 @@
 import { Component, Input, ViewChild } from '@angular/core';
 import { ChartConfiguration, ChartType } from 'chart.js';
-import { BaseChartDirective } from 'ng2-charts';
 import * as dayjs from 'dayjs';
-
-import { TransactionService } from 'src/app/services/transaction.service';
+import { BaseChartDirective } from 'ng2-charts';
+import { Observable } from 'rxjs';
 
 type Dayjs = dayjs.Dayjs;
 interface Day {
@@ -25,13 +24,14 @@ type DifferenceWithLastMonth = 'positive' | 'negative' | 'neutral';
 })
 export class IncomeOutcomeComponent {
   @Input() isIncome: boolean = false;
+  @Input() isLoading: boolean = true;
+  @Input() dataChange?: Observable<Months>;
   months?: Months;
   thisMonthTotal: number = 0;
   strThisMonthTotal: string = '...';
   monthsDifference: number = 0;
   strMonthsDifference: string = '...';
   differenceWithLastMonth: DifferenceWithLastMonth = 'neutral';
-	isLoading: boolean = true;
 
   public lineChartData: ChartConfiguration['data'] = {
     datasets: [
@@ -81,25 +81,19 @@ export class IncomeOutcomeComponent {
 
   @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
 
-  constructor(private transactionService: TransactionService) {}
-
-  async ngOnInit() {
-    try {
-      this.months = await this.transactionService.getCurrentUserIncomeAndOutcome();
+  ngOnInit() {
+    this.dataChange?.subscribe(months => {
+      this.months = months;
 
       this.lineChartData.datasets[0].label = this.isIncome ? 'Ingresos' : 'Egresos';
       const chartColorRGB = this.isIncome ? '39, 47, 101' : '93, 149, 190';
       this.lineChartData.datasets[0].backgroundColor = `rgba(${chartColorRGB},0.2)`;
       this.lineChartData.datasets[0].borderColor = `rgba(${chartColorRGB},1)`;
-      
+
       this.updateChart();
       this.setThisMonthTotal();
       this.calculateMonthsDifference();
-    }
-    catch (e) {
-      console.log(e);
-    }
-    this.isLoading = false;
+    });
   }
 
   updateChart() {
@@ -122,7 +116,7 @@ export class IncomeOutcomeComponent {
       throw new Error('Months array hasn\'t been initialized');
     }
 
-    function accumulate (this: IncomeOutcomeComponent, day: Day) {
+    function accumulate(this: IncomeOutcomeComponent, day: Day) {
       if (this.isIncome) {
         accuTotal += day.dayIncome;
       } else {
@@ -162,12 +156,12 @@ export class IncomeOutcomeComponent {
     }
     else if (absoluteDifference >= 0) {
       this.differenceWithLastMonth = 'negative';
-    }    
+    }
     else {
       this.differenceWithLastMonth = 'neutral';
     }
 
-    absoluteDifference = Math.abs(absoluteDifference);    
+    absoluteDifference = Math.abs(absoluteDifference);
     let relativeDifference = absoluteDifference * 100 / lastMonthTotal;
     relativeDifference = Math.floor(relativeDifference);
 

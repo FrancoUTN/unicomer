@@ -1,24 +1,32 @@
 <app-navbar>
-    <main>
-        <h1 class="title">Inicio</h1>
-        <section class="cards">
-            <div class="card">
-                <app-credit-card/>
-            </div>
-            <div class="card">
-                <app-income-outcome [isIncome]="true"/>
-            </div>
-            <div class="card">
-                <app-income-outcome [isIncome]="false"/>
-            </div>
-        </section>
-        <section class="balance-and-activity">
-            <div class="balance">
-                <app-balance/>
-            </div>
-            <div class="activity">
-                <app-activity/>
-            </div>
-        </section>
-    </main>
+  <main>
+    <h1 class="title">Inicio</h1>
+    <section class="cards">
+      <div class="card">
+        <app-credit-card />
+      </div>
+      <div class="card">
+        <app-income-outcome
+          [isLoading]="this.isLoading"
+          [dataChange]="this.dataChange"
+          [isIncome]="true"
+        />
+      </div>
+      <div class="card">
+        <app-income-outcome
+          [isLoading]="this.isLoading"
+          [dataChange]="this.dataChange"
+          [isIncome]="false"
+        />
+      </div>
+    </section>
+    <section class="balance-and-activity">
+      <div class="balance">
+        <app-balance />
+      </div>
+      <div class="activity">
+        <app-activity />
+      </div>
+    </section>
+  </main>
 </app-navbar>
